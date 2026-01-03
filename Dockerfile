@@ -1,13 +1,12 @@
-# ---------- BUILD STAGE ----------
-FROM gradle:8.5-jdk17 AS builder
-WORKDIR /app
-COPY . .
-RUN gradle clean bootJar -x test
-
-# ---------- RUN STAGE ----------
 FROM eclipse-temurin:17-jdk
+
 WORKDIR /app
-COPY --from=builder /app/build/libs/*.jar app.jar
+
+COPY . .
+
+RUN chmod +x gradlew
+RUN ./gradlew clean bootJar -x test
 
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+
+CMD ["java", "-jar", "build/libs/app.jar"]
