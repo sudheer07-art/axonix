@@ -1,26 +1,20 @@
-# 1️⃣ Use official Java 17 image
+# Use Java 17
 FROM eclipse-temurin:17-jdk
 
-# 2️⃣ Set working directory inside container
+# Set work directory
 WORKDIR /app
 
-# 3️⃣ Copy Gradle wrapper and config files
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
+# Copy everything
+COPY . .
 
-# 4️⃣ Give execute permission & download dependencies
-RUN chmod +x gradlew && ./gradlew dependencies
+# Fix gradlew permission
+RUN chmod +x gradlew
 
-# 5️⃣ Copy source code
-COPY src src
+# Build the app
+RUN ./gradlew clean build -x test
 
-# 6️⃣ Build Spring Boot app
-RUN ./gradlew build -x test
-
-# 7️⃣ Expose application port
+# Expose port
 EXPOSE 8080
 
-# 8️⃣ Run the jar
+# Run the jar
 CMD ["java", "-jar", "build/libs/*.jar"]
