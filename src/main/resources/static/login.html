@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        body { font-family: Arial; background: #A594F9; }
+        .login-container { display: flex; justify-content: center; gap: 40px; margin-top: 80px; }
+        .login-card { background: white; padding: 25px; width: 320px; border-radius: 8px;
+                      box-shadow: 0 6px 20px rgba(0,0,0,0.1); color:#A594F9; }
+        input { width: 100%; padding: 10px; margin: 8px 0; }
+        button { width: 100%; padding: 10px; margin-top: 12px; border: none; cursor: pointer; }
+        .teacher-btn { background: #ff7a18; color: white; }
+        .student-btn { background: #4a6cf7; color: white; }
+        .error { color: red; text-align: center; margin-top: 15px; }
+    </style>
+</head>
+
+<body>
+
+<h1 style="text-align:center;">University Portal Login</h1>
+
+<div class="login-container">
+
+    <!-- 👨‍🏫 TEACHER LOGIN -->
+    <div class="login-card">
+        <h2>👨‍🏫 Teacher Login</h2>
+        <form method="post" action="/login">
+            <input type="hidden" name="loginType" value="TEACHER">
+
+            <input name="username" placeholder="Teacher Username" required>
+            <input name="password" type="password" placeholder="Password" required>
+
+            <button class="teacher-btn" type="submit">
+                Login as Teacher
+            </button>
+        </form>
+    </div>
+
+    <!-- 👩‍🎓 STUDENT LOGIN -->
+    <div class="login-card">
+        <h2>👩‍🎓 Student Login</h2>
+        <form method="post" action="/login">
+            <input type="hidden" name="loginType" value="STUDENT">
+
+            <input name="username" placeholder="Student Username" required>
+            <input name="password" type="password" placeholder="Password" required>
+
+            <button class="student-btn" type="submit">
+                Login as Student
+            </button>
+        </form>
+    </div>
+
+</div>
+
+<div class="error" id="errorMsg"></div>
+
+<script>
+    if (location.search.includes("error=context")) {
+        document.getElementById("errorMsg").innerText =
+            "Invalid login context. Please use the correct login section.";
+    } else if (location.search.includes("error")) {
+        document.getElementById("errorMsg").innerText =
+            "Invalid username or password";
+    }
+</script>
+
+</body>
+</html>

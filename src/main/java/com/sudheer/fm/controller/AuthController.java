@@ -1,0 +1,201 @@
+////package com.sudheer.fm.controller;
+////
+////import com.sudheer.fm.entity.User;
+////import com.sudheer.fm.repository.UserRepository;
+////import org.springframework.http.ResponseEntity;
+////import org.springframework.security.crypto.password.PasswordEncoder;
+////import org.springframework.stereotype.Controller;
+////import org.springframework.web.bind.annotation.PostMapping;
+////import org.springframework.web.bind.annotation.RequestMapping;
+////import org.springframework.web.bind.annotation.RequestParam;
+////import org.springframework.web.bind.annotation.ResponseBody;
+////
+////@Controller
+////@RequestMapping("/auth")
+////public class AuthController {
+////
+////    private final UserRepository userRepository;
+////    private final PasswordEncoder passwordEncoder;
+////
+////    public AuthController(UserRepository userRepository,
+////                          PasswordEncoder passwordEncoder) {
+////        this.userRepository = userRepository;
+////        this.passwordEncoder = passwordEncoder;
+////    }
+////
+////    // ================= STUDENT REGISTRATION (AJAX) =================
+////    @PostMapping("/register-student")
+////    @ResponseBody
+////    public ResponseEntity<String> registerStudent(
+////            @RequestParam String username,
+////            @RequestParam String password
+////    ) {
+////
+////        // check existing user
+////        if (userRepository.existsByUsername(username)) {
+////            return ResponseEntity
+////                    .badRequest()
+////                    .body("User already exists");
+////        }
+////
+////        // create student
+////        User user = new User();
+////        user.setUsername(username);
+////        user.setPassword(passwordEncoder.encode(password));
+////        user.setRole("ROLE_STUDENT");
+////
+////        userRepository.save(user);
+////
+////        // IMPORTANT: no redirect
+////        return ResponseEntity.ok("SUCCESS");
+////    }
+////}
+//package com.sudheer.fm.controller;
+//
+//import com.sudheer.fm.entity.User;
+//import com.sudheer.fm.repository.UserRepository;
+//import org.springframework.http.ResponseEntity;
+//import org.springframework.security.core.Authentication;   // ✅ CORRECT IMPORT
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.web.bind.annotation.*;
+//
+//import java.util.HashMap;
+//import java.util.Map;
+//
+//@RestController
+//@RequestMapping("/auth")
+//public class AuthController {
+//
+//    private final UserRepository userRepository;
+//    private final PasswordEncoder passwordEncoder;
+//
+//    public AuthController(UserRepository userRepository,
+//                          PasswordEncoder passwordEncoder) {
+//        this.userRepository = userRepository;
+//        this.passwordEncoder = passwordEncoder;
+//    }
+//
+//    // ================= CHECK LOGIN STATUS =================
+//    @GetMapping("/status")
+//    public String authStatus(Authentication authentication) {
+//
+//        if (authentication == null) {
+//            return "NOT_LOGGED_IN";
+//        }
+//
+//        for (GrantedAuthority authority : authentication.getAuthorities()) {
+//            return authority.getAuthority(); // ROLE_STUDENT or ROLE_TEACHER
+//        }
+//
+//        return "NOT_LOGGED_IN";
+//    }
+//
+//    // ================= STUDENT REGISTRATION =================
+//    @PostMapping("/register-student")
+//    public ResponseEntity<String> registerStudent(
+//            @RequestParam String username,
+//            @RequestParam String password
+//    ) {
+//
+//        if (userRepository.existsByUsername(username)) {
+//            return ResponseEntity.badRequest().body("User already exists");
+//        }
+//
+//        User user = new User();
+//        user.setUsername(username);
+//        user.setPassword(passwordEncoder.encode(password));
+//        user.setRole("ROLE_STUDENT");
+//
+//        userRepository.save(user);
+//
+//        return ResponseEntity.ok("SUCCESS");
+//    }
+//    @GetMapping("/auth/me")
+//    public Map<String, String> currentUser(Authentication authentication) {
+//
+//        Map<String, String> map = new HashMap<>();
+//
+//        if (authentication == null) {
+//            map.put("status", "NOT_LOGGED_IN");
+//            return map;
+//        }
+//
+//        map.put("status", "LOGGED_IN");
+//        map.put("username", authentication.getName());
+//
+//        authentication.getAuthorities()
+//                .forEach(a -> map.put("role", a.getAuthority()));
+//
+//        return map;
+//    }
+//}
+package com.sudheer.fm.controller;
+
+import com.sudheer.fm.entity.User;
+import com.sudheer.fm.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthController(UserRepository userRepository,
+                          PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // 🔍 AUTH STATUS FOR UI (dashboard, role checks)
+    @GetMapping("/status")
+    public Map<String, String> authStatus(Authentication authentication) {
+
+        Map<String, String> res = new HashMap<>();
+
+        if (authentication == null) {
+            res.put("role", "NOT_LOGGED_IN");
+            return res;
+        }
+
+        res.put("username", authentication.getName());
+
+        for (GrantedAuthority a : authentication.getAuthorities()) {
+            res.put("role", a.getAuthority());
+            break;
+        }
+
+        return res;
+    }
+
+    // 🎓 STUDENT REGISTER
+    @PostMapping("/register-student")
+    public ResponseEntity<String> registerStudent(
+            @RequestParam String username,
+            @RequestParam String password
+    ) {
+
+        if (userRepository.existsByUsername(username)) {
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRole("ROLE_STUDENT");
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok("SUCCESS");
+    }
+}
+
