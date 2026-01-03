@@ -32,5 +32,8 @@ java {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
+bootJar {
+	archiveFileName = "app.jar"
+}
 
 
