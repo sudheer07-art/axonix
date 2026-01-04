@@ -1,26 +1,25 @@
-# Use Java 17
 FROM eclipse-temurin:17-jdk-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Copy gradle files
+# Copy Gradle wrapper and configs
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle settings.gradle ./
 
-# Download dependencies
+# Fix permissions
 RUN chmod +x gradlew
-RUN ./gradlew dependencies
+
+# Download dependencies (cache layer)
+RUN ./gradlew dependencies --no-daemon
 
 # Copy source code
 COPY src src
 
-# Build the app
-RUN ./gradlew build -x test
+# Build application
+RUN ./gradlew build -x test --no-daemon
 
-# Expose Render port
 EXPOSE 8080
 
-# Run the app
 CMD ["java", "-jar", "build/libs/app.jar"]
+
