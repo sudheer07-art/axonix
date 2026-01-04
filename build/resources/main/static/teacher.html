@@ -1,0 +1,247 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Teacher Upload</title>-->
+
+<!--    &lt;!&ndash; CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="/css/style.css">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="navbar">-->
+<!--    <h2>Teacher Panel</h2>-->
+<!--    <a href="/index.html">Home</a>-->
+<!--</div>-->
+
+<!--<div class="container">-->
+<!--    <h2>Upload PDF</h2>-->
+
+<!--    <form id="uploadForm">-->
+<!--        <select name="university">-->
+<!--            <option>JNTU</option>-->
+<!--            <option>OU</option>-->
+<!--        </select>-->
+
+<!--        <select name="branch">-->
+<!--            <option>CSE</option>-->
+<!--            <option>ECE</option>-->
+<!--        </select>-->
+
+<!--        <select name="semester">-->
+<!--            <option>SEM 1</option>-->
+<!--            <option>SEM 2</option>-->
+<!--        </select>-->
+
+<!--        <input name="subject" placeholder="Subject">-->
+
+<!--        <input type="file" name="file">-->
+<!--        <button>Upload</button>-->
+<!--    </form>-->
+
+
+<!--    &lt;!&ndash; ===== UPLOAD CARD ===== &ndash;&gt;-->
+<!--    <div class="card upload-card">-->
+<!--        <h3>📤 Upload Study Material</h3>-->
+
+<!--        <form id="uploadForm" onsubmit="return false;">-->
+<!--            <input type="file" id="fileInput" accept=".pdf">-->
+
+<!--            <button type="button"-->
+<!--                    class="btn teacher"-->
+<!--                    id="uploadBtn">-->
+<!--                Upload File-->
+<!--            </button>-->
+
+<!--            <p id="status" class="note"></p>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; ===== LINK TO UPLOADED FILES PAGE ===== &ndash;&gt;-->
+<!--    <div class="card">-->
+<!--        <h3>Manage Uploaded PDFs</h3>-->
+
+<!--        <a href="uploaded.html" class="btn">-->
+<!--            View Uploaded PDFs-->
+<!--        </a>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; ===== LOGOUT ===== &ndash;&gt;-->
+<!--    <form action="/logout" method="post">-->
+<!--        <button type="submit" class="btn danger">Logout</button>-->
+<!--    </form>-->
+
+<!--</div>-->
+
+<!--&lt;!&ndash; JS &ndash;&gt;-->
+<!--<script src="/js/app.js">-->
+
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Upload | StudyHub</title>
+
+    <style>
+        body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background: #fffff;
+        }
+
+        header {
+          background: white;
+          padding: 16px 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .logo {
+          font-size: 22px;
+          font-weight: bold;
+          color: #7b6cff;
+        }
+
+        .logout {
+          background: #7b6cff;
+          color: white;
+          padding: 8px 16px;
+          border-radius: 20px;
+          text-decoration: none;
+        }
+
+        .container {
+          max-width: 900px;
+          margin: 40px auto;
+        }
+
+        .card {
+          background: #a89bff;
+          padding: 30px;
+          border-radius: 16px;
+          margin-bottom: 30px;
+        }
+
+        .card h2 {
+          margin-top: 0;
+          color: #7b6cff;
+        }
+
+        /* FORM */
+        .form-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+          margin-bottom: 20px;
+        }
+
+        .form-grid select,
+        .form-grid input {
+          padding: 12px;
+          font-size: 15px;
+        }
+
+        input[type="file"] {
+          grid-column: span 2;
+        }
+
+        button {
+          padding: 12px 22px;
+          background: #fffff;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+        }
+
+        button:hover {
+          background: #6958f5;
+        }
+
+        .link {
+          color: #7b6cff;
+          font-weight: bold;
+          text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">📘 StudyHub – Teacher</div>
+    <a class="logout" href="/logout">Logout</a>
+</header>
+
+<div class="container">
+
+    <!-- UPLOAD SECTION -->
+    <div class="card">
+        <h2>📤 Upload Study Material</h2>
+
+        <form id="uploadForm">
+            <div class="form-grid">
+                <select id="university">
+                    <option value="JNTU">JNTU</option>
+                    <option value="OU">OU</option>
+                </select>
+
+                <select id="branch">
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                </select>
+
+                <select id="semester">
+                    <option value="SEM 1">SEM 1</option>
+                    <option value="SEM 2">SEM 2</option>
+                </select>
+
+                <input id="subject" placeholder="Subject name" required>
+
+                <input type="file" id="file" accept="application/pdf" required>
+            </div>
+
+            <button type="submit">Upload PDF</button>
+        </form>
+    </div>
+
+    <!-- MANAGE -->
+    <div class="card">
+        <h2>📁 Manage Uploaded PDFs</h2>
+        <a class="link" href="/uploaded.html">View Uploaded PDFs</a>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("uploadForm").addEventListener("submit", async e => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append("file", document.getElementById("file").files[0]);
+      formData.append("university", document.getElementById("university").value);
+      formData.append("branch", document.getElementById("branch").value);
+      formData.append("semester", document.getElementById("semester").value);
+      formData.append("subject", document.getElementById("subject").value);
+
+      const res = await fetch("/files/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      if (res.ok) {
+        alert("✅ PDF Uploaded Successfully");
+        document.getElementById("uploadForm").reset();
+      } else {
+        alert("❌ Upload failed");
+      }
+    });
+</script>
+
+</body>
+</html>

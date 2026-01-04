@@ -23,27 +23,101 @@ public class AIController {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @PostMapping("/summarize")
-    public ResponseEntity<?> summarize(@RequestParam MultipartFile file) {
+    //    @PostMapping(
+//            value = "/summarize",
+//            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    public ResponseEntity<Map<String, String>> summarize(
+//            @RequestParam("file") MultipartFile file
+//    ) {
+//
+//        try {
+//            /* ================= 1. EXTRACT PDF TEXT ================= */
+//            PDDocument doc = PDDocument.load(file.getInputStream());
+//            PDFTextStripper stripper = new PDFTextStripper();
+//            String text = stripper.getText(doc);
+//            doc.close();
+//
+//            if (text.length() > 12000) {
+//                text = text.substring(0, 12000); // Gemini safety limit
+//            }
+//
+//            /* ================= 2. GEMINI PAYLOAD ================= */
+//            Map<String, Object> payload = Map.of(
+//                    "contents", List.of(
+//                            Map.of(
+//                                    "parts", List.of(
+//                                            Map.of("text", "Summarize this PDF clearly:\n\n" + text)
+//                                    )
+//                            )
+//                    )
+//            );
+//
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//            HttpEntity<Map<String, Object>> entity =
+//                    new HttpEntity<>(payload, headers);
+//
+//            String url =
+//                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="
+//                            + apiKey;
+//
+//
+//            /* ================= 3. CALL GEMINI ================= */
+//            ResponseEntity<String> response =
+//                    restTemplate.postForEntity(url, entity, String.class);
+//
+//            /* ================= 4. PARSE RESPONSE ================= */
+//            String body = response.getBody();
+//
+//            JsonNode root = mapper.readTree(body);
+//
+//            String summary =
+//                    root.path("candidates")
+//                            .path(0)
+//                            .path("content")
+//                            .path("parts")
+//                            .path(0)
+//                            .path("text")
+//                            .asText("No summary generated");
+//
+//            /* ================= 5. RETURN CLEAN JSON ================= */
+//            return ResponseEntity.ok(
+//                    Map.of("summary", summary)
+//            );
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(Map.of("error", e.getMessage()));
+//        }
+//    }
+//}
+    @PostMapping(
+            value = "/summarize",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Map<String, String>> summarize(
+            @RequestParam("file") MultipartFile file) {
+
         try {
-            /* ================= 1. EXTRACT PDF TEXT ================= */
             PDDocument doc = PDDocument.load(file.getInputStream());
             PDFTextStripper stripper = new PDFTextStripper();
             String text = stripper.getText(doc);
             doc.close();
 
             if (text.length() > 12000) {
-                text = text.substring(0, 12000); // Gemini safety limit
+                text = text.substring(0, 12000);
             }
 
-            /* ================= 2. GEMINI PAYLOAD ================= */
             Map<String, Object> payload = Map.of(
                     "contents", List.of(
-                            Map.of(
-                                    "parts", List.of(
-                                            Map.of("text", "Summarize this PDF clearly:\n\n" + text)
-                                    )
-                            )
+                            Map.of("parts", List.of(
+                                    Map.of("text", "Summarize this PDF clearly:\n\n" + text)
+                            ))
                     )
             );
 
@@ -54,35 +128,30 @@ public class AIController {
                     new HttpEntity<>(payload, headers);
 
             String url =
-                    "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key="
+                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="
                             + apiKey;
 
-            /* ================= 3. CALL GEMINI ================= */
             ResponseEntity<String> response =
                     restTemplate.postForEntity(url, entity, String.class);
 
-            /* ================= 4. PARSE RESPONSE ================= */
             String body = response.getBody();
+            System.out.println("🔴 Gemini raw response:\n" + body);
 
             JsonNode root = mapper.readTree(body);
 
-            String summary =
-                    root.path("candidates")
-                            .path(0)
-                            .path("content")
-                            .path("parts")
-                            .path(0)
-                            .path("text")
-                            .asText("No summary generated");
+            String summary = root.path("candidates")
+                    .path(0)
+                    .path("content")
+                    .path("parts")
+                    .path(0)
+                    .path("text")
+                    .asText("No summary generated");
 
-            /* ================= 5. RETURN CLEAN JSON ================= */
-            return ResponseEntity.ok(
-                    Map.of("summary", summary)
-            );
+            return ResponseEntity.ok(Map.of("summary", summary));
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            return ResponseEntity.status(500)
                     .body(Map.of("error", e.getMessage()));
         }
     }

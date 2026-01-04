@@ -1,0 +1,2357 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AXONIX | HOME</title>
+
+    <style>
+        :root{
+          --primary:#A594F9;
+          --secondary:#CDC1FF;
+          --bg:#f5f6ff;
+          --light:#E5D9F2;
+
+
+        }
+
+        *{box-sizing:border-box;font-family:Arial,sans-serif}
+
+        body{
+          margin:0;
+          background:var(--bg);
+        }
+
+        /* ===== HEADER ===== */
+        header{
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          padding:18px 40px;
+          background-color:var(--primary);
+        }
+
+        .logo{
+          font-size:22px;
+          font-weight:bold;
+          color:var(--primary);
+        }
+
+        .nav a{
+          text-decoration:none;
+          margin-left:20px;
+          font-weight:500;
+          color:#333;
+        }
+
+        .signup-btn{
+          background:var(--primary);
+          color:#0046FF;
+          padding:8px 16px;
+          border-radius:20px;
+        }
+
+        /* ===== HERO ===== */
+        .hero{
+          text-align:center;
+          padding:90px 20px;
+        }
+
+        .hero h1{
+          font-size:50px;
+          margin-bottom:30px;
+          color:#0A0A0A;
+        }
+
+        .search-box button{
+          padding:14px 22px;
+          border:none;
+          border-radius:0 5px 5px 0;
+          background:var(--primary);
+          color:white;
+        }
+
+        /* ===== FOOTER ===== */
+        footer{
+          text-align:center;
+          padding:20px;
+          background:var(--light);
+          margin-top:300px;
+          margin-bottom:-110px;
+        }
+
+        /* ===== OVERLAY ===== */
+        .overlay{
+          position:fixed;
+          top:0;left:0;
+          width:100%;height:100%;
+          background:rgba(0,0,0,0.6);
+          display:none;
+          justify-content:center;
+          align-items:center;
+          z-index:999;
+        }
+
+        .modal{
+          background:#fff;
+          width:760px;
+          padding:30px;
+          border-radius:14px;
+          position:relative;
+          display:flex;
+          gap:30px;
+        }
+
+        .login-card{
+          width:50%;
+          padding:20px;
+          border-radius:12px;
+          box-shadow:0 6px 20px rgba(0,0,0,.1);
+        }
+
+        .login-card h3{
+          text-align:center;
+          margin-bottom:15px;
+          color:var(--primary);
+        }
+
+        .login-card input{
+          width:100%;
+          padding:12px;
+          margin-bottom:12px;
+          border-radius:8px;
+          border:1px solid #ccc;
+        }
+
+        .login-card button{
+          width:100%;
+          padding:12px;
+          border:none;
+          border-radius:8px;
+          color:#fff;
+          cursor:pointer;
+        }
+
+        .teacher-btn{ background:#ff7a18; }
+        .student-btn{ background:var(--primary); }
+
+        .close{
+          position:absolute;
+          top:12px;
+          right:18px;
+          font-size:22px;
+          cursor:pointer;
+        }
+        /* ===== GLOBAL TRANSITIONS ===== */
+a, button, input {
+  transition: all 0.25s ease;
+}
+
+/* ===== HEADER INTERACTIONS ===== */
+.nav a:hover {
+  color: var(--primary);
+}
+
+.signup-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(165,148,249,0.35);
+  color:0A0A0A;
+
+}
+
+/* ===== SEARCH ===== */
+.search-box input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(165,148,249,0.25);
+}
+.search-box input:hover{
+outline-color: var(--primary);
+}
+.search-box button:hover {
+  background: #8f7ef5;
+}
+
+/* ===== OVERLAY ANIMATION ===== */
+.overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== MODAL ENTRANCE ===== */
+.modal {
+  transform: translateY(30px) scale(0.95);
+  opacity: 0;
+  transition: all 0.35s ease;
+}
+
+.overlay.show .modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* ===== LOGIN CARD ===== */
+.login-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* ===== INPUT FOCUS ===== */
+.login-card input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(165,148,249,0.25);
+}
+
+/* ===== BUTTON EFFECTS ===== */
+.login-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+
+.teacher-btn:hover {
+  background:#ff8f3a;
+}
+
+.student-btn:hover {
+  background:#8f7ef5;
+}
+
+/* ===== CLOSE BUTTON ===== */
+.close {
+  transition: transform 0.25s ease;
+}
+
+.close:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+/* ===== SIGNUP MODAL ===== */
+.signup-modal{
+  background:#fff;
+  width:420px;
+  padding:34px 30px;
+  border-radius:16px;
+  box-shadow:0 20px 50px rgba(0,0,0,.18);
+  position:relative;
+  text-align:center;
+  animation: popIn .35s ease;
+}
+
+.signup-modal h2{
+  color:var(--primary);
+  margin-bottom:6px;
+}
+
+.signup-modal .subtitle{
+  font-size:14px;
+  color:#666;
+  margin-bottom:24px;
+}
+
+.signup-modal input{
+  width:100%;
+  padding:14px;
+  margin-bottom:14px;
+  border-radius:10px;
+  border:1px solid var(--light);
+  font-size:15px;
+}
+
+.signup-modal input:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(165,148,249,.25);
+}
+
+.signup-modal button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--primary);
+  color:#0046FF;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.signup-modal button:hover{
+  background:#0A0A0A;
+  transform:translateY(-2px);
+  color:white;
+}
+
+.login-link{
+  margin-top:18px;
+  font-size:14px;
+}
+
+.login-link a{
+  color:var(--primary);
+  font-weight:600;
+  text-decoration:none;
+}
+
+/* ===== CLOSE BUTTON ===== */
+.signup-modal .close{
+  position:absolute;
+  top:14px;
+  right:18px;
+  font-size:22px;
+  cursor:pointer;
+}
+
+/* ===== POP ANIMATION ===== */
+@keyframes popIn{
+  from{
+    transform:scale(.9) translateY(20px);
+    opacity:0;
+  }
+  to{
+    transform:scale(1) translateY(0);
+    opacity:1;
+  }
+}
+        /* ===== SEARCH BAR ANIMATIONS ===== */
+.search-box{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:30px;
+
+  margin-bottom: 80px;
+
+
+  animation: floatUp .6s ease;
+}
+
+.search-box input{
+  width:420px;
+
+  border-radius:15px 0 0 15px;
+  border:0.5px solid var(--light);
+  background:#fff;
+  font-size:15px;
+  transition:
+    width .35s ease,
+    box-shadow .35s ease,
+    border .35s ease;
+    animation: floatUp .12s ease;
+    position:relative;
+    padding-left:190px;
+}
+
+/* EXPAND + GLOW */
+.search-box input:focus{
+  outline:none;
+  width:480px;
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px rgba(165,148,249,.25);
+}
+
+
+
+/* SEARCH BUTTON */
+.search-box button{
+  padding:15px 22px;
+  border:none;
+  border-radius:0 30px 30px 0;
+  background:var(--primary);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+  transition:
+    background .3s ease,
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+/* HOVER */
+.search-box button:hover{
+  background:#8f7ef5;
+  box-shadow:0 8px 20px rgba(165,148,249,.35);
+  transform:translateY(-1px);
+}
+.search-box input:hover{
+
+  box-shadow:0 10px 10px rgba(165,148,249,.35);
+
+  border-color:var(--primary);
+  transform:translateY(-3px);
+}
+
+
+/* CLICK */
+.search-box button:active{
+  transform:scale(.96);
+}
+
+/* FLOAT IN ANIMATION */
+@keyframes floatUp{
+  from{
+    transform:translateY(15px);
+    opacity:0;
+  }
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
+
+/* ===== REGISTER PAGE LAYOUT ===== */
+.register-page {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  background: #f5f2ff;
+}
+
+/* LEFT IMAGE */
+.register-illustration {
+  flex: 1;
+  background: linear-gradient(135deg, #a594f9, #cfc6ff);
+  color: white;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.register-illustration img {
+  max-width: 90%;
+  border-radius: 18px;
+  margin-bottom: 30px;
+}
+
+.register-illustration h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.register-illustration p {
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+/* RIGHT CONTENT */
+.register-form {
+  flex: 1;
+  background: white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.register-form h1 {
+  font-size: 34px;
+  color: #62109F;
+  margin-bottom: 10px;
+}
+
+.register-form p {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .register-page {
+    flex-direction: column;
+  }
+
+  .register-illustration {
+    text-align: center;
+  }
+}
+/* ===== FEATURE CARDS ===== */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 5px;
+  padding: 0 40px;
+  flex-wrap: wrap;
+
+}
+
+.feature-card {
+  background: #fff;
+  width: 280px;
+  padding: 30px 22px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(165,148,249,0.18);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(165,148,249,0.35);
+   background: #A594F9;
+
+}
+
+.feature-card .icon {
+  font-size: 42px;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #0A0A0A;
+}
+
+.feature-card p {
+  font-size: 14.5px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .features {
+    margin-top: 40px;
+  }
+  .feature-card {
+    width: 100%;
+    max-width: 360px;
+  }
+}
+/* ===== POPULAR SUBJECTS ===== */
+.popular-subjects {
+  margin-top: 70px;
+  text-align: center;
+}
+
+.popular-subjects h2 {
+  font-size: 26px;
+  color: #62109F;
+  margin-bottom: 24px;
+}
+
+.subject-tags {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.subject-tags span {
+  background: #fff;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(165,148,249,0.25);
+  transition: all 0.25s ease;
+}
+
+.subject-tags span:hover {
+  background: #A594F9;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(165,148,249,0.45);
+}
+/* ===== STUDY RESOURCES ===== */
+.study-resources {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.study-resources h2 {
+  font-size: 28px;
+  color: #0A0A0A;
+  margin-bottom: 40px;
+}
+
+/* GRID */
+.resource-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* CARD */
+.resource-card {
+  background: white;
+  width: 280px;
+  padding: 28px 22px;
+  border-radius: 18px;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(165,148,249,0.25);
+  transition: all 0.3s ease;
+}
+
+/* ICON */
+.resource-icon {
+  font-size: 36px;
+  margin-bottom: 14px;
+}
+
+/* TEXT */
+.resource-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+ color: #0A0A0A;
+}
+
+.resource-card p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* HOVER EFFECT */
+.resource-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(165,148,249,0.45);
+  background: #A594F9;
+}
+
+.resource-card:hover h3,
+.resource-card:hover p {
+  color: white;
+}
+.feature-card:hover h3,
+.feature-card:hover p {
+  color: white;
+}
+/* placement card */
+
+.placement-preparation{
+  margin-top: 80px;
+  text-align: center;
+}
+
+.placement-preparation h2 {
+  font-size: 28px;
+  color: #0A0A0A;
+  margin-bottom: 40px;
+}
+
+/* GRID */
+.placement-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* CARD */
+.placement-card {
+  background: white;
+  width: 280px;
+  padding: 28px 22px;
+  border-radius: 18px;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(165,148,249,0.25);
+  transition: all 0.3s ease;
+}
+
+/* ICON */
+.placement-icon {
+  font-size: 36px;
+  margin-bottom: 14px;
+}
+
+/* TEXT */
+.placement-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color:#0A0A0A;
+}
+
+.placement-card p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* HOVER EFFECT */
+.placement-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(165,148,249,0.45);
+  background: #A594F9;
+}
+
+.placement-card:hover h3,
+.placement-card:hover p {
+  color: white;
+}
+/* subject card */
+
+.popular-subjects{
+  margin-top: 80px;
+  text-align: center;
+}
+
+.popular-subjects h2 {
+  font-size: 28px;
+  color: #0A0A0A;
+  margin-bottom: 40px;
+}
+
+/* GRID */
+.subject-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* CARD */
+.subject-card {
+  background: white;
+  width: 280px;
+  padding: 28px 22px;
+  border-radius: 18px;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(165,148,249,0.25);
+  transition: all 0.3s ease;
+}
+
+/* ICON */
+.subject-icon {
+  font-size: 36px;
+  margin-bottom: 14px;
+}
+
+/* TEXT */
+.subject-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+    color:#0A0A0A;
+}
+
+.subject-card p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* HOVER EFFECT */
+.subject-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(165,148,249,0.45);
+  background: #A594F9;
+}
+
+.subject-card:hover h3,
+.subject-card:hover p {
+  color: white;
+}
+        /* ===== INTRO TEXT ===== */
+.intro-text {
+  max-width: 900px;
+  margin: 22px auto;
+  margin-bottom: 5px;
+  text-align: center;
+  padding: 0 20px;
+}
+.intro-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #0A0A0A;
+}
+.intro-text h2{
+color:#0A0A0A;
+
+}
+/* TAGLINE */
+.intro-text .tagline {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0A0A0A;
+  margin-bottom: 28px;
+}
+
+/* DESCRIPTION */
+.intro-text .description {
+  font-size: 15px;
+  color: #0A0A0A;
+  line-height: 1.7;
+}
+
+/* HIGHLIGHT */
+.intro-text strong {
+  color: #0A0A0A;
+}
+/* ================= STICKY HEADER ================= */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  transition:
+    padding 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    transform 0.35s ease;
+}
+
+/* HEADER INITIAL STATE */
+header {
+  padding: 18px 40px;
+  box-shadow: none;
+}
+
+/* HEADER WHEN SCROLLED */
+header.scrolled {
+  padding: 12px 40px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+/* LOGO ANIMATION */
+.logo {
+  transition: transform 0.3s ease, font-size 0.3s ease;
+}
+
+header.scrolled .logo {
+  transform: scale(0.95);
+}
+
+/* NAV LINKS */
+.nav a {
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+/* NAV UNDERLINE EFFECT */
+.nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--primary);
+  color:white;
+  transition: width 0.25s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* SIGNUP BUTTON ANIMATION */
+.signup-btn {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+    color: white;
+}
+
+
+
+
+
+
+icon-image {
+  width: 100%; /* Make the image fill the container */
+  height: 100%;
+  object-fit: contain; /* Ensures the image scales properly without stretching */
+}
+        /* ===== HAMBURGER ICON ===== */
+/* ===== HAMBURGER ICON ===== */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:6px;
+  cursor:pointer;
+  z-index:3000;
+}
+
+.hamburger span{
+  width:26px;
+  height:3px;
+  background:#62109F;
+  border-radius:3px;
+  transition:
+    transform 0.35s ease,
+    opacity 0.25s ease,
+    background 0.25s ease;
+}
+
+/* ===== ACTIVE → X ICON ===== */
+.hamburger.active span:nth-child(1){
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
+
+.hamburger.active span:nth-child(3){
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+
+/* ===== LEFT SIDEBAR ===== */
+.sidebar{
+  position:fixed;
+  top:0;
+  left:-280px;
+  width:280px;
+  height:100%;
+  background:#fff;
+  padding:22px;
+  box-shadow:4px 0 30px rgba(0,0,0,0.15);
+  transition:0.4s ease;
+  z-index:2000;
+}
+
+.sidebar.active{
+  left:0;
+}
+
+.sidebar h3{
+  color:#62109F;
+  margin-bottom:10px;
+}
+
+.sidebar .welcome{
+  font-size:25px;
+  margin-bottom:10px;
+}
+
+.role-badge{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  background:#A594F9;
+  color:white;
+  margin-bottom:15px;
+  margin-left:65px;
+  align-items:center;
+}
+
+.sidebar a{
+  display:block;
+  padding:10px 12px;
+  text-decoration:none;
+  color:#333;
+  border-radius:8px;
+  transition:0.25s;
+}
+
+.sidebar a:hover{
+  background:#E5D9F2;
+}
+
+.logout-btn{
+  width:100%;
+  margin-top:15px;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#A594F9;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.logout-btn:hover{
+  background:#8f7ef5;
+}
+        /* ===== PLACEHOLDER COLOR + FADE ANIMATION ===== */
+
+
+/* On focus – subtle fade */
+.search-box input:focus::placeholder {
+  opacity: 0.70;
+  transform: translateX(4px);
+}
+
+/* Animation class (JS will toggle this) */
+.placeholder-animate::placeholder {
+  animation: placeholderGlow 3.5s ease-in-out infinite;
+}
+
+/* Glow animation */
+@keyframes placeholderGlow {
+  0% {
+    color: #0A0A0A;
+    opacity: 1.6;
+  }
+  50% {
+    color: #A594F9;
+    opacity: 2;
+  }
+  100% {
+    color: #9a8cf0;
+    opacity: 1.6;
+  }
+}
+
+/* ===== SEARCH ANIMATED TEXT ===== */
+.search-wrapper{
+  position:absolute;
+  left:26px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  gap:6px;
+  pointer-events:none;
+  font-size:15px;
+  color:#0A0A0A;
+  z-index:3;
+}
+
+.search-static{
+  opacity:0.9;
+  white-space:nowrap;
+}
+
+.search-dynamic{
+  height:18px;
+  overflow:hidden;
+  position:relative;
+}
+
+.search-dynamic span{
+  display:block;
+  height:18px;
+  line-height:18px;
+  animation: slideUp 10s infinite;
+  font-weight:600;
+  color:#0A0A0A;
+}
+
+/* Individual delays */
+.search-dynamic span:nth-child(1){ animation-delay:0s; }
+.search-dynamic span:nth-child(2){ animation-delay:2s; }
+.search-dynamic span:nth-child(3){ animation-delay:4s; }
+.search-dynamic span:nth-child(4){ animation-delay:6s; }
+.search-dynamic span:nth-child(5){ animation-delay:8s; }
+
+/* SLIDE UP & DOWN */
+@keyframes slideUp{
+  0%   { transform:translateY(20px); opacity:0.3; }
+  10%  { transform:translateY(0); opacity:1; }
+  30%  { transform:translateY(0); opacity:1; }
+  40%  { transform:translateY(-20px); opacity:0.3; }
+  100% { opacity:0; }
+}
+
+
+.search-box{
+          display:flex;
+          justify-content:center;
+          margin-bottom: 30px;
+        }
+
+        .search-box input{
+          width:420px;
+          padding:14px;
+          border-radius:15px 0 0 15px;
+          border:0.5px solid var(--light);
+        }
+/* ===== CENTER HEADER NAV ===== */
+.center-nav{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:28px;
+  margin-bottom:0px;
+}
+
+.center-nav a{
+  text-decoration:none;
+  font-weight:600;
+  color:#333;
+  font-size:22px;
+  position:relative;
+  transition:color .25s ease;
+}
+
+/* Underline animation */
+.center-nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0%;
+  height:2px;
+  background:var(--primary);
+  transition:width .25s ease;
+}
+
+.center-nav a:hover{
+  color:var(--primary);
+}
+
+.center-nav a:hover::after{
+  width:100%;
+}
+/* ===== NAV ICONS ===== */
+.center-nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  position:relative;
+}
+
+/* ICON BASE */
+.nav-icon{
+  display:inline-block;
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+
+
+.center-nav a:hover .nav-icon{
+  transform: translateY(-6px);
+  filter: drop-shadow(0 6px 14px rgba(124,108,246,0.6));
+}
+
+
+@media (max-width: 900px){
+  .center-nav{
+    display:none;
+  }
+}
+/* ===== SCROLLED POP EFFECT ===== */
+header.scrolled .center-nav .nav-icon{
+  animation: navPop 0.45s cubic-bezier(.25,.9,.3,1.2);
+  transform-origin: center;
+  transform: translateY(-6px) scale(1.1);
+  filter: drop-shadow(0 6px 16px rgba(124,108,246,.55));
+}
+
+/* POP KEYFRAME */
+@keyframes navPop{
+  0%{
+    transform: scale(0.7) translateY(6px);
+    opacity: 0;
+  }
+  60%{
+    transform: scale(1.15) translateY(-4px);
+    opacity: 1;
+  }
+  100%{
+    transform: scale(1) translateY(0);
+  }
+}
+        .logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 100px;              /* perfect header size */
+  width: 100px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+/* Optional hover animation */
+.logo img:hover {
+  transform: scale(1.10);
+}
+
+/* When header shrinks on scroll */
+header.scrolled .logo img {
+  height: 45px;
+}
+.logo img{
+  height: 70px;
+  width: 200px;
+  margin-left:30px;
+  margin-bottom:-15px;
+  margin-top:-10px;
+  display: block;
+}
+      .signup-btn :hover href{
+        background:#0A0A0A;
+        color:white;
+           }
+
+.ai-highlight{
+  max-width: 980px;
+  margin: 40px auto 20px;
+  padding: 34px 40px;
+  border-radius: 20px;
+  background:white;;
+<!--  background: linear-gradient(-->
+<!--    135deg,-->
+<!--    rgba(165,148,249,0.18),-->
+<!--    rgba(205,193,255,0.35)-->
+<!--  );-->
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 40px rgba(165,148,249,0.25);
+  text-align: center;
+  animation: fadeUp .6s ease;
+}
+
+.ai-badge{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:20px;
+  background:#A594F9;
+  color:white;
+  font-size:12px;
+  font-weight:600;
+  margin-bottom:12px;
+}
+
+.ai-highlight h2{
+  font-size:28px;
+  color:#0A0A0A;
+  margin-bottom:10px;
+}
+
+.ai-highlight p{
+  font-size:15px;
+  color:#333;
+  max-width:620px;
+  margin:0 auto 22px;
+  line-height:1.6;
+}
+
+.ai-highlight button{
+  padding:14px 26px;
+  border:none;
+  border-radius:14px;
+  background:var(--bg);
+  color:black;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .25s ease;
+}
+
+.ai-highlight button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(165,148,249,0.45);
+}
+
+        .floating-quote{
+  text-align:center;
+  margin: 18px auto 50px;
+  animation: floatSoft 4s ease-in-out infinite;
+}
+
+.floating-quote p{
+  font-size:17px;
+  color:#0A0A0A;
+  opacity:0.85;
+}
+
+.floating-quote strong{
+  color:#A594F9;
+  font-weight:700;
+}
+
+/* subtle floating animation */
+@keyframes floatSoft{
+  0%{ transform:translateY(0); }
+  50%{ transform:translateY(-6px); }
+  100%{ transform:translateY(0); }
+}
+
+/* ===== AI SECTION ===== */
+.ai-section{
+  max-width:1200px;
+  margin:80px auto;
+  padding:0 40px;
+
+  display:flex;
+  align-items:center;
+  gap:60px;
+}
+
+/* ROBOT */
+.ai-robot{
+  flex:1;
+  display:flex;
+  justify-content:center;
+}
+
+/* TEXT */
+.ai-content{
+  flex:1;
+}
+
+.ai-content h2{
+  font-size:34px;
+  margin-bottom:12px;
+  color:#0A0A0A;
+}
+
+.ai-content h2 span{
+  color:var(--primary);
+}
+
+.ai-content .subtitle{
+  font-size:16px;
+  color:#444;
+  line-height:1.6;
+  margin-bottom:22px;
+}
+
+.ai-points{
+  list-style:none;
+  padding:0;
+}
+
+.ai-points li{
+  font-size:15px;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+  .ai-section{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .ai-content h2{
+    font-size:28px;
+  }
+}
+/* ===== AX ROBOT ===== */
+
+/* ===== AX ROBOT SVG ===== */
+svg{
+  width:300px;
+  filter: drop-shadow(0 0 12px rgba(165,148,249,0.45));
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* ===== FACE OUTLINE ===== */
+.face{
+  fill:none;
+  stroke:dotted;
+  stroke:var(--primary);                 /* WHITE outline */
+  stroke-width:6;
+  stroke-dasharray: 1 2;
+  filter:
+    drop-shadow(0 0 6px rgba(165,148,249,0.55))
+    drop-shadow(0 0 20px rgba(165,148,249,0.35));
+}
+
+/* ===== EYES ===== */
+.eye{
+  fill:white;
+  stroke:var(--primary);           /* PURPLE eyes */
+  stroke-width:4;
+}
+
+/* ===== PUPILS ===== */
+.pupil{
+  fill:back;             /* PURPLE pupils */
+  transition: transform 0.25s ease-out;
+}
+
+/* ===== NOSE + MOUTH (A & X) ===== */
+.draw{
+  fill:none;
+  stroke:var(--primary);           /* PURPLE AX */
+  stroke-width:4;
+  stroke-linecap:round;
+  stroke-dasharray:200;
+  stroke-dashoffset:200;
+  animation: write 3s ease-in-out infinite;
+}
+.dmouth{
+fill:none;
+  stroke:black;           /* PURPLE AX */
+  stroke-width:5;
+  stroke-linecap:round;
+  stroke-dasharray:200;
+  stroke-dashoffset:200;
+  animation: write 3s ease-in-out infinite;
+  }
+.mouth{
+  animation-delay:1.2s;
+}
+
+/* ===== BREATHING EFFECT ===== */
+@keyframes breathe{
+  0%{
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(165,148,249,0.35));
+  }
+  50%{
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 30px rgba(165,148,249,0.55));
+  }
+  100%{
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(165,148,249,0.35));
+  }
+}
+
+/* ===== PEN WRITE ===== */
+@keyframes write{
+  0%{stroke-dashoffset:200;}
+  40%{stroke-dashoffset:0;}
+  80%{stroke-dashoffset:0;}
+  100%{stroke-dashoffset:200;}
+}
+
+.ai-robot{
+  position:relative;
+}
+
+.ai-robot::after{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(165,148,249,0.45),
+    transparent 70%
+  );
+  filter:blur(40px);
+  animation: glowPulse 4s ease-in-out infinite;
+  z-index:-1;
+}
+
+@keyframes glowPulse{
+  0%,100%{opacity:0.9;}
+  50%{opacity:1;}
+}
+/* ===== AX WAKE UP ON HOVER ===== */
+.ai-robot:hover svg{
+  animation-duration: 2.5s; /* faster breathing */
+  filter:
+    drop-shadow(0 0 14px rgba(165,148,249,0.85))
+    drop-shadow(0 0 40px rgba(165,148,249,0.55));
+}
+
+/* Glow stronger on hover */
+.ai-robot:hover::after{
+  opacity: 1;
+  filter: blur(55px);
+}
+
+/* Cursor hint */
+.ai-robot{
+  cursor: pointer;
+}
+
+/* Smooth pupil motion override */
+.pupil{
+  transition: transform 0.25s ease-out;
+}
+/* ===== OPTION-1 PREMIUM OUTLINE GLOW ===== */
+.ai-robot{
+  position:relative;
+}
+/* ===== ROBOT HEAD TILT ===== */
+.ai-robot svg{
+  transition: transform 0.25s ease-out;
+  transform-origin: center center;
+}
+
+.ai-robot::after{
+  content:"";
+  position:absolute;
+  inset:-22px;
+  border-radius:50%;
+  background: radial-gradient(
+    circle,
+    rgba(165,148,249,0.35),
+    transparent 70%
+  );
+  filter: blur(40px);
+  opacity:0.7;
+  z-index:-1;
+  transition: all 0.35s ease;
+}
+
+/* Hover → AX wakes up */
+.ai-robot:hover::after{
+  opacity:1;
+  filter: blur(55px);
+}
+.pulse-ring{
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  border:6px solid rgba(155,148,249,.35);
+  animation: pulse 2.0s infinite;
+}
+@keyframes pulse{
+  0%{ transform:scale(1); opacity:.9; }
+  100%{ transform:scale(1.3); opacity:0; }
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img src="assets/logo/axonix.png" alt="AXONIX Logo">
+    </div>
+    <nav class="center-nav">
+        <a href="javascript:void(0)" onclick="goToHome()">
+            <span class="nav-icon" >🏠</span>
+            Home
+        </a>
+        <a href="javascript:void(0)" onclick="goToAbout()">
+            <span class="nav-icon">ℹ️</span>
+            About
+        </a>
+
+        <a href="javascript:void(0)" onclick="goToContact()">
+            <span class="nav-icon">📞</span>
+            Contact
+        </a>
+    </nav>
+
+
+    <!-- RIGHT -->
+    <div class="nav">
+        <a href="#" id="loginBtn" onclick="openLogin()">Log in</a>
+        <a href="#" id="signupBtn" class="signup-btn" onclick="openSignup()">Student Sign up</a>
+    </div>
+
+    <!-- HAMBURGER -->
+    <div id="hamburger" class="hamburger" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</header>
+
+
+
+<!-- ===== LEFT DASHBOARD SIDEBAR ===== -->
+<aside id="sidebar" class="sidebar">
+    <div class="logo">
+        <img src="assets/logo/axonix.png" alt="AXONIX Logo">
+    </div>
+
+    <p class="welcome">
+        Welcome, <span id="sideUsername">User</span>
+    </p>
+
+    <span id="sideRole" class="role-badge">ROLE</span>
+
+    <hr>
+
+    <a href="/java-topics.html">☕ Java</a>
+    <a href="/python-topics.html">🐍 Python</a>
+    <a href="/c-topics.html">💻 C</a>
+    <a href="/html-topics.html">🌐 HTML</a>
+    <a href="/css-topics.html">🎨 CSS</a>
+    <a href="/js-topics.html">🟨 JavaScript</a>
+
+    <hr>
+
+    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+</aside>
+
+<section class="hero">
+    <h1>Exams are hard. Finding the syllabus shouldn’t be.</h1>
+
+    <div class="search-box">
+
+        <div class="search-box">
+            <input id="searchInput"
+                   placeholder="Search for any subject, exam or PDF">
+            <button id="searchBtn">🔍</button>
+        </div>
+
+
+    </div>
+
+
+    <!-- ===== INTRO TEXT SECTION ===== -->
+    <!--    <section class="intro-text">-->
+    <!--        <h2 class="tagline">-->
+    <!--            Everything you need to prepare smarter — all in one place.-->
+    <!--        </h2>-->
+
+    <!--        <p class="description">-->
+    <!--            StudyHub helps students quickly find <strong>syllabus PDFs</strong>,-->
+    <!--            <strong>previous question papers</strong>, <strong>important questions</strong>,-->
+    <!--            and <strong>handwritten notes</strong> uploaded by teachers.-->
+    <!--            <br><br>-->
+    <!--            Search by subject, exam, or topic — and let our <strong>AI Study Assistant</strong>-->
+    <!--            simplify learning for you.-->
+    <!--        </p>-->
+    <!--    </section>-->
+
+    <!--</section>-->
+    <!-- ===== AI ROBOT SECTION ===== -->
+    <section class="ai-section">
+
+        <!-- LEFT : ROBOT -->
+        <div class="ai-robot">
+            <!-- 🔽 PASTE YOUR EXISTING SVG HERE 🔽 -->
+
+            <svg viewBox="0 0 300 300">
+                <!-- Face -->
+                <circle class="face" cx="150" cy="150" r="130"/>
+
+                <!-- Eyes -->
+                <circle class="eye" cx="110" cy="115" r="16"/>
+                <circle class="eye" cx="190" cy="115" r="16"/>
+
+                <circle class="pupil" id="p1" cx="114" cy="118" r="4"/>
+                <circle class="pupil" id="p2" cx="194" cy="118" r="4"/>
+
+                <!-- Reversed A (nose) -->
+                <path class="draw"
+                      d="M150 135 L135 175 L150 165 L165 175 Z"/>
+
+                <!-- X mouth -->
+                <!-- X mouth -->
+
+                <path class="dmouth"
+                      d="M140 190 L160 210 M160 190 L140 210"/>
+
+
+            </svg>
+            <span class="pulse-ring"></span>
+        </div>
+        </div>
+
+        <!-- RIGHT : CONTENT -->
+        <div class="ai-content">
+            <h2>Meet <span>AX</span> — Your AI Study Robot</h2>
+
+            <p class="subtitle">
+                AXONIX uses AI to read your study material, understand concepts,
+                and explain them in a way students actually understand.
+            </p>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ===== FEATURE CARDS SECTION ===== -->
+    <section class="features">
+        <div class="feature-card" onclick="openUniversityPDFs()">
+            <div class="icon">📚</div>
+            <h3>University PDFs</h3>
+            <p>Access syllabus, notes & previous papers from your university.</p>
+        </div>
+
+        <div class="feature-card" onclick="openAiSummary()">
+            <div class="icon">🤖</div>
+            <h3>AI Study Assistant</h3>
+            <p>Summarize PDFs & understand concepts in simple language.</p>
+        </div>
+
+        <div class="feature-card" onclick="openUniversityPDFs()">
+            <div class="icon">⚡</div>
+            <h3>Instant Search</h3>
+            <p>Find materials by subject, semester & branch instantly.</p>
+        </div>
+    </section>
+    <!-- ===== STUDY RESOURCES ===== -->
+    <section class="study-resources" >
+        <h2>Study Resources</h2>
+
+        <div class="resource-grid">
+            <div class="resource-card" onclick="PreviousPapers()">
+                <div class="resource-icon">📄</div>
+                <h3>Previous Question Papers</h3>
+                <p>Practice with real exam papers from past years.</p>
+            </div>
+
+            <div class="resource-card" onclick="ImpQuestions()">
+                <div class="resource-icon">⭐</div>
+                <h3>Important Questions</h3>
+                <p>Most repeated & exam-focused questions.</p>
+            </div>
+
+            <div class="resource-card" onclick="HandWrittenNotes()">
+                <div class="resource-icon">✍️</div>
+                <h3>Handwritten Notes</h3>
+                <p>Student & teacher handwritten explanations.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="placement-preparation">
+        <h2>Preparing for placements ?? check below for free resources..</h2>
+
+        <div class="placement-grid">
+            <div class="placement-card" onclick="aptitude()">
+                <div class="placement-icon">🥇</div>
+                <h3>Aptitude </h3>
+                <p>Practice with real-time interview topics</p>
+            </div>
+
+            <div class="placement-card" onclick="reasoning()">
+                <div class="placement-icon" >🧑‍💻</div>
+                <h3>Reasoning</h3>
+                <p>Most repeated & interview-focused questions.</p>
+            </div>
+
+            <div class="placement-card" onclick="technical()">
+                <div class="placement-icon">🎯</div>
+                <h3>Techincal & Hr </h3>
+                <p>Learn Most Repeated Hr Questions amd Top 100 Codes</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== POPULAR SUBJECTS ===== -->
+    <section class="popular-subjects">
+        <h2>Popular Subjects</h2>
+        <div class="subject-grid">
+            <div class="subject-card" onclick="java()">
+                <div class="subject-icon"> ☕️</div>
+                <h3>Java</h3>
+                <p>Learn Java Basics</p>
+            </div>
+            <div class="subject-card" onclick="python()">
+                <div class="subject-icon"> 🐍</div>
+                <h3>Python</h3>
+                <p>Learn Python Basics</p>
+            </div>
+            <div class="subject-card" onclick="c()">
+                <div class="subject-icon"> 𝐂</div>
+                <h3>C Programming</h3>
+                <p>Learn C Programming Basics</p>
+            </div>
+            <div class="subject-card" onclick="html()">
+                <div class="subject-icon">HTML️</div>
+                <h3>Hypertext Markup Language</h3>
+                <p>Learn HTML Basics</p>
+            </div>
+            <div class="subject-card" onclick="css()">
+                <div class="subject-icon"> CSS </div>
+                <h3>Cascading Style Sheets</h3>
+                <p>Learn CSS Basics</p>
+            </div>
+            <div class="subject-card" onclick="js()">
+                <div class="subject-icon">
+                    JS
+                </div>
+                <h3>Java Script</h3>
+                <p>Learn Java Script Basics</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 AXONIX · Learn smarter, not harder
+    </footer>
+
+    <!-- ================= LOGIN OVERLAY ================= -->
+    <div class="overlay" id="loginOverlay">
+        <div class="modal">
+            <span class="close" onclick="closeLogin()">×</span>
+
+            <!-- TEACHER LOGIN -->
+            <div class="login-card">
+                <h3>👨‍🏫 Teacher Login</h3>
+                <form onsubmit="loginUser(event)">
+                    <input name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit" class="teacher-btn">Login as Teacher</button>
+                </form>
+
+            </div>
+
+            <!-- STUDENT LOGIN -->
+            <div class="login-card">
+                <h3>👩‍🎓 Student Login</h3>
+                <form onsubmit="loginUser(event)">
+                    <input name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit" class="student-btn">Login as Student</button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="overlay" id="signupOverlay">
+        <div class="signup-modal">
+            <span class="close" onclick="closeSignup()">×</span>
+
+            <h2>🎓 Student Sign up</h2>
+            <p class="subtitle">Create your free AXONIX account</p>
+
+            <form onsubmit="registerStudent(event)">
+                <input name="username" placeholder="Email or username" required>
+                <input type="password" name="password" placeholder="Password (min 8 chars)" required>
+
+                <button class="student-btn">Sign up for free</button>
+            </form>
+
+            <p class="login-link">
+                Already have an account?
+                <a href="#" onclick="closeSignup();openLogin()">Log in</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+
+        /* ================= UI HELPERS ================= */
+        function openLogin(){
+          const o = document.getElementById("loginOverlay");
+          o.style.display="flex";
+          requestAnimationFrame(() => o.classList.add("show"));
+        }
+
+        function closeLogin(){
+          const o = document.getElementById("loginOverlay");
+          o.classList.remove("show");
+          setTimeout(() => o.style.display="none", 300);
+        }
+
+        function openSignup(){
+          const o = document.getElementById("signupOverlay");
+          o.style.display="flex";
+          requestAnimationFrame(() => o.classList.add("show"));
+        }
+
+        function closeSignup(){
+          const o = document.getElementById("signupOverlay");
+          o.classList.remove("show");
+          setTimeout(() => o.style.display="none", 300);
+        }
+
+        /* ================= AUTH STATE ================= */
+        let CURRENT_ROLE = "NOT_LOGGED_IN";
+
+        /* ================= PAGE LOAD ================= */
+        document.addEventListener("DOMContentLoaded", () => {
+          checkAuthStatus();
+        });
+
+        /* ================= CHECK AUTH ================= */
+        function checkAuthStatus() {
+      fetch("/auth/status")
+        .then(res => res.json())
+        .then(data => {
+
+          // ===== NOT LOGGED IN =====
+          if (!data.role || data.role === "NOT_LOGGED_IN") {
+            CURRENT_ROLE = "NOT_LOGGED_IN";
+            updateNavbar();
+    document.getElementById("hamburger").classList.remove("active");
+            document.getElementById("hamburger").style.display = "none";
+            document.getElementById("sidebar").classList.remove("active");
+            return;
+          }
+
+          // ===== LOGGED IN =====
+          CURRENT_ROLE = data.role;
+          updateNavbar();
+
+          // SHOW HAMBURGER
+          document.getElementById("hamburger").style.display = "flex";
+
+          // UPDATE SIDEBAR USERNAME
+          document.getElementById("sideUsername").innerText = data.username;
+
+          // UPDATE ROLE BADGE
+          const roleBadge = document.getElementById("sideRole");
+          if (data.role === "ROLE_STUDENT") {
+            roleBadge.innerText = "🎓 STUDENT";
+            roleBadge.style.background = "#4CAF50";
+          } else if (data.role === "ROLE_TEACHER") {
+            roleBadge.innerText = "👨‍🏫 TEACHER";
+            roleBadge.style.background = "#ff7a18";
+          }
+        })
+        .catch(() => {
+          document.getElementById("hamburger").style.display = "none";
+        });
+    }
+
+    function toggleSidebar(){
+      const sidebar = document.getElementById("sidebar");
+      const hamburger = document.getElementById("hamburger");
+
+      sidebar.classList.toggle("active");
+      hamburger.classList.toggle("active");
+    }
+    // ===== CLICK OUTSIDE → CLOSE SIDEBAR =====
+    document.addEventListener("click", function (e) {
+      const sidebar = document.getElementById("sidebar");
+      const hamburger = document.getElementById("hamburger");
+
+      // If sidebar is NOT open → do nothing
+      if (!sidebar.classList.contains("active")) return;
+
+      // Clicked inside sidebar or hamburger → ignore
+      if (
+        sidebar.contains(e.target) ||
+        hamburger.contains(e.target)
+      ) {
+        return;
+      }
+
+      // Otherwise → close sidebar
+      sidebar.classList.remove("active");
+      hamburger.classList.remove("active");
+    });
+
+
+        /* ================= DASHBOARD ================= */
+
+        function updateNavbar() {
+      const isLoggedIn = CURRENT_ROLE !== "NOT_LOGGED_IN";
+
+      // LOGIN & SIGNUP
+      document.getElementById("loginBtn").style.display =
+        isLoggedIn ? "none" : "inline";
+
+      document.getElementById("signupBtn").style.display =
+        isLoggedIn ? "none" : "inline";
+
+      // HAMBURGER (SHOW ONLY WHEN LOGGED IN)
+      const hamburger = document.getElementById("hamburger");
+      if (hamburger) {
+        hamburger.style.display = isLoggedIn ? "flex" : "none";
+      }
+    }
+
+
+        /* ================= LOGOUT ================= */
+        function logout() {
+      fetch("/logout", { method: "POST" })
+        .then(() => {
+          CURRENT_ROLE = "NOT_LOGGED_IN";
+    <!--      hideDashboard();-->
+
+
+          // HIDE HAMBURGER + CLOSE SIDEBAR
+          document.getElementById("sidebar").classList.remove("active");
+          document.getElementById("hamburger").classList.remove("active");
+          document.getElementById("hamburger").style.display = "none";
+    updateNavbar();
+
+          alert("👋 Logged out successfully");
+        });
+    }
+
+
+        /* ================= REGISTER ================= */
+        function registerStudent(event) {
+          event.preventDefault();
+
+          const form = event.target;
+
+          fetch("/auth/register-student", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+              username: form.username.value,
+              password: form.password.value
+            })
+          })
+          .then(res => {
+            if (!res.ok) throw new Error("Registration failed");
+            return res.text();
+          })
+          .then(() => {
+            alert("✅ Registration successful! Please login.");
+            closeSignup();
+            openLogin();
+          })
+          .catch(err => alert("❌ " + err.message));
+        }
+
+        /* ================= FEATURE ACCESS ================= */
+        function openUniversityPDFs() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/universitypdf.html";
+              }
+            });
+        }
+        function PreviousPapers() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/previouspapers.html";
+              }
+            });
+        }
+        function ImpQuestions() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/impquestions.html";
+              }
+            });
+        }
+        function HandWrittenNotes() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/handnotes.html";
+              }
+            });
+        }
+        function aptitude() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/aptitude.html";
+              }
+            });
+        }
+        function reasoning() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/reasoning.html";
+              }
+            });
+        }
+        function technical() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/hr.html";
+              }
+            });
+        }
+        function java() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/java-topics.html";
+              }
+            });
+        }
+        function js() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/js-topics.html";
+              }
+            });
+        }
+        function python() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/python-topics.html";
+              }
+            });
+        }
+        function c() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/c-topics.html";
+              }
+            });
+        }
+        function html() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/html-topics.html";
+              }
+            });
+        }
+        function css() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/css-topics.html";
+              }
+            });
+        }
+
+    function goToAbout(){
+      fetch("/auth/status")
+        .then(res => res.json())
+        .then(data => {
+          if(!data.role || data.role === "NOT_LOGGED_IN"){
+            alert("🔒 Please login to view About page");
+            openLogin();
+          }else{
+            window.location.href = "/about.html";
+          }
+        });
+    }
+    function goToContact(){
+      fetch("/auth/status")
+        .then(res => res.json())
+        .then(data => {
+          if(!data.role || data.role === "NOT_LOGGED_IN"){
+            alert("🔒 Please login to view About page");
+            openLogin();
+          }else{
+            window.location.href = "/contact.html";
+          }
+        });
+    }
+    function goToHome(){
+      fetch("/auth/status")
+        .then(res => res.json())
+        .then(data => {
+          if(!data.role || data.role === "NOT_LOGGED_IN"){
+    <!--        alert("🔒 Please login to view About page");-->
+            openLogin();
+          }else{
+            window.location.href = "/register.html";
+          }
+        });
+    }
+
+    function loginUser(event, role) {
+          event.preventDefault();
+
+          const form = event.target;
+          const formData = new URLSearchParams();
+
+          formData.append("username", form.username.value);
+          formData.append("password", form.password.value);
+
+          fetch("/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData
+          })
+          .then(res => {
+            if (!res.ok) throw new Error("Invalid credentials");
+            return fetch("/auth/status");
+          })
+          .then(res => res.json())
+          .then(data => {
+            closeLogin();
+            checkAuthStatus();   // refresh dashboard + navbar
+          })
+          .catch(() => {
+            alert("❌ Invalid username or password");
+          });
+        }
+            function openAiSummary() {
+          fetch("/auth/status")
+            .then(res => res.json())
+            .then(data => {
+              if (!data.role || data.role === "NOT_LOGGED_IN") {
+                alert("🔒 Please login to access this feature");
+                openLogin();
+              } else {
+                window.location.href = "/aisummary.html";
+              }
+            });
+        }
+
+        /* ================= SEARCH BAR LOGIC ================= */
+
+        const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+
+    searchBtn.addEventListener("click", handleSearch);
+    searchInput.addEventListener("keypress", e => {
+      if (e.key === "Enter") handleSearch();
+    });
+
+    function handleSearch(){
+      const query = searchInput.value.trim().toLowerCase();
+
+      if(!query){
+        alert("❌ Please enter a search term");
+        return;
+      }
+
+          /* ===== SEARCH MAP ===== */
+          if(
+            query.includes("university") ||
+            query.includes("pdf") ||
+            query.includes("syllabus")
+          ){
+            openUniversityPDFs();
+            return;
+          }
+
+          if(
+            query.includes("ai") ||
+            query.includes("assistant") ||
+            query.includes("summary")
+          ){
+            openAiSummary();
+            return;
+          }
+
+          if(
+            query.includes("instant") ||
+            query.includes("search")
+          ){
+           openUniversityPDFs();
+            return;
+          }
+          if(
+            query.includes("previos") ||
+            query.includes("papers") ||
+            query.includes("previous papers") ||
+            query.includes("recent papers")
+          ){
+            PreviousPapers();
+            return;
+          }
+
+          /* ===== INVALID SEARCH ===== */
+          alert("❌ Invalid search. Feature not found.");
+        }
+
+    const robot = document.querySelector(".ai-robot");
+    const svg = robot.querySelector("svg");
+
+    const pupils = [
+      document.getElementById("p1"),
+      document.getElementById("p2")
+    ];
+
+    // ===== IDLE EYE MOVEMENT =====
+    let idleDir = 1;
+    let idleInterval = setInterval(idleLook, 1600);
+
+    function idleLook(){
+      pupils.forEach(p=>{
+        p.style.transform = `translate(${idleDir * 6}px,0)`;
+      });
+      idleDir *= -1;
+    }
+
+    // ===== CURSOR FOLLOW + HEAD TILT =====
+    robot.addEventListener("mousemove", (e)=>{
+      clearInterval(idleInterval);
+
+      const rect = robot.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+
+      /* Eye movement */
+      const moveX = Math.max(-6, Math.min(6, dx / 18));
+      const moveY = Math.max(-4, Math.min(4, dy / 25));
+
+      pupils.forEach(p=>{
+        p.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+
+      /* Head tilt (SUBTLE) */
+      const tiltX = Math.max(-4, Math.min(4, dy / 80)); // up/down
+      const tiltY = Math.max(-5, Math.min(5, dx / 70)); // left/right
+
+      svg.style.transform = `
+        rotateX(${ -tiltX }deg)
+        rotateY(${ tiltY }deg)
+        scale(1.02)
+      `;
+    });
+
+    // ===== RESET =====
+    robot.addEventListener("mouseleave", ()=>{
+      pupils.forEach(p=>{
+        p.style.transform = "translate(0,0)";
+      });
+
+      svg.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+
+      idleInterval = setInterval(idleLook, 1600);
+    });
+    </script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+

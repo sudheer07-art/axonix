@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Complete Guide – StudyHub</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, sans-serif;
+            background:#f5f6ff;
+        }
+
+        header{
+            background:#6c63ff;
+            color:white;
+            padding:18px;
+            text-align:center;
+            font-size:26px;
+            font-weight:bold;
+        }
+
+        .topic-menu{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            background:#fff;
+            padding:10px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .topic-menu button{
+            margin:6px;
+            padding:10px 18px;
+            border:none;
+            border-radius:20px;
+            background:#e6e6ff;
+            cursor:pointer;
+            font-weight:600;
+            transition:0.3s;
+        }
+
+        .topic-menu button:hover,
+        .topic-menu button.active{
+            background:#6c63ff;
+            color:white;
+        }
+
+        .content{
+            max-width:1100px;
+            margin:auto;
+            padding:30px;
+        }
+
+        .topic-content{
+            display:none;
+            animation:fade 0.4s ease-in-out;
+        }
+
+        .topic-content h2{
+            color:#6c63ff;
+        }
+
+        .topic-content p, li{
+            font-size:16px;
+            line-height:1.8;
+        }
+
+        pre{
+            background:#1e1e2f;
+            color:#fff;
+            padding:15px;
+            border-radius:8px;
+            overflow:auto;
+        }
+
+        @keyframes fade{
+            from{opacity:0; transform:translateY(10px);}
+            to{opacity:1; transform:translateY(0);}
+        }
+        .practice-btn{
+    text-decoration:none;
+    background:#ff9800;
+    color:white;
+    padding:8px 18px;
+    border-radius:20px;
+    font-weight:bold;
+    margin-left:10px;
+    transition:0.3s;
+}
+
+.practice-btn:hover{
+    background:#e68900;
+}
+
+ header{
+          padding:18px 40px;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          background:rgba(255,255,255,0.85);
+          backdrop-filter:blur(14px);
+          position:sticky;
+          top:0;
+          z-index:1000;
+          margin-bottom:10px;
+          border-radius:10px;
+        }
+        .back-home{
+          text-decoration:none;
+          background:black;
+          color:white;
+          padding:10px 18px;
+          border-radius:20px;
+          font-size:14px;
+          transition:.3s;
+        }
+
+        .back-home:hover{
+          background:#8f7ef5;
+          transform:translateY(-2px);
+        }
+.practice-btn{
+          text-decoration:none;
+          background:black;
+          color:white;
+          padding:10px 18px;
+          border-radius:20px;
+          font-size:14px;
+          transition:.3s;
+          margin-right:-400px;
+        }
+
+        .practice-btn:hover{
+          background:#8f7ef5;
+          transform:translateY(-2px);
+        }
+h1{
+color:#62109F;
+font-size:40px;
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>HTML - Complete Study Material</h1>
+    <span> <a href="html-practice.html" class="practice-btn">HTML LIVE SERVER</a></span>
+    <span> <a href="/register.html" class="back-home">Back to Home</a></span>
+</header>
+
+<div class="topic-menu">
+    <button class="active" onclick="showTopic('intro',this)">Introduction</button>
+    <button onclick="showTopic('structure',this)">Document Structure</button>
+    <button onclick="showTopic('elements',this)">Elements & Tags</button>
+    <button onclick="showTopic('attributes',this)">Attributes</button>
+    <button onclick="showTopic('text',this)">Text Formatting</button>
+    <button onclick="showTopic('links',this)">Links</button>
+    <button onclick="showTopic('images',this)">Images</button>
+    <button onclick="showTopic('lists',this)">Lists</button>
+    <button onclick="showTopic('tables',this)">Tables</button>
+    <button onclick="showTopic('forms',this)">Forms</button>
+    <button onclick="showTopic('semantic',this)">Semantic HTML</button>
+    <button onclick="showTopic('media',this)">Audio & Video</button>
+    <button onclick="showTopic('iframe',this)">Iframes</button>
+    <button onclick="showTopic('meta',this)">Meta Tags</button>
+    <button onclick="showTopic('seo',this)">SEO Basics</button>
+    <button onclick="showTopic('accessibility',this)">Accessibility</button>
+    <button onclick="showTopic('best',this)">Best Practices</button>
+</div>
+
+<div class="content">
+
+    <div id="intro" class="topic-content" style="display:block">
+        <h2>Introduction to HTML</h2>
+        <p>
+            HTML (HyperText Markup Language) is the backbone of the web.
+            It defines the structure and content of web pages.
+        </p>
+    </div>
+
+    <div id="structure" class="topic-content">
+        <h2>HTML Document Structure</h2>
+        <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;/head&gt;
+&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+        <p>
+            This structure is mandatory for every HTML document.
+        </p>
+    </div>
+
+    <div id="elements" class="topic-content">
+        <h2>HTML Elements & Tags</h2>
+        <p>
+            Elements consist of opening tag, content, and closing tag.
+        </p>
+    </div>
+
+    <div id="attributes" class="topic-content">
+        <h2>HTML Attributes</h2>
+        <p>
+            Attributes provide additional information about elements like id, class, src, href.
+        </p>
+    </div>
+
+    <div id="text" class="topic-content">
+        <h2>Text Formatting</h2>
+        <p>
+            Bold, italic, underline, strong, emphasis, mark, small.
+        </p>
+    </div>
+
+    <div id="links" class="topic-content">
+        <h2>Links</h2>
+        <p>
+            Anchor tag is used to link pages and external resources.
+        </p>
+    </div>
+
+    <div id="images" class="topic-content">
+        <h2>Images</h2>
+        <p>
+            Images enhance visual presentation of content.
+        </p>
+    </div>
+
+    <div id="lists" class="topic-content">
+        <h2>Lists</h2>
+        <p>
+            Ordered, unordered, and description lists.
+        </p>
+    </div>
+
+    <div id="tables" class="topic-content">
+        <h2>Tables</h2>
+        <p>
+            Used to display data in rows and columns.
+        </p>
+    </div>
+
+    <div id="forms" class="topic-content">
+        <h2>Forms</h2>
+        <p>
+            Forms collect user input using input, textarea, select, button.
+        </p>
+    </div>
+
+    <div id="semantic" class="topic-content">
+        <h2>Semantic HTML</h2>
+        <p>
+            Semantic elements describe meaning and improve SEO and accessibility.
+        </p>
+    </div>
+
+    <div id="media" class="topic-content">
+        <h2>Audio & Video</h2>
+        <p>
+            HTML5 supports native audio and video playback.
+        </p>
+    </div>
+
+    <div id="iframe" class="topic-content">
+        <h2>Iframes</h2>
+        <p>
+            Used to embed other webpages or applications.
+        </p>
+    </div>
+
+    <div id="meta" class="topic-content">
+        <h2>Meta Tags</h2>
+        <p>
+            Meta tags define page metadata like charset and viewport.
+        </p>
+    </div>
+
+    <div id="seo" class="topic-content">
+        <h2>SEO Basics</h2>
+        <p>
+            Proper headings, meta tags, alt attributes improve SEO.
+        </p>
+    </div>
+
+    <div id="accessibility" class="topic-content">
+        <h2>Accessibility</h2>
+        <p>
+            Accessibility ensures websites are usable for everyone.
+        </p>
+    </div>
+
+    <div id="best" class="topic-content">
+        <h2>HTML Best Practices</h2>
+        <p>
+            Use semantic tags, proper indentation, valid markup.
+        </p>
+    </div>
+
+</div>
+
+<script>
+    function showTopic(id,btn){
+        document.querySelectorAll('.topic-content').forEach(t=>t.style.display='none');
+        document.querySelectorAll('.topic-menu button').forEach(b=>b.classList.remove('active'));
+        document.getElementById(id).style.display='block';
+        btn.classList.add('active');
+    }
+</script>
+
+</body>
+</html>

@@ -1244,10 +1244,7 @@
         const data = await res.json();
 
         document.getElementById("chat").innerHTML =
-          `<div class="msg">
-  ${data.summary ? data.summary : (data.error || "No summary returned")}
-</div>
-`;
+          `<div class="msg">${data.summary || "No summary returned"}</div>`;
       }
       catch{
         document.getElementById("chat").innerHTML =
