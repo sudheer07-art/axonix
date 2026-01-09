@@ -21,5 +21,7 @@ RUN ./gradlew build -x test --no-daemon
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "build/libs/app.jar"]
+#CMD ["java", "-jar", "build/libs/app.jar"]
+CMD ["java","-Xms128m","-Xmx256m","-jar","app.jar"]
+
 
