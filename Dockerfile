@@ -2,15 +2,14 @@ FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-# Copy Gradle wrapper and configs
+# Copy gradle wrapper and config
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle settings.gradle ./
 
-# Fix permissions
 RUN chmod +x gradlew
 
-# Download dependencies (cache layer)
+# Download dependencies (cached)
 RUN ./gradlew dependencies --no-daemon
 
 # Copy source code
@@ -21,7 +20,5 @@ RUN ./gradlew build -x test --no-daemon
 
 EXPOSE 8080
 
-#CMD ["java", "-jar", "build/libs/app.jar"]
-CMD ["java","-Xms128m","-Xmx256m","-jar","app.jar"]
-
-
+# Run the generated jar (DO NOT rename)
+CMD ["sh", "-c", "java -jar build/libs/*.jar"]
