@@ -1780,7 +1780,7 @@ fill:none;
                 <form onsubmit="loginUser(event)">
                     <input name="username" placeholder="Username" required>
                     <input type="password" name="password" placeholder="Password" required>
-                    <input type="passcode" name="passcode" placeholder="Teacher Passcode" required>
+                    <input type="password" name="passcode" placeholder="Teacher Passcode" required>
 
                     <button type="submit" class="teacher-btn">Login as Teacher</button>
                 </form>
@@ -2399,8 +2399,9 @@ fill:none;
   .then(data => {
     if (data.role === "ROLE_TEACHER") {
       closeLogin();
-      checkAuthStatus();
-      window.location.href = "/teacher-dashboard.html"; // 🔁 redirect
+      checkAuthStatus(); // ✅ sidebar + role badge update
+      // OPTIONAL redirect
+      // window.location.href = "/teacher-dashboard.html";
     } else {
       alert("❌ Invalid teacher passcode");
     }
@@ -2409,6 +2410,7 @@ fill:none;
     alert("❌ Teacher login failed");
   });
 }
+
 
     </script>
 
