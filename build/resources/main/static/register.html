@@ -1780,8 +1780,6 @@ fill:none;
                 <form onsubmit="loginUser(event)">
                     <input name="username" placeholder="Username" required>
                     <input type="password" name="password" placeholder="Password" required>
-                    <input type="passcode" name="passcode" placeholder="Teacher Passcode" required>
-
                     <button type="submit" class="teacher-btn">Login as Teacher</button>
                 </form>
 
@@ -2186,64 +2184,35 @@ fill:none;
         });
     }
 
-<!--    function loginUser(event, role) {-->
-<!--          event.preventDefault();-->
+    function loginUser(event, role) {
+          event.preventDefault();
 
-<!--          const form = event.target;-->
-<!--          const formData = new URLSearchParams();-->
+          const form = event.target;
+          const formData = new URLSearchParams();
 
-<!--          formData.append("username", form.username.value);-->
-<!--          formData.append("password", form.password.value);-->
+          formData.append("username", form.username.value);
+          formData.append("password", form.password.value);
 
-<!--          fetch("/login", {-->
-<!--            method: "POST",-->
-<!--            headers: {-->
-<!--              "Content-Type": "application/x-www-form-urlencoded"-->
-<!--            },-->
-<!--            body: formData-->
-<!--          })-->
-<!--          .then(res => {-->
-<!--            if (!res.ok) throw new Error("Invalid credentials");-->
-<!--            return fetch("/auth/status");-->
-<!--          })-->
-<!--          .then(res => res.json())-->
-<!--          .then(data => {-->
-<!--            closeLogin();-->
-<!--            checkAuthStatus();   // refresh dashboard + navbar-->
-<!--          })-->
-<!--          .catch(() => {-->
-<!--            alert("❌ Invalid username or password");-->
-<!--          });-->
-<!--        }-->
-function loginStudent(event) {
-  event.preventDefault();
-  const form = event.target;
-
-  const formData = new URLSearchParams();
-  formData.append("username", form.username.value);
-  formData.append("password", form.password.value);
-
-  fetch("/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: formData
-  })
-  .then(res => {
-    if (!res.ok) throw new Error("Invalid credentials");
-    return fetch("/auth/status");
-  })
-  .then(res => res.json())
-  .then(() => {
-    closeLogin();
-    checkAuthStatus();
-  })
-  .catch(() => {
-    alert("❌ Invalid username or password");
-  });
-}
-
+          fetch("/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData
+          })
+          .then(res => {
+            if (!res.ok) throw new Error("Invalid credentials");
+            return fetch("/auth/status");
+          })
+          .then(res => res.json())
+          .then(data => {
+            closeLogin();
+            checkAuthStatus();   // refresh dashboard + navbar
+          })
+          .catch(() => {
+            alert("❌ Invalid username or password");
+          });
+        }
             function openAiSummary() {
           fetch("/auth/status")
             .then(res => res.json())
@@ -2374,42 +2343,6 @@ function loginStudent(event) {
 
       idleInterval = setInterval(idleLook, 1600);
     });
-
-        function loginTeacher(event) {
-  event.preventDefault();
-  const form = event.target;
-
-  const formData = new URLSearchParams();
-  formData.append("username", form.username.value);
-  formData.append("password", form.password.value);
-  formData.append("passcode", form.passcode.value);
-
-  fetch("/auth/teacher-login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: formData
-  })
-  .then(res => {
-    if (!res.ok) throw new Error("Invalid teacher credentials");
-    return fetch("/auth/status");
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.role === "ROLE_TEACHER") {
-      closeLogin();
-      checkAuthStatus();
-      window.location.href = "/teacher-dashboard.html"; // 🔁 redirect
-    } else {
-      alert("❌ Invalid teacher passcode");
-    }
-  })
-  .catch(() => {
-    alert("❌ Teacher login failed");
-  });
-}
-
     </script>
 
 
