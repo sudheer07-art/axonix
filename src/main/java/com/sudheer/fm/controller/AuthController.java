@@ -429,117 +429,117 @@
 //        return ResponseEntity.ok("TEACHER_CREATED");
 //    }
 //}
-//package com.sudheer.fm.controller;
-//
-//import com.sudheer.fm.entity.User;
-//import com.sudheer.fm.repository.UserRepository;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.HashMap;
-//import java.util.Map;
-//
-//@RestController
-//@RequestMapping("/auth")
-//public class AuthController {
-//
-//    private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
-//
-//    @Value("${teacher.passcode}")
-//    private String teacherPasscode;
-//
-//    public AuthController(UserRepository userRepository,
-//                          PasswordEncoder passwordEncoder) {
-//        this.userRepository = userRepository;
-//        this.passwordEncoder = passwordEncoder;
-//    }
-//
-//    // ================= CHECK LOGIN STATUS =================
-//    @GetMapping("/status")
-//    public Map<String, String> authStatus(Authentication authentication) {
-//
-//        Map<String, String> map = new HashMap<>();
-//
-//        if (authentication == null) {
-//            map.put("role", "NOT_LOGGED_IN");
-//            return map;
-//        }
-//
-//        map.put("username", authentication.getName());
-//
-//        for (GrantedAuthority authority : authentication.getAuthorities()) {
-//            map.put("role", authority.getAuthority());
-//            break;
-//        }
-//
-//        return map;
-//    }
-//
-//    // ================= STUDENT REGISTER =================
-//    @PostMapping("/register-student")
-//    public ResponseEntity<String> registerStudent(
-//            @RequestParam String username,
-//            @RequestParam String password
-//    ) {
-//
-//        if (userRepository.existsByUsername(username)) {
-//            return ResponseEntity.badRequest().body("User already exists");
-//        }
-//
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(passwordEncoder.encode(password));
-//        user.setRole("ROLE_STUDENT");
-//
-//        userRepository.save(user);
-//
-//        return ResponseEntity.ok("STUDENT_CREATED");
-//    }
-//
-//    // ================= TEACHER REGISTER =================
-//    @PostMapping("/register-teacher")
-//    public ResponseEntity<String> registerTeacher(
-//            @RequestParam String username,
-//            @RequestParam String password,
-//            @RequestParam String passcode
-//    ) {
-//
-//        if (!teacherPasscode.equals(passcode)) {
-//            return ResponseEntity.status(403).body("Invalid Teacher Passcode");
-//        }
-//
-//        if (userRepository.existsByUsername(username)) {
-//            return ResponseEntity.badRequest().body("User already exists");
-//        }
-//
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(passwordEncoder.encode(password));
-//        user.setRole("ROLE_TEACHER");
-//
-//        userRepository.save(user);
-//
-//        return ResponseEntity.ok("TEACHER_CREATED");
-//    }
-//
-//    // ================= VALIDATE TEACHER LOGIN PASSCODE =================
-//    @PostMapping("/teacher-login")
-//    public ResponseEntity<String> teacherLogin(
-//            @RequestParam String passcode
-//    ) {
-//
-//        if (!teacherPasscode.equals(passcode)) {
-//            return ResponseEntity.status(403).body("Invalid Passcode");
-//        }
-//
-//        return ResponseEntity.ok("PASSCODE_OK");
-//    }
-//}
+package com.sudheer.fm.controller;
+
+import com.sudheer.fm.entity.User;
+import com.sudheer.fm.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Value("${teacher.passcode}")
+    private String teacherPasscode;
+
+    public AuthController(UserRepository userRepository,
+                          PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // ================= CHECK LOGIN STATUS =================
+    @GetMapping("/status")
+    public Map<String, String> authStatus(Authentication authentication) {
+
+        Map<String, String> map = new HashMap<>();
+
+        if (authentication == null) {
+            map.put("role", "NOT_LOGGED_IN");
+            return map;
+        }
+
+        map.put("username", authentication.getName());
+
+        for (GrantedAuthority authority : authentication.getAuthorities()) {
+            map.put("role", authority.getAuthority());
+            break;
+        }
+
+        return map;
+    }
+
+    // ================= STUDENT REGISTER =================
+    @PostMapping("/register-student")
+    public ResponseEntity<String> registerStudent(
+            @RequestParam String username,
+            @RequestParam String password
+    ) {
+
+        if (userRepository.existsByUsername(username)) {
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRole("ROLE_STUDENT");
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok("STUDENT_CREATED");
+    }
+
+    // ================= TEACHER REGISTER =================
+    @PostMapping("/register-teacher")
+    public ResponseEntity<String> registerTeacher(
+            @RequestParam String username,
+            @RequestParam String password,
+            @RequestParam String passcode
+    ) {
+
+        if (!teacherPasscode.equals(passcode)) {
+            return ResponseEntity.status(403).body("Invalid Teacher Passcode");
+        }
+
+        if (userRepository.existsByUsername(username)) {
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRole("ROLE_TEACHER");
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok("TEACHER_CREATED");
+    }
+
+    // ================= VALIDATE TEACHER LOGIN PASSCODE =================
+    @PostMapping("/teacher-login")
+    public ResponseEntity<String> teacherLogin(
+            @RequestParam String passcode
+    ) {
+
+        if (!teacherPasscode.equals(passcode)) {
+            return ResponseEntity.status(403).body("Invalid Passcode");
+        }
+
+        return ResponseEntity.ok("PASSCODE_OK");
+    }
+}
 package com.sudheer.fm.controller;
 
 import com.sudheer.fm.entity.User;
