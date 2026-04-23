@@ -6842,6 +6842,30 @@ fill:none;
           })
           .catch(err => alert("❌ " + err.message));
         }
+        function registerTeacher(event) {
+          event.preventDefault();
+
+          const form = event.target;
+
+          fetch("/auth/register-teacher", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+              username: form.username.value,
+              password: form.password.value
+            })
+          })
+          .then(res => {
+            if (!res.ok) throw new Error("Registration failed");
+            return res.text();
+          })
+          .then(() => {
+            alert("✅ Registration successful! Please login.");
+            closeSignup();
+            openLogin();
+          })
+          .catch(err => alert("❌ " + err.message));
+        }
 
         /* ================= FEATURE ACCESS ================= */
         function openUniversityPDFs() {
@@ -7234,7 +7258,7 @@ function loginUser(event, role) {
   const formData = new URLSearchParams();
   formData.append("username", form.username.value);
   formData.append("password", form.password.value);
-  formData.append("passcode", form.passcode.value);
+<!--  formData.append("passcode", form.passcode.value);-->
 
   fetch("/auth/teacher-login", {
     method: "POST",
