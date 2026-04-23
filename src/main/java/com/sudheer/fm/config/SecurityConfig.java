@@ -235,83 +235,6 @@
 //        return http.build();
 //    }
 //}
-//package com.sudheer.fm.config;
-//
-//import jakarta.servlet.http.HttpServletResponse;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.web.SecurityFilterChain;
-//
-//@Configuration
-//@EnableWebSecurity
-//@EnableMethodSecurity
-//public class SecurityConfig {
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-//        http.csrf(csrf -> csrf.disable())
-//
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers(
-//                                "/",
-//                                "/register.html",
-//                                "/auth/**",
-//                                "/css/**",
-//                                "/js/**",
-//                                "/images/**",
-//                                "/assets/**"
-//                        ).permitAll()
-//
-//                        .requestMatchers("/teacher/**").hasRole("TEACHER")
-//                        .requestMatchers("/student/**").hasAnyRole("STUDENT","TEACHER")
-//
-//                        .anyRequest().authenticated()
-//                )
-//
-//                .formLogin(login -> login
-//                        .loginPage("/register.html")
-//                        .loginProcessingUrl("/login")
-//
-//                        .successHandler((req,res,auth)->{
-//
-//                            boolean isTeacher = auth.getAuthorities()
-//                                    .stream()
-//                                    .anyMatch(a -> a.getAuthority().equals("ROLE_TEACHER"));
-//
-//                            if(isTeacher){
-//                                res.sendRedirect("/teacher/dashboard.html");
-//                            }else{
-//                                res.sendRedirect("/student/dashboard.html");
-//                            }
-//
-//                        })
-//
-//                        .failureHandler((req,res,ex)->{
-//                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Login Failed");
-//                        })
-//
-//                        .permitAll()
-//                )
-//
-//                .logout(logout -> logout
-//                        .logoutUrl("/logout")
-//                        .logoutSuccessUrl("/register.html")
-//                );
-//
-//        return http.build();
-//    }
-//}
 package com.sudheer.fm.config;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -319,32 +242,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.sudheer.fm.repository.UserRepository;
-
 @Configuration
+@EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-
-    private final UserRepository userRepository;
-
-    public SecurityConfig(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return username -> userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User Not Found"));
     }
 
     @Bean
@@ -359,7 +269,8 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/css/**",
                                 "/js/**",
-                                "/images/**"
+                                "/images/**",
+                                "/assets/**"
                         ).permitAll()
 
                         .requestMatchers("/teacher/**").hasRole("TEACHER")
@@ -374,11 +285,11 @@ public class SecurityConfig {
 
                         .successHandler((req,res,auth)->{
 
-                            boolean teacher = auth.getAuthorities()
+                            boolean isTeacher = auth.getAuthorities()
                                     .stream()
                                     .anyMatch(a -> a.getAuthority().equals("ROLE_TEACHER"));
 
-                            if(teacher){
+                            if(isTeacher){
                                 res.sendRedirect("/teacher/dashboard.html");
                             }else{
                                 res.sendRedirect("/student/dashboard.html");
@@ -387,7 +298,7 @@ public class SecurityConfig {
                         })
 
                         .failureHandler((req,res,ex)->{
-                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid username or password");
+                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Login Failed");
                         })
 
                         .permitAll()
@@ -401,3 +312,92 @@ public class SecurityConfig {
         return http.build();
     }
 }
+//package com.sudheer.fm.config;
+//
+//import jakarta.servlet.http.HttpServletResponse;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.web.SecurityFilterChain;
+//
+//import com.sudheer.fm.repository.UserRepository;
+//
+//@Configuration
+//@EnableMethodSecurity
+//public class SecurityConfig {
+//
+//    private final UserRepository userRepository;
+//
+//    public SecurityConfig(UserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        return username -> userRepository.findByUsername(username)
+//                .orElseThrow(() -> new RuntimeException("User Not Found"));
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//
+//        http.csrf(csrf -> csrf.disable())
+//
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/",
+//                                "/register.html",
+//                                "/auth/**",
+//                                "/css/**",
+//                                "/js/**",
+//                                "/images/**"
+//                        ).permitAll()
+//
+//                        .requestMatchers("/teacher/**").hasRole("TEACHER")
+//                        .requestMatchers("/student/**").hasAnyRole("STUDENT","TEACHER")
+//
+//                        .anyRequest().authenticated()
+//                )
+//
+//                .formLogin(login -> login
+//                        .loginPage("/register.html")
+//                        .loginProcessingUrl("/login")
+//
+//                        .successHandler((req,res,auth)->{
+//
+//                            boolean teacher = auth.getAuthorities()
+//                                    .stream()
+//                                    .anyMatch(a -> a.getAuthority().equals("ROLE_TEACHER"));
+//
+//                            if(teacher){
+//                                res.sendRedirect("/teacher/dashboard.html");
+//                            }else{
+//                                res.sendRedirect("/student/dashboard.html");
+//                            }
+//
+//                        })
+//
+//                        .failureHandler((req,res,ex)->{
+//                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid username or password");
+//                        })
+//
+//                        .permitAll()
+//                )
+//
+//                .logout(logout -> logout
+//                        .logoutUrl("/logout")
+//                        .logoutSuccessUrl("/register.html")
+//                );
+//
+//        return http.build();
+//    }
+//}
