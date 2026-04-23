@@ -162,6 +162,79 @@
 //        return http.build();
 //    }
 //}
+//package com.sudheer.fm.config;
+//
+//import jakarta.servlet.http.HttpServletResponse;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.web.SecurityFilterChain;
+//
+//@Configuration
+//@EnableWebSecurity
+//@EnableMethodSecurity
+//public class SecurityConfig {
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//
+//        http
+//                .csrf(csrf -> csrf.disable())
+//
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/",
+//                                "/register.html",
+//                                "/test.html",
+//                                "/aisummary.html",
+//                                "/universitypdf.html",
+//                                "/auth/**",
+//                                "/ai/**",
+//                                "/css/**",
+//                                "/js/**",
+//                                "/images/**",
+//                                "/assets/**"
+//                        ).permitAll()
+//
+//                        .requestMatchers("/teacher/**").hasRole("TEACHER")
+//                        .requestMatchers("/student/**").hasAnyRole("STUDENT", "TEACHER")
+//
+//                        .anyRequest().authenticated()
+//                )
+//
+//                .formLogin(login -> login
+//                        .loginPage("/register.html")
+//                        .loginProcessingUrl("/login")
+//                        .successHandler((req, res, auth) -> {
+//                            res.setStatus(HttpServletResponse.SC_OK);
+//                        })
+//                        .failureHandler((req, res, ex) -> {
+//                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Login Failed");
+//                        })
+//                        .permitAll()
+//                )
+//
+//                .logout(logout -> logout
+//                        .logoutUrl("/logout")
+//                        .logoutSuccessHandler((req, res, auth) -> {
+//                            res.setStatus(HttpServletResponse.SC_OK);
+//                        })
+//                        .invalidateHttpSession(true)
+//                        .deleteCookies("JSESSIONID")
+//                );
+//
+//        return http.build();
+//    }
+//}
 package com.sudheer.fm.config;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -187,18 +260,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-                .csrf(csrf -> csrf.disable())
+        http.csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/",
                                 "/register.html",
-                                "/test.html",
-                                "/aisummary.html",
-                                "/universitypdf.html",
                                 "/auth/**",
-                                "/ai/**",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
@@ -206,7 +274,7 @@ public class SecurityConfig {
                         ).permitAll()
 
                         .requestMatchers("/teacher/**").hasRole("TEACHER")
-                        .requestMatchers("/student/**").hasAnyRole("STUDENT", "TEACHER")
+                        .requestMatchers("/student/**").hasAnyRole("STUDENT","TEACHER")
 
                         .anyRequest().authenticated()
                 )
@@ -214,22 +282,31 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/register.html")
                         .loginProcessingUrl("/login")
-                        .successHandler((req, res, auth) -> {
-                            res.setStatus(HttpServletResponse.SC_OK);
+
+                        .successHandler((req,res,auth)->{
+
+                            boolean isTeacher = auth.getAuthorities()
+                                    .stream()
+                                    .anyMatch(a -> a.getAuthority().equals("ROLE_TEACHER"));
+
+                            if(isTeacher){
+                                res.sendRedirect("/teacher/dashboard.html");
+                            }else{
+                                res.sendRedirect("/student/dashboard.html");
+                            }
+
                         })
-                        .failureHandler((req, res, ex) -> {
-                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Login Failed");
+
+                        .failureHandler((req,res,ex)->{
+                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Login Failed");
                         })
+
                         .permitAll()
                 )
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessHandler((req, res, auth) -> {
-                            res.setStatus(HttpServletResponse.SC_OK);
-                        })
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("/register.html")
                 );
 
         return http.build();
