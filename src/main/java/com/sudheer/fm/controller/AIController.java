@@ -128,9 +128,10 @@ public class AIController {
                     new HttpEntity<>(payload, headers);
 
 
-                    String url =
-                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key="
-                            + apiKey;
+//                    String url =
+//                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key="
+//                            + apiKey;
+            String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey;
 
 
 
