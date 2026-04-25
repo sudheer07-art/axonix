@@ -1,27 +1,27 @@
-package com.sudheer.fm.controller;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-import java.util.Map;
-
-@RestController
-@RequestMapping("/ai")
-public class AIController {
-
-    @Value("${gemini.api.key}")
-    private String apiKey;
-
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final ObjectMapper mapper = new ObjectMapper();
+//package com.sudheer.fm.controller;
+//
+//import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import org.apache.pdfbox.pdmodel.PDDocument;
+//import org.apache.pdfbox.text.PDFTextStripper;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.http.*;
+//import org.springframework.web.bind.annotation.*;
+//import org.springframework.web.multipart.MultipartFile;
+//import org.springframework.web.client.RestTemplate;
+//
+//import java.util.List;
+//import java.util.Map;
+//
+//@RestController
+//@RequestMapping("/ai")
+//public class AIController {
+//
+//    @Value("${gemini.api.key}")
+//    private String apiKey;
+//
+//    private final RestTemplate restTemplate = new RestTemplate();
+//    private final ObjectMapper mapper = new ObjectMapper();
 
     //    @PostMapping(
 //            value = "/summarize",
@@ -95,28 +95,173 @@ public class AIController {
 //        }
 //    }
 //}
-    @PostMapping(
-            value = "/summarize",
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<Map<String, String>> summarize(
-            @RequestParam("file") MultipartFile file) {
+//    @PostMapping(
+//            value = "/summarize",
+//            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    public ResponseEntity<Map<String, String>> summarize(
+//            @RequestParam("file") MultipartFile file) {
+//
+//        try {
+//            PDDocument doc = PDDocument.load(file.getInputStream());
+//            PDFTextStripper stripper = new PDFTextStripper();
+//            String text = stripper.getText(doc);
+//            doc.close();
+//
+//            if (text.length() > 12000) {
+//                text = text.substring(0, 12000);
+//            }
+//
+//            Map<String, Object> payload = Map.of(
+//                    "contents", List.of(
+//                            Map.of("parts", List.of(
+//                                    Map.of("text", "Summarize this PDF clearly:\n\n" + text)
+//                            ))
+//                    )
+//            );
+//
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setContentType(MediaType.APPLICATION_JSON);
+//
+//            HttpEntity<Map<String, Object>> entity =
+//                    new HttpEntity<>(payload, headers);
+//
+//
+////                    String url =
+////                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key="
+////                            + apiKey;
+//            String url =
+//                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
+//
+//
+//            ResponseEntity<String> response =
+//                    restTemplate.postForEntity(url, entity, String.class);
+//
+//            String body = response.getBody();
+//            System.out.println("🔴 Gemini raw response:\n" + body);
+//
+//            JsonNode root = mapper.readTree(body);
+//
+//            String summary = root.path("candidates")
+//                    .path(0)
+//                    .path("content")
+//                    .path("parts")
+//                    .path(0)
+//                    .path("text")
+//                    .asText("No summary generated");
+//
+//            return ResponseEntity.ok(Map.of("summary", summary));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(500)
+//                    .body(Map.of("error", e.getMessage()));
+//        }
+//    }
+//}
+package com.sudheer.fm.controller;
 
-        try {
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.Map;
+
+    @RestController
+    @RequestMapping("/ai")
+    @CrossOrigin("*")
+    public class AIController {
+
+        @Value("${gemini.api.key}")
+        private String apiKey;
+
+        private final RestTemplate restTemplate = new RestTemplate();
+        private final ObjectMapper mapper = new ObjectMapper();
+
+        // ---------------- SUMMARY ----------------
+
+        @PostMapping(value="/summarize",
+                consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+        public ResponseEntity<?> summarize(
+                @RequestParam("file") MultipartFile file) {
+
+            try {
+                String text = extractText(file);
+
+                String prompt = "Summarize this PDF clearly:\n\n" + text;
+
+                String result = callGemini(prompt);
+
+                return ResponseEntity.ok(Map.of("summary", result));
+
+            } catch (Exception e) {
+                return ResponseEntity.status(500)
+                        .body(Map.of("error", e.getMessage()));
+            }
+        }
+
+        // ---------------- ASK QUESTION ----------------
+
+        @PostMapping(value="/ask",
+                consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+        public ResponseEntity<?> askQuestion(
+                @RequestParam("file") MultipartFile file,
+                @RequestParam("question") String question) {
+
+            try {
+                String text = extractText(file);
+
+                String prompt =
+                        "Answer only from this PDF content.\n" +
+                                "If answer not found, say Not available in PDF.\n\n" +
+                                "PDF Content:\n" + text +
+                                "\n\nQuestion: " + question;
+
+                String answer = callGemini(prompt);
+
+                return ResponseEntity.ok(Map.of("answer", answer));
+
+            } catch (Exception e) {
+                return ResponseEntity.status(500)
+                        .body(Map.of("error", e.getMessage()));
+            }
+        }
+
+        // ---------------- PDF TEXT EXTRACT ----------------
+
+        private String extractText(MultipartFile file) throws Exception {
+
             PDDocument doc = PDDocument.load(file.getInputStream());
+
             PDFTextStripper stripper = new PDFTextStripper();
+
             String text = stripper.getText(doc);
+
             doc.close();
 
-            if (text.length() > 12000) {
-                text = text.substring(0, 12000);
+            if(text.length() > 15000){
+                text = text.substring(0,15000);
             }
 
-            Map<String, Object> payload = Map.of(
+            return text;
+        }
+
+        // ---------------- GEMINI CALL ----------------
+
+        private String callGemini(String prompt) throws Exception {
+
+            Map<String,Object> payload = Map.of(
                     "contents", List.of(
                             Map.of("parts", List.of(
-                                    Map.of("text", "Summarize this PDF clearly:\n\n" + text)
+                                    Map.of("text", prompt)
                             ))
                     )
             );
@@ -124,39 +269,24 @@ public class AIController {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            HttpEntity<Map<String, Object>> entity =
+            HttpEntity<Map<String,Object>> entity =
                     new HttpEntity<>(payload, headers);
 
-
-//                    String url =
-//                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key="
-//                            + apiKey;
             String url =
-                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
-
+                    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key="
+                            + apiKey;
 
             ResponseEntity<String> response =
                     restTemplate.postForEntity(url, entity, String.class);
 
-            String body = response.getBody();
-            System.out.println("🔴 Gemini raw response:\n" + body);
+            JsonNode root = mapper.readTree(response.getBody());
 
-            JsonNode root = mapper.readTree(body);
-
-            String summary = root.path("candidates")
+            return root.path("candidates")
                     .path(0)
                     .path("content")
                     .path("parts")
                     .path(0)
                     .path("text")
-                    .asText("No summary generated");
-
-            return ResponseEntity.ok(Map.of("summary", summary));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500)
-                    .body(Map.of("error", e.getMessage()));
+                    .asText("No response");
         }
     }
-}

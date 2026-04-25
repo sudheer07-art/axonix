@@ -1,325 +1,640 @@
-<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
-<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
-<!--&lt;!&ndash;<head>&ndash;&gt;-->
-<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
-<!--&lt;!&ndash;    <title>AI PDF Summarizer | StudyHub</title>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<html lang="en">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<head>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <title>AI PDF Summarizer | StudyHub</title>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    <style>&ndash;&gt;-->
-<!--&lt;!&ndash;        /* ================= THEME ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        :root{&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;bg:#0f0f0f;&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;card:#1a1a1a;&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;text:#ffffff;&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;muted:#b5b5b5;&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;accent:#ffffff;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= THEME ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        :root{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;bg:#0f0f0f;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;card:#1a1a1a;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;text:#ffffff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;muted:#b5b5b5;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;accent:#ffffff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        *{&ndash;&gt;-->
-<!--&lt;!&ndash;          box-sizing:border-box;&ndash;&gt;-->
-<!--&lt;!&ndash;          font-family: Inter, system-ui, sans-serif;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        *{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          box-sizing:border-box;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-family: Inter, system-ui, sans-serif;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        body{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:0;&ndash;&gt;-->
-<!--&lt;!&ndash;          background:var(&#45;&#45;bg);&ndash;&gt;-->
-<!--&lt;!&ndash;          color:var(&#45;&#45;text);&ndash;&gt;-->
-<!--&lt;!&ndash;          display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;          justify-content:center;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:40px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        body{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin:0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:var(&#45;&#45;bg);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:var(&#45;&#45;text);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          display:flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          justify-content:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:40px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        /* ================= CONTAINER ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        .container{&ndash;&gt;-->
-<!--&lt;!&ndash;          width:100%;&ndash;&gt;-->
-<!--&lt;!&ndash;          max-width:900px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= CONTAINER ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .container{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          width:100%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          max-width:900px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        /* ================= HEADER ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        .header{&ndash;&gt;-->
-<!--&lt;!&ndash;          display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;          justify-content:space-between;&ndash;&gt;-->
-<!--&lt;!&ndash;          align-items:center;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-bottom:30px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= HEADER ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .header{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          display:flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          justify-content:space-between;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          align-items:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin-bottom:30px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .header h1{&ndash;&gt;-->
-<!--&lt;!&ndash;          font-size:28px;&ndash;&gt;-->
-<!--&lt;!&ndash;          font-weight:700;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .header h1{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-size:28px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-weight:700;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .logout{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:none;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:var(&#45;&#45;text);&ndash;&gt;-->
-<!--&lt;!&ndash;          border:1px solid #333;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:8px 14px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:10px;&ndash;&gt;-->
-<!--&lt;!&ndash;          cursor:pointer;&ndash;&gt;-->
-<!--&lt;!&ndash;          transition:.25s;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .logout{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:var(&#45;&#45;text);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:1px solid #333;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:8px 14px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:10px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          cursor:pointer;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          transition:.25s;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .logout:hover{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#000;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .logout:hover{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:#fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:#000;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        /* ================= CARD ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        .card{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:var(&#45;&#45;card);&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:30px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:18px;&ndash;&gt;-->
-<!--&lt;!&ndash;          box-shadow:0 20px 50px rgba(0,0,0,.6);&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= CARD ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .card{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:var(&#45;&#45;card);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:30px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:18px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          box-shadow:0 20px 50px rgba(0,0,0,.6);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        /* ================= UPLOAD ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        .upload-box{&ndash;&gt;-->
-<!--&lt;!&ndash;          border:2px dashed #333;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:30px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:16px;&ndash;&gt;-->
-<!--&lt;!&ndash;          text-align:center;&ndash;&gt;-->
-<!--&lt;!&ndash;          cursor:pointer;&ndash;&gt;-->
-<!--&lt;!&ndash;          transition:.3s;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= UPLOAD ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .upload-box{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:2px dashed #333;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:30px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:16px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          text-align:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          cursor:pointer;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          transition:.3s;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .upload-box:hover{&ndash;&gt;-->
-<!--&lt;!&ndash;          border-color:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .upload-box:hover{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-color:#fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .upload-box input{&ndash;&gt;-->
-<!--&lt;!&ndash;          display:none;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .upload-box input{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          display:none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .upload-box h3{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:10px 0;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .upload-box h3{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin:10px 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        /* ================= BUTTON ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        button{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#000;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:none;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:14px 24px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:14px;&ndash;&gt;-->
-<!--&lt;!&ndash;          font-size:15px;&ndash;&gt;-->
-<!--&lt;!&ndash;          cursor:pointer;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-top:20px;&ndash;&gt;-->
-<!--&lt;!&ndash;          transition:.25s;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= BUTTON ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        button{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:#fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:#000;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:14px 24px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:14px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-size:15px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          cursor:pointer;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin-top:20px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          transition:.25s;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        button:hover{&ndash;&gt;-->
-<!--&lt;!&ndash;          transform:translateY(-2px);&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        button:hover{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          transform:translateY(-2px);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        /* ================= CHAT OUTPUT ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        .chat{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-top:30px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= CHAT OUTPUT ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .chat{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin-top:30px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .msg{&ndash;&gt;-->
-<!--&lt;!&ndash;          max-width:85%;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:18px 22px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:18px;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-bottom:18px;&ndash;&gt;-->
-<!--&lt;!&ndash;          line-height:1.6;&ndash;&gt;-->
-<!--&lt;!&ndash;          animation:fadeUp .4s ease;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
-<!--&lt;!&ndash;.hidden { display:none; }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .msg{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          max-width:85%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:18px 22px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:18px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin-bottom:18px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          line-height:1.6;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          animation:fadeUp .4s ease;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;.hidden { display:none; }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;#filePreview{&ndash;&gt;-->
-<!--&lt;!&ndash;  display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;  justify-content:space-between;&ndash;&gt;-->
-<!--&lt;!&ndash;  align-items:center;&ndash;&gt;-->
-<!--&lt;!&ndash;  gap:12px;&ndash;&gt;-->
-<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;#filePreview{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  display:flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  justify-content:space-between;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  align-items:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  gap:12px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;.remove{&ndash;&gt;-->
-<!--&lt;!&ndash;  cursor:pointer;&ndash;&gt;-->
-<!--&lt;!&ndash;  font-weight:bold;&ndash;&gt;-->
-<!--&lt;!&ndash;  opacity:.7;&ndash;&gt;-->
-<!--&lt;!&ndash;  transition:.2s;&ndash;&gt;-->
-<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;.remove{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  cursor:pointer;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  font-weight:bold;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  opacity:.7;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  transition:.2s;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;.remove:hover{&ndash;&gt;-->
-<!--&lt;!&ndash;  opacity:1;&ndash;&gt;-->
-<!--&lt;!&ndash;  transform:scale(1.2);&ndash;&gt;-->
-<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;.remove:hover{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  opacity:1;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  transform:scale(1.2);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .user{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#000;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-left:auto;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .user{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:#fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:#000;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin-left:auto;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        .ai{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#222;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:1px solid #333;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .ai{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:#222;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:1px solid #333;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        /* ================= LOADING ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        .loader{&ndash;&gt;-->
-<!--&lt;!&ndash;          width:40px;&ndash;&gt;-->
-<!--&lt;!&ndash;          height:40px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:4px solid #333;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-top:4px solid #fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:50%;&ndash;&gt;-->
-<!--&lt;!&ndash;          animation:spin 1s linear infinite;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:20px auto;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= LOADING ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .loader{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          width:40px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          height:40px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:4px solid #333;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-top:4px solid #fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:50%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          animation:spin 1s linear infinite;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin:20px auto;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        /* ================= ANIMATIONS ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;        @keyframes spin{&ndash;&gt;-->
-<!--&lt;!&ndash;          to{transform:rotate(360deg)}&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        /* ================= ANIMATIONS ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        @keyframes spin{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          to{transform:rotate(360deg)}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        @keyframes fadeUp{&ndash;&gt;-->
-<!--&lt;!&ndash;          from{opacity:0;transform:translateY(10px)}&ndash;&gt;-->
-<!--&lt;!&ndash;          to{opacity:1;transform:translateY(0)}&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
-<!--&lt;!&ndash;        .spinner {&ndash;&gt;-->
-<!--&lt;!&ndash;  width: 22px;&ndash;&gt;-->
-<!--&lt;!&ndash;  height: 22px;&ndash;&gt;-->
-<!--&lt;!&ndash;  border: 3px solid #333;&ndash;&gt;-->
-<!--&lt;!&ndash;  border-top: 3px solid white;&ndash;&gt;-->
-<!--&lt;!&ndash;  border-radius: 50%;&ndash;&gt;-->
-<!--&lt;!&ndash;  animation: spin 0.8s linear infinite;&ndash;&gt;-->
-<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        @keyframes fadeUp{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          from{opacity:0;transform:translateY(10px)}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          to{opacity:1;transform:translateY(0)}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .spinner {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  width: 22px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  height: 22px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  border: 3px solid #333;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  border-top: 3px solid white;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  border-radius: 50%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  animation: spin 0.8s linear infinite;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;@keyframes spin {&ndash;&gt;-->
-<!--&lt;!&ndash;  to { transform: rotate(360deg); }&ndash;&gt;-->
-<!--&lt;!&ndash;}&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;@keyframes spin {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  to { transform: rotate(360deg); }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    </style>&ndash;&gt;-->
-<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</head>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<body>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<div class="container">&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    <div class="header">&ndash;&gt;-->
-<!--&lt;!&ndash;        <h1>🤖 AI PDF Summarizer</h1>&ndash;&gt;-->
-<!--&lt;!&ndash;        <button class="logout" onclick="logout()">Logout</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <h1>🤖 AI PDF Summarizer</h1>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <button class="logout" onclick="logout()">Logout</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    <div class="card">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="card">&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        <label class="upload-box">&ndash;&gt;-->
-<!--&lt;!&ndash;            <input type="file" id="pdf" accept="application/pdf">&ndash;&gt;-->
-<!--&lt;!&ndash;            <h3>Upload PDF</h3>&ndash;&gt;-->
-<!--&lt;!&ndash;            <p class="muted">Drop or click to upload</p>&ndash;&gt;-->
-<!--&lt;!&ndash;        </label>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <label class="upload-box">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <input type="file" id="pdf" accept="application/pdf">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <h3>Upload PDF</h3>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <p class="muted">Drop or click to upload</p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </label>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        <button onclick="summarize()">Summarize PDF</button>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <button onclick="summarize()">Summarize PDF</button>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        <div class="chat" id="chat"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash; Uploaded file preview &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <div id="filePreview" class="msg user hidden">&ndash;&gt;-->
-<!--&lt;!&ndash;            <span id="fileName"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;            <span class="remove" onclick="removeFile()">✕</span>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="chat" id="chat"></div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Uploaded file preview &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div id="filePreview" class="msg user hidden">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <span id="fileName"></span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <span class="remove" onclick="removeFile()">✕</span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;        &lt;!&ndash; Spinner &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <div id="loader" class="loader" style="display:none;"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Spinner &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div id="loader" class="loader" style="display:none;"></div>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;<script>&ndash;&gt;-->
-<!--&lt;!&ndash;    /* ================= AUTH ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;    fetch("/auth/status")&ndash;&gt;-->
-<!--&lt;!&ndash;      .then(r=>r.json())&ndash;&gt;-->
-<!--&lt;!&ndash;      .then(d=>{&ndash;&gt;-->
-<!--&lt;!&ndash;        if(!d.role || d.role==="NOT_LOGGED_IN"){&ndash;&gt;-->
-<!--&lt;!&ndash;          alert("Login required");&ndash;&gt;-->
-<!--&lt;!&ndash;          location.href="/register.html";&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
-<!--&lt;!&ndash;      });&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<script>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    /* ================= AUTH ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    fetch("/auth/status")&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      .then(r=>r.json())&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      .then(d=>{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        if(!d.role || d.role==="NOT_LOGGED_IN"){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          alert("Login required");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          location.href="/register.html";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      });&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    /* ================= ELEMENTS ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;    const pdfInput = document.getElementById("pdf");&ndash;&gt;-->
-<!--&lt;!&ndash;    const filePreview = document.getElementById("filePreview");&ndash;&gt;-->
-<!--&lt;!&ndash;    const fileNameSpan = document.getElementById("fileName");&ndash;&gt;-->
-<!--&lt;!&ndash;    const chat = document.getElementById("chat");&ndash;&gt;-->
-<!--&lt;!&ndash;    const loader = document.getElementById("loader");&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    /* ================= ELEMENTS ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    const pdfInput = document.getElementById("pdf");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    const filePreview = document.getElementById("filePreview");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    const fileNameSpan = document.getElementById("fileName");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    const chat = document.getElementById("chat");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    const loader = document.getElementById("loader");&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    /* ================= FILE PREVIEW ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;    pdfInput.addEventListener("change", () => {&ndash;&gt;-->
-<!--&lt;!&ndash;      if (pdfInput.files.length > 0) {&ndash;&gt;-->
-<!--&lt;!&ndash;        fileNameSpan.innerText = pdfInput.files[0].name;&ndash;&gt;-->
-<!--&lt;!&ndash;        filePreview.classList.remove("hidden");&ndash;&gt;-->
-<!--&lt;!&ndash;      }&ndash;&gt;-->
-<!--&lt;!&ndash;    });&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    /* ================= FILE PREVIEW ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    pdfInput.addEventListener("change", () => {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      if (pdfInput.files.length > 0) {&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        fileNameSpan.innerText = pdfInput.files[0].name;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        filePreview.classList.remove("hidden");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    });&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    function removeFile(){&ndash;&gt;-->
-<!--&lt;!&ndash;      pdfInput.value = "";&ndash;&gt;-->
-<!--&lt;!&ndash;      filePreview.classList.add("hidden");&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    function removeFile(){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      pdfInput.value = "";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      filePreview.classList.add("hidden");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    /* ================= CHAT HELPERS ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;    function addUserMessage(text){&ndash;&gt;-->
-<!--&lt;!&ndash;      const div=document.createElement("div");&ndash;&gt;-->
-<!--&lt;!&ndash;      div.className="msg user";&ndash;&gt;-->
-<!--&lt;!&ndash;      div.innerText=text;&ndash;&gt;-->
-<!--&lt;!&ndash;      chat.appendChild(div);&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    /* ================= CHAT HELPERS ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    function addUserMessage(text){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const div=document.createElement("div");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      div.className="msg user";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      div.innerText=text;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      chat.appendChild(div);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    function addBotMessage(text){&ndash;&gt;-->
-<!--&lt;!&ndash;      const div=document.createElement("div");&ndash;&gt;-->
-<!--&lt;!&ndash;      div.className="msg ai";&ndash;&gt;-->
-<!--&lt;!&ndash;      div.innerText=text;&ndash;&gt;-->
-<!--&lt;!&ndash;      chat.appendChild(div);&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    function addBotMessage(text){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const div=document.createElement("div");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      div.className="msg ai";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      div.innerText=text;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      chat.appendChild(div);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    /* ================= SPINNER ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;    function showSpinner(show){&ndash;&gt;-->
-<!--&lt;!&ndash;      loader.style.display = show ? "block" : "none";&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    /* ================= SPINNER ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    function showSpinner(show){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      loader.style.display = show ? "block" : "none";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;    /* ================= SUMMARIZE ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;    async function summarize(){&ndash;&gt;-->
-<!--&lt;!&ndash;      const file = pdfInput.files[0];&ndash;&gt;-->
-<!--&lt;!&ndash;      if(!file){&ndash;&gt;-->
-<!--&lt;!&ndash;        alert("Upload a PDF first");&ndash;&gt;-->
-<!--&lt;!&ndash;        return;&ndash;&gt;-->
-<!--&lt;!&ndash;      }&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    /* ================= SUMMARIZE ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    async function summarize(){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const file = pdfInput.files[0];&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      if(!file){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        alert("Upload a PDF first");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        return;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      }&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;      addUserMessage("Summarize this PDF");&ndash;&gt;-->
-<!--&lt;!&ndash;      showSpinner(true);&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      addUserMessage("Summarize this PDF");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      showSpinner(true);&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;      const fd=new FormData();&ndash;&gt;-->
-<!--&lt;!&ndash;      fd.append("file",file);&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const fd=new FormData();&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      fd.append("file",file);&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;      try{&ndash;&gt;-->
-<!--&lt;!&ndash;        const res=await fetch("/ai/summarize",{&ndash;&gt;-->
-<!--&lt;!&ndash;          method:"POST",&ndash;&gt;-->
-<!--&lt;!&ndash;          body:fd&ndash;&gt;-->
-<!--&lt;!&ndash;        });&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      try{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        const res=await fetch("/ai/summarize",{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          method:"POST",&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          body:fd&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        });&ndash;&gt;&ndash;&gt;-->
 
-<!--&lt;!&ndash;       const data = await res.json();&ndash;&gt;-->
-<!--&lt;!&ndash;addBotMessage(data.summary);&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;        const text =&ndash;&gt;-->
-<!--&lt;!&ndash;          data?.candidates?.[0]?.content?.parts?.[0]?.text&ndash;&gt;-->
-<!--&lt;!&ndash;          || "No summary generated";&ndash;&gt;-->
-
-<!--&lt;!&ndash;        addBotMessage(text);&ndash;&gt;-->
-
-<!--&lt;!&ndash;      }catch(e){&ndash;&gt;-->
-<!--&lt;!&ndash;        addBotMessage("❌ Failed to summarize PDF");&ndash;&gt;-->
-<!--&lt;!&ndash;      }&ndash;&gt;-->
-
-<!--&lt;!&ndash;      showSpinner(false);&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
-
-<!--&lt;!&ndash;    /* ================= LOGOUT ================= */&ndash;&gt;-->
-<!--&lt;!&ndash;    function logout(){&ndash;&gt;-->
-<!--&lt;!&ndash;      fetch("/logout",{method:"POST"})&ndash;&gt;-->
-<!--&lt;!&ndash;        .then(()=>location.href="/register.html");&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
-<!--&lt;!&ndash;</script>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;       const data = await res.json();&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;addBotMessage(data.summary);&ndash;&gt;&ndash;&gt;-->
 
 
-<!--&lt;!&ndash;</body>&ndash;&gt;-->
-<!--&lt;!&ndash;</html>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        const text =&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          data?.candidates?.[0]?.content?.parts?.[0]?.text&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          || "No summary generated";&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        addBotMessage(text);&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;      }catch(e){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        addBotMessage("❌ Failed to summarize PDF");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;      showSpinner(false);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    /* ================= LOGOUT ================= */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    function logout(){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      fetch("/logout",{method:"POST"})&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .then(()=>location.href="/register.html");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</script>&ndash;&gt;&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</html>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<html lang="en">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<head>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <title>AI PDF Summarizer | StudyHub</title>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    <style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        :root{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;bg:#0b0b0b;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;card:#151515;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;border:#2a2a2a;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;text:#ffffff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          &#45;&#45;muted:#b0b0b0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif}&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        body{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin:0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:var(&#45;&#45;bg);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:var(&#45;&#45;text);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          display:flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          justify-content:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:40px 20px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        /* ===== CONTAINER ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .container{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          width:100%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          max-width:880px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        /* ===== HEADER ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .header{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          display:flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          justify-content:space-between;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          align-items:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin-bottom:24px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .header h1{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-size:26px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-weight:700;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .logout{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:#fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:1px solid var(&#45;&#45;border);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:8px 14px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:10px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          cursor:pointer;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .logout:hover{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:#fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:#000;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        /* ===== CARD ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .card{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:var(&#45;&#45;card);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:1px solid var(&#45;&#45;border);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:18px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:26px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          box-shadow:0 30px 60px rgba(0,0,0,.7);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        /* ===== UPLOAD ===== */&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        .upload-box{&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          border:2px dashed #333;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          border-radius:16px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          padding:16px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          text-align:center;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          cursor:pointer;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          transition:.3s;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        .upload-box:hover{&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          border-color:#fff;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        .upload-box input{display:none}&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        .upload-box h3{&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          margin:0 0 3px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        .upload-box p{&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          color:var(&#45;&#45;muted);&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          margin:0;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;.upload-box{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  border:0.5px dashed #3a3a3a;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  border-radius:14px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  padding:5px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  text-align:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  cursor:pointer;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  transition:.25s;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  max-width:30px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  margin:0 auto 6px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;.upload-box:hover{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  border-color:#ffffff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;.upload-box h3{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  margin:0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  font-size:16px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  font-weight:600;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;.upload-box p{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  margin-top:6px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  font-size:13px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  color:#b0b0b0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        /* ===== FILE CHIP ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        .file-chip{&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          margin-top:16px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          background:#fff;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          color:#000;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          border-radius:14px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          padding:12px 16px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          display:flex;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          justify-content:space-between;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          align-items:center;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;          animation:fadeUp .3s ease;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;.file-chip{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  margin:14px auto 0;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  background:#ffffff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  color:#000;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  border-radius:12px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  padding:10px 14px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  display:flex;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  justify-content:space-between;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  align-items:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  max-width:520px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;  animation:fadeUp .3s ease;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .file-chip span{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-size:14px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .file-chip button{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-size:18px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          cursor:pointer;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        /* ===== ACTION ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .action{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin-top:22px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          text-align:center;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .action button{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:#fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          color:#000;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:14px 26px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:14px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          font-size:15px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          cursor:pointer;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .action button:hover{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          transform:translateY(-1px);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        /* ===== CHAT ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .chat{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin-top:26px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        .msg{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          background:#1e1e1e;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:1px solid var(&#45;&#45;border);&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:18px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          padding:18px 22px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          line-height:1.7;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          animation:fadeUp .35s ease;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          white-space:pre-wrap;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        /* ===== LOADER ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .loader{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          width:34px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          height:34px;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border:4px solid #333;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-top:4px solid #fff;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          border-radius:50%;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          animation:spin 1s linear infinite;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          margin:30px auto;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          display:none;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        /* ===== ANIMATIONS ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        @keyframes spin{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          to{transform:rotate(360deg)}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        @keyframes fadeUp{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          from{opacity:0;transform:translateY(10px)}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          to{opacity:1;transform:translateY(0)}&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </style>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</head>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<body>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div class="container">&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="header">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <h1>🤖 AI PDF Summarizer</h1>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <button class="logout" onclick="logout()">Logout</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    <div class="card">&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Upload &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <label class="upload-box">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <input type="file" id="pdf" accept="application/pdf" onchange="showFile()">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <h3>Upload PDF</h3>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <p>Click or drop your file here</p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </label>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Selected file &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div id="filePreview"></div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Action &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="action">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <button onclick="summarize()">Summarize PDF</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Loader &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="loader" id="loader"></div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        &lt;!&ndash; Output &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="chat" id="chat"></div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<script>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    /* ===== AUTH CHECK ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    fetch("/auth/status")&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      .then(r=>r.json())&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      .then(d=>{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        if(!d.role || d.role==="NOT_LOGGED_IN"){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          alert("Login required");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          location.href="/register.html";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      });&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    /* ===== FILE UI ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    function showFile(){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const file = document.getElementById("pdf").files[0];&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const box = document.getElementById("filePreview");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      if(!file){ box.innerHTML=""; return; }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;      box.innerHTML = `&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <div class="file-chip">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          <span>${file.name}</span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          <button onclick="removeFile()">×</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        </div>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      `;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    function removeFile(){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      document.getElementById("pdf").value="";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      document.getElementById("filePreview").innerHTML="";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    /* ===== SUMMARIZE ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    async function summarize(){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      const file = document.getElementById("pdf").files[0];&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      if(!file){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        alert("Upload a PDF first");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        return;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;      document.getElementById("loader").style.display="block";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      document.getElementById("chat").innerHTML="";&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;      const fd = new FormData();&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      fd.append("file", file);&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;      try{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        const res = await fetch("/ai/summarize",{method:"POST",body:fd});&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        const data = await res.json();&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;        document.getElementById("chat").innerHTML =&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          `<div class="msg">${data.summary || "No summary returned"}</div>`;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      }catch{&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        document.getElementById("chat").innerHTML =&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;          `<div class="msg">❌ Failed to summarize PDF</div>`;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;      document.getElementById("loader").style.display="none";&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    /* ===== LOGOUT ===== */&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    function logout(){&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;      fetch("/logout",{method:"POST"})&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        .then(()=>location.href="/register.html");&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    }&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</script>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</html>&ndash;&gt;&ndash;&gt;-->
 <!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
 <!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
 <!--&lt;!&ndash;<head>&ndash;&gt;-->
@@ -413,14 +728,19 @@
 <!--&lt;!&ndash;&lt;!&ndash;          margin:0;&ndash;&gt;&ndash;&gt;-->
 <!--&lt;!&ndash;&lt;!&ndash;        }&ndash;&gt;&ndash;&gt;-->
 <!--&lt;!&ndash;.upload-box{&ndash;&gt;-->
-<!--&lt;!&ndash;  border:0.5px dashed #3a3a3a;&ndash;&gt;-->
+<!--&lt;!&ndash;display:flex;&ndash;&gt;-->
+<!--&lt;!&ndash;flex-direction:coloumn;&ndash;&gt;-->
+<!--&lt;!&ndash;align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;padding: 30px 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;  border:2px dashed #3a3a3a;&ndash;&gt;-->
 <!--&lt;!&ndash;  border-radius:14px;&ndash;&gt;-->
-<!--&lt;!&ndash;  padding:5px;&ndash;&gt;-->
+
 <!--&lt;!&ndash;  text-align:center;&ndash;&gt;-->
 <!--&lt;!&ndash;  cursor:pointer;&ndash;&gt;-->
 <!--&lt;!&ndash;  transition:.25s;&ndash;&gt;-->
-<!--&lt;!&ndash;  max-width:30px;&ndash;&gt;-->
-<!--&lt;!&ndash;  margin:0 auto 6px;&ndash;&gt;-->
+
+
 <!--&lt;!&ndash;}&ndash;&gt;-->
 
 <!--&lt;!&ndash;.upload-box:hover{&ndash;&gt;-->
@@ -428,17 +748,22 @@
 <!--&lt;!&ndash;}&ndash;&gt;-->
 
 <!--&lt;!&ndash;.upload-box h3{&ndash;&gt;-->
-<!--&lt;!&ndash;  margin:0;&ndash;&gt;-->
+<!--&lt;!&ndash;  margin-top:10px;&ndash;&gt;-->
 <!--&lt;!&ndash;  font-size:16px;&ndash;&gt;-->
 <!--&lt;!&ndash;  font-weight:600;&ndash;&gt;-->
 <!--&lt;!&ndash;}&ndash;&gt;-->
 
 <!--&lt;!&ndash;.upload-box p{&ndash;&gt;-->
-<!--&lt;!&ndash;  margin-top:6px;&ndash;&gt;-->
-<!--&lt;!&ndash;  font-size:13px;&ndash;&gt;-->
+<!--&lt;!&ndash;  margin-top:10px;&ndash;&gt;-->
+<!--&lt;!&ndash;  margin-bottom:0px&ndash;&gt;-->
+<!--&lt;!&ndash;  font-size:10px;&ndash;&gt;-->
 <!--&lt;!&ndash;  color:#b0b0b0;&ndash;&gt;-->
+<!--&lt;!&ndash;  cursor:pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;  transition:.25s;&ndash;&gt;-->
 <!--&lt;!&ndash;}&ndash;&gt;-->
-
+<!--&lt;!&ndash;.upload-box p:hover{&ndash;&gt;-->
+<!--&lt;!&ndash;color:#ffffff;&ndash;&gt;-->
+<!--&lt;!&ndash;}&ndash;&gt;-->
 <!--&lt;!&ndash;        /* ===== FILE CHIP ===== */&ndash;&gt;-->
 <!--&lt;!&ndash;&lt;!&ndash;        .file-chip{&ndash;&gt;&ndash;&gt;-->
 <!--&lt;!&ndash;&lt;!&ndash;          margin-top:16px;&ndash;&gt;&ndash;&gt;-->
@@ -548,7 +873,7 @@
 <!--&lt;!&ndash;        <label class="upload-box">&ndash;&gt;-->
 <!--&lt;!&ndash;            <input type="file" id="pdf" accept="application/pdf" onchange="showFile()">&ndash;&gt;-->
 <!--&lt;!&ndash;            <h3>Upload PDF</h3>&ndash;&gt;-->
-<!--&lt;!&ndash;            <p>Click or drop your file here</p>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>&ndash;&gt;Click or drop your file here</p>&ndash;&gt;-->
 <!--&lt;!&ndash;        </label>&ndash;&gt;-->
 
 <!--&lt;!&ndash;        &lt;!&ndash; Selected file &ndash;&gt;&ndash;&gt;-->
@@ -626,11 +951,13 @@
 <!--&lt;!&ndash;      document.getElementById("loader").style.display="none";&ndash;&gt;-->
 <!--&lt;!&ndash;    }&ndash;&gt;-->
 
-<!--&lt;!&ndash;    /* ===== LOGOUT ===== */&ndash;&gt;-->
-<!--&lt;!&ndash;    function logout(){&ndash;&gt;-->
-<!--&lt;!&ndash;      fetch("/logout",{method:"POST"})&ndash;&gt;-->
-<!--&lt;!&ndash;        .then(()=>location.href="/register.html");&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+<!--&lt;!&ndash;   <script> /* ================= LOGOUT ================= */&ndash;&gt;-->
+<!--&lt;!&ndash;    function logout() {&ndash;&gt;-->
+
+<!--&lt;!&ndash;          alert("👋 Logged out");&ndash;&gt;-->
+<!--&lt;!&ndash;          location.href = "/register.html";&ndash;&gt;-->
+
+<!--&lt;!&ndash;    }</script>&ndash;&gt;-->
 <!--&lt;!&ndash;</script>&ndash;&gt;-->
 
 <!--&lt;!&ndash;</body>&ndash;&gt;-->
@@ -650,7 +977,10 @@
 <!--          &#45;&#45;muted:#b0b0b0;-->
 <!--        }-->
 
-<!--        *{box-sizing:border-box;font-family:Inter,system-ui,sans-serif}-->
+<!--        *{-->
+<!--          box-sizing:border-box;-->
+<!--          font-family:Inter,system-ui,sans-serif;-->
+<!--        }-->
 
 <!--        body{-->
 <!--          margin:0;-->
@@ -703,91 +1033,54 @@
 <!--          box-shadow:0 30px 60px rgba(0,0,0,.7);-->
 <!--        }-->
 
-<!--&lt;!&ndash;        /* ===== UPLOAD ===== */&ndash;&gt;-->
-<!--&lt;!&ndash;        .upload-box{&ndash;&gt;-->
-<!--&lt;!&ndash;          border:2px dashed #333;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:16px;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:16px;&ndash;&gt;-->
-<!--&lt;!&ndash;          text-align:center;&ndash;&gt;-->
-<!--&lt;!&ndash;          cursor:pointer;&ndash;&gt;-->
-<!--&lt;!&ndash;          transition:.3s;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--        /* ===== UPLOAD ===== */-->
+<!--        .upload-box{-->
+<!--          display:flex;-->
+<!--          flex-direction:column;-->
+<!--          align-items:center;-->
+<!--          justify-content:center;-->
+<!--          padding:30px 10px;-->
+<!--          border:2px dashed #3a3a3a;-->
+<!--          border-radius:14px;-->
+<!--          text-align:center;-->
+<!--          cursor:pointer;-->
+<!--          transition:.25s;-->
+<!--        }-->
 
-<!--&lt;!&ndash;        .upload-box:hover{&ndash;&gt;-->
-<!--&lt;!&ndash;          border-color:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--        .upload-box:hover{-->
+<!--          border-color:#ffffff;-->
+<!--        }-->
 
-<!--&lt;!&ndash;        .upload-box input{display:none}&ndash;&gt;-->
+<!--        .upload-box input{-->
+<!--          display:none;-->
+<!--        }-->
 
-<!--&lt;!&ndash;        .upload-box h3{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:0 0 3px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--        .upload-box h3{-->
+<!--          margin-top:10px;-->
+<!--          font-size:16px;-->
+<!--          font-weight:600;-->
+<!--        }-->
 
-<!--&lt;!&ndash;        .upload-box p{&ndash;&gt;-->
-<!--&lt;!&ndash;          color:var(&#45;&#45;muted);&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:0;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
-<!--.upload-box{-->
-<!--display:flex;-->
-<!--flex-direction:coloumn;-->
-<!--align-items: center;-->
-<!--justify-content: center;-->
-<!--padding: 30px 10px;-->
-<!--  border:2px dashed #3a3a3a;-->
-<!--  border-radius:14px;-->
+<!--        .upload-box p{-->
+<!--          margin-top:10px;-->
+<!--          margin-bottom:0;-->
+<!--          font-size:13px;-->
+<!--          color:var(&#45;&#45;muted);-->
+<!--        }-->
 
-<!--  text-align:center;-->
-<!--  cursor:pointer;-->
-<!--  transition:.25s;-->
-
-
-<!--}-->
-
-<!--.upload-box:hover{-->
-<!--  border-color:#ffffff;-->
-<!--}-->
-
-<!--.upload-box h3{-->
-<!--  margin-top:10px;-->
-<!--  font-size:16px;-->
-<!--  font-weight:600;-->
-<!--}-->
-
-<!--.upload-box p{-->
-<!--  margin-top:10px;-->
-<!--  margin-bottom:0px-->
-<!--  font-size:10px;-->
-<!--  color:#b0b0b0;-->
-<!--  cursor:pointer;-->
-<!--  transition:.25s;-->
-<!--}-->
-<!--.upload-box p:hover{-->
-<!--color:#ffffff;-->
-<!--}-->
 <!--        /* ===== FILE CHIP ===== */-->
-<!--&lt;!&ndash;        .file-chip{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-top:16px;&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#000;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:14px;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:12px 16px;&ndash;&gt;-->
-<!--&lt;!&ndash;          display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;          justify-content:space-between;&ndash;&gt;-->
-<!--&lt;!&ndash;          align-items:center;&ndash;&gt;-->
-<!--&lt;!&ndash;          animation:fadeUp .3s ease;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
-<!--.file-chip{-->
-<!--  margin:14px auto 0;-->
-<!--  background:#ffffff;-->
-<!--  color:#000;-->
-<!--  border-radius:12px;-->
-<!--  padding:10px 14px;-->
-<!--  display:flex;-->
-<!--  justify-content:space-between;-->
-<!--  align-items:center;-->
-<!--  max-width:520px;-->
-<!--  animation:fadeUp .3s ease;-->
-<!--}-->
+<!--        .file-chip{-->
+<!--          margin:14px auto 0;-->
+<!--          background:#ffffff;-->
+<!--          color:#000;-->
+<!--          border-radius:12px;-->
+<!--          padding:10px 14px;-->
+<!--          display:flex;-->
+<!--          justify-content:space-between;-->
+<!--          align-items:center;-->
+<!--          max-width:520px;-->
+<!--          animation:fadeUp .3s ease;-->
+<!--        }-->
 
 <!--        .file-chip span{-->
 <!--          font-size:14px;-->
@@ -851,6 +1144,7 @@
 <!--        @keyframes spin{-->
 <!--          to{transform:rotate(360deg)}-->
 <!--        }-->
+
 <!--        @keyframes fadeUp{-->
 <!--          from{opacity:0;transform:translateY(10px)}-->
 <!--          to{opacity:1;transform:translateY(0)}-->
@@ -873,7 +1167,7 @@
 <!--        <label class="upload-box">-->
 <!--            <input type="file" id="pdf" accept="application/pdf" onchange="showFile()">-->
 <!--            <h3>Upload PDF</h3>-->
-<!--            <p>&ndash;&gt;Click or drop your file here</p>-->
+<!--            <p>Click or drop your file here</p>-->
 <!--        </label>-->
 
 <!--        &lt;!&ndash; Selected file &ndash;&gt;-->
@@ -908,7 +1202,11 @@
 <!--    function showFile(){-->
 <!--      const file = document.getElementById("pdf").files[0];-->
 <!--      const box = document.getElementById("filePreview");-->
-<!--      if(!file){ box.innerHTML=""; return; }-->
+
+<!--      if(!file){-->
+<!--        box.innerHTML="";-->
+<!--        return;-->
+<!--      }-->
 
 <!--      box.innerHTML = `-->
 <!--        <div class="file-chip">-->
@@ -938,12 +1236,20 @@
 <!--      fd.append("file", file);-->
 
 <!--      try{-->
-<!--        const res = await fetch("/ai/summarize",{method:"POST",body:fd});-->
+<!--        const res = await fetch("/ai/summarize",{-->
+<!--          method:"POST",-->
+<!--          body:fd-->
+<!--        });-->
+
 <!--        const data = await res.json();-->
 
 <!--        document.getElementById("chat").innerHTML =-->
-<!--          `<div class="msg">${data.summary || "No summary returned"}</div>`;-->
-<!--      }catch{-->
+<!--          `<div class="msg">-->
+<!--  ${data.summary ? data.summary : (data.error || "No summary returned")}-->
+<!--</div>-->
+<!--`;-->
+<!--      }-->
+<!--      catch{-->
 <!--        document.getElementById("chat").innerHTML =-->
 <!--          `<div class="msg">❌ Failed to summarize PDF</div>`;-->
 <!--      }-->
@@ -951,13 +1257,11 @@
 <!--      document.getElementById("loader").style.display="none";-->
 <!--    }-->
 
-<!--   <script> /* ================= LOGOUT ================= */-->
-<!--    function logout() {-->
-
-<!--          alert("👋 Logged out");-->
-<!--          location.href = "/register.html";-->
-
-<!--    }</script>-->
+<!--    /* ===== LOGOUT ===== */-->
+<!--    function logout(){-->
+<!--      alert("👋 Logged out");-->
+<!--      location.href="/register.html";-->
+<!--    }-->
 <!--</script>-->
 
 <!--</body>-->
@@ -966,7 +1270,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI PDF Summarizer | StudyHub</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>AI PDF Chatbot | StudyHub</title>
 
     <style>
         :root{
@@ -974,30 +1279,29 @@
           --card:#151515;
           --border:#2a2a2a;
           --text:#ffffff;
-          --muted:#b0b0b0;
+          --muted:#a8a8a8;
+          --user:#ffffff;
+          --userText:#000000;
         }
 
         *{
+          margin:0;
+          padding:0;
           box-sizing:border-box;
           font-family:Inter,system-ui,sans-serif;
         }
 
         body{
-          margin:0;
           background:var(--bg);
           color:var(--text);
-          display:flex;
-          justify-content:center;
-          padding:40px 20px;
+          padding:40px 18px;
         }
 
-        /* ===== CONTAINER ===== */
         .container{
-          width:100%;
-          max-width:880px;
+          max-width:920px;
+          margin:auto;
         }
 
-        /* ===== HEADER ===== */
         .header{
           display:flex;
           justify-content:space-between;
@@ -1006,16 +1310,15 @@
         }
 
         .header h1{
-          font-size:26px;
-          font-weight:700;
+          font-size:28px;
         }
 
         .logout{
           background:none;
           color:#fff;
           border:1px solid var(--border);
-          padding:8px 14px;
-          border-radius:10px;
+          padding:10px 16px;
+          border-radius:12px;
           cursor:pointer;
         }
 
@@ -1024,31 +1327,30 @@
           color:#000;
         }
 
-        /* ===== CARD ===== */
         .card{
           background:var(--card);
           border:1px solid var(--border);
-          border-radius:18px;
-          padding:26px;
-          box-shadow:0 30px 60px rgba(0,0,0,.7);
+          border-radius:20px;
+          padding:24px;
+          box-shadow:0 20px 60px rgba(0,0,0,.6);
         }
 
-        /* ===== UPLOAD ===== */
+        /* upload */
         .upload-box{
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          justify-content:center;
-          padding:30px 10px;
-          border:2px dashed #3a3a3a;
-          border-radius:14px;
-          text-align:center;
-          cursor:pointer;
-          transition:.25s;
-        }
+                  display:flex;
+                  flex-direction:column;
+                  align-items:center;
+                  justify-content:center;
+                  padding:30px 10px;
+                  border:2px dashed #3a3a3a;
+                  border-radius:14px;
+                  text-align:center;
+                  cursor:pointer;
+                  transition:.25s;
+                }
 
         .upload-box:hover{
-          border-color:#ffffff;
+          border-color:#fff;
         }
 
         .upload-box input{
@@ -1057,78 +1359,112 @@
 
         .upload-box h3{
           margin-top:10px;
-          font-size:16px;
-          font-weight:600;
+          font-size:18px;
         }
 
         .upload-box p{
-          margin-top:10px;
-          margin-bottom:0;
-          font-size:13px;
           color:var(--muted);
-        }
-
-        /* ===== FILE CHIP ===== */
-        .file-chip{
-          margin:14px auto 0;
-          background:#ffffff;
-          color:#000;
-          border-radius:12px;
-          padding:10px 14px;
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          max-width:520px;
-          animation:fadeUp .3s ease;
-        }
-
-        .file-chip span{
+          margin-top:8px;
           font-size:14px;
         }
 
+        .file-chip{
+          margin-top:16px;
+          background:#fff;
+          color:#000;
+          padding:12px 16px;
+          border-radius:12px;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+        }
+
         .file-chip button{
-          background:none;
           border:none;
+          background:none;
           font-size:18px;
           cursor:pointer;
         }
 
-        /* ===== ACTION ===== */
-        .action{
-          margin-top:22px;
-          text-align:center;
+        /* buttons */
+        .actions{
+          display:flex;
+          gap:12px;
+          margin-top:18px;
+          flex-wrap:wrap;
         }
 
-        .action button{
+        .actions button{
+          flex:1;
+          min-width:180px;
           background:#fff;
           color:#000;
           border:none;
-          padding:14px 26px;
+          padding:14px;
           border-radius:14px;
-          font-size:15px;
+          font-weight:600;
           cursor:pointer;
         }
 
-        .action button:hover{
+        .actions button:hover{
           transform:translateY(-1px);
         }
 
-        /* ===== CHAT ===== */
+        /* ask box */
+        .ask-box{
+          margin-top:18px;
+          display:flex;
+          gap:10px;
+        }
+
+        .ask-box input{
+          flex:1;
+          background:#111;
+          color:#fff;
+          border:1px solid var(--border);
+          padding:14px;
+          border-radius:14px;
+          outline:none;
+        }
+
+        .ask-box button{
+          background:#fff;
+          color:#000;
+          border:none;
+          padding:0 18px;
+          border-radius:14px;
+          cursor:pointer;
+          font-weight:600;
+        }
+
+        /* chat */
         .chat{
-          margin-top:26px;
+          margin-top:22px;
+          display:flex;
+          flex-direction:column;
+          gap:14px;
         }
 
         .msg{
-          background:#1e1e1e;
-          border:1px solid var(--border);
+          max-width:85%;
+          padding:16px 18px;
           border-radius:18px;
-          padding:18px 22px;
-          line-height:1.7;
-          animation:fadeUp .35s ease;
+          line-height:1.6;
           white-space:pre-wrap;
         }
 
-        /* ===== LOADER ===== */
+        .user{
+          align-self:flex-end;
+          background:var(--user);
+          color:var(--userText);
+        }
+
+        .ai{
+          align-self:flex-start;
+          background:#1f1f1f;
+          border:1px solid var(--border);
+        }
+
         .loader{
           width:34px;
           height:34px;
@@ -1136,131 +1472,202 @@
           border-top:4px solid #fff;
           border-radius:50%;
           animation:spin 1s linear infinite;
-          margin:30px auto;
+          margin:18px auto;
           display:none;
         }
 
-        /* ===== ANIMATIONS ===== */
         @keyframes spin{
           to{transform:rotate(360deg)}
         }
 
-        @keyframes fadeUp{
-          from{opacity:0;transform:translateY(10px)}
-          to{opacity:1;transform:translateY(0)}
+        @media(max-width:700px){
+          .ask-box{
+            flex-direction:column;
+          }
+
+          .ask-box button{
+            height:50px;
+          }
+
+          .actions{
+            flex-direction:column;
+          }
+
+          .msg{
+            max-width:100%;
+          }
         }
     </style>
 </head>
 
 <body>
-
 <div class="container">
 
     <div class="header">
-        <h1>🤖 AI PDF Summarizer</h1>
+        <h1>🤖 AI PDF Chatbot</h1>
         <button class="logout" onclick="logout()">Logout</button>
     </div>
 
     <div class="card">
 
-        <!-- Upload -->
         <label class="upload-box">
             <input type="file" id="pdf" accept="application/pdf" onchange="showFile()">
             <h3>Upload PDF</h3>
-            <p>Click or drop your file here</p>
+            <p>Click or drop your PDF here</p>
         </label>
 
-        <!-- Selected file -->
         <div id="filePreview"></div>
 
-        <!-- Action -->
-        <div class="action">
+        <div class="actions">
             <button onclick="summarize()">Summarize PDF</button>
         </div>
 
-        <!-- Loader -->
+        <div class="ask-box">
+            <input type="text" id="question" placeholder="Ask any question from PDF...">
+            <button onclick="askQuestion()">Ask</button>
+        </div>
+
         <div class="loader" id="loader"></div>
 
-        <!-- Output -->
         <div class="chat" id="chat"></div>
 
     </div>
 </div>
 
 <script>
-    /* ===== AUTH CHECK ===== */
+
+    /* auth */
     fetch("/auth/status")
-      .then(r=>r.json())
-      .then(d=>{
-        if(!d.role || d.role==="NOT_LOGGED_IN"){
-          alert("Login required");
-          location.href="/register.html";
-        }
-      });
+    .then(r=>r.json())
+    .then(d=>{
+     if(!d.role || d.role==="NOT_LOGGED_IN"){
+       location.href="/register.html";
+     }
+    });
 
-    /* ===== FILE UI ===== */
+    /* file preview */
     function showFile(){
-      const file = document.getElementById("pdf").files[0];
-      const box = document.getElementById("filePreview");
+     const file=document.getElementById("pdf").files[0];
+     const box=document.getElementById("filePreview");
 
-      if(!file){
-        box.innerHTML="";
-        return;
-      }
+     if(!file){
+       box.innerHTML="";
+       return;
+     }
 
-      box.innerHTML = `
-        <div class="file-chip">
-          <span>${file.name}</span>
-          <button onclick="removeFile()">×</button>
-        </div>
-      `;
+     box.innerHTML=`
+     <div class="file-chip">
+       <span>${file.name}</span>
+       <button onclick="removeFile()">×</button>
+     </div>`;
     }
 
     function removeFile(){
-      document.getElementById("pdf").value="";
-      document.getElementById("filePreview").innerHTML="";
+     document.getElementById("pdf").value="";
+     document.getElementById("filePreview").innerHTML="";
     }
 
-    /* ===== SUMMARIZE ===== */
+    /* chat */
+    function addUser(text){
+     document.getElementById("chat").innerHTML +=
+     `<div class="msg user">${text}</div>`;
+    }
+
+    function addBot(text){
+     document.getElementById("chat").innerHTML +=
+     `<div class="msg ai">${text}</div>`;
+    }
+
+    /* loader */
+    function loading(show){
+     document.getElementById("loader").style.display =
+     show ? "block" : "none";
+    }
+
+    /* summarize */
     async function summarize(){
-      const file = document.getElementById("pdf").files[0];
-      if(!file){
-        alert("Upload a PDF first");
-        return;
-      }
 
-      document.getElementById("loader").style.display="block";
-      document.getElementById("chat").innerHTML="";
+     const file=document.getElementById("pdf").files[0];
 
-      const fd = new FormData();
-      fd.append("file", file);
+     if(!file){
+       alert("Upload PDF first");
+       return;
+     }
 
-      try{
-        const res = await fetch("/ai/summarize",{
-          method:"POST",
-          body:fd
-        });
+     addUser("Summarize this PDF");
+     loading(true);
 
-        const data = await res.json();
+     const fd=new FormData();
+     fd.append("file",file);
 
-        document.getElementById("chat").innerHTML =
-          `<div class="msg">
-  ${data.summary ? data.summary : (data.error || "No summary returned")}
-</div>
-`;
-      }
-      catch{
-        document.getElementById("chat").innerHTML =
-          `<div class="msg">❌ Failed to summarize PDF</div>`;
-      }
+     try{
+       const res=await fetch("/ai/summarize",{
+         method:"POST",
+         body:fd
+       });
 
-      document.getElementById("loader").style.display="none";
+       const data=await res.json();
+       addBot(data.summary || data.error || "No summary generated");
+     }
+     catch{
+       addBot("❌ Failed to summarize PDF");
+     }
+
+     loading(false);
     }
 
-    /* ===== LOGOUT ===== */
+    /* ask question */
+    async function askQuestion(){
+
+     const file=document.getElementById("pdf").files[0];
+     const q=document.getElementById("question").value.trim();
+
+     if(!file){
+       alert("Upload PDF first");
+       return;
+     }
+
+     if(q===""){
+       alert("Enter question");
+       return;
+     }
+
+     addUser(q);
+     loading(true);
+
+     const fd=new FormData();
+     fd.append("file",file);
+     fd.append("question",q);
+
+     document.getElementById("question").value="";
+
+     try{
+       const res=await fetch("/ai/ask",{
+         method:"POST",
+         body:fd
+       });
+
+       const data=await res.json();
+
+       addBot(data.answer || data.error || "No answer found");
+     }
+     catch{
+       addBot("❌ Failed to get answer");
+     }
+
+     loading(false);
+    }
+
+    /* enter key */
+    document.getElementById("question")
+    .addEventListener("keypress",function(e){
+     if(e.key==="Enter"){
+       askQuestion();
+     }
+    });
+
     function logout(){
-      alert("👋 Logged out");
-      location.href="/register.html";
+     location.href="/register.html";
     }
 </script>
 
