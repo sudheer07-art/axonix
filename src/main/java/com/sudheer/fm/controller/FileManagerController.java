@@ -1,7 +1,106 @@
+//////package com.sudheer.fm.controller;
+//////
+//////import com.sudheer.fm.entity.FileEntity;
+//////import com.sudheer.fm.model.FileInfo;
+//////import com.sudheer.fm.repository.FileRepository;
+//////import com.sudheer.fm.service.FileStorageService;
+//////import org.springframework.core.io.Resource;
+//////import org.springframework.http.ResponseEntity;
+//////import org.springframework.security.access.prepost.PreAuthorize;
+//////import org.springframework.web.bind.annotation.*;
+//////import org.springframework.web.multipart.MultipartFile;
+//////
+//////import java.util.List;
+//////
+//////@RestController
+//////@RequestMapping("/files")
+//////@CrossOrigin(origins = "*")
+//////public class FileManagerController {
+//////    private final FileRepository repo;
+//////    private final FileStorageService service;
+//////    public FileManagerController(FileRepository repo, FileStorageService storage) {
+//////        this.repo = repo;
+//////        this.storage = storage;
+//////    }
+//////
+//////    // 👨‍🏫 UPLOAD
+//////    @PostMapping("/upload")
+//////    public ResponseEntity<?> upload(
+//////            @RequestParam MultipartFile file,
+//////            @RequestParam String university,
+//////            @RequestParam String branch,
+//////            @RequestParam String semester,
+//////            @RequestParam String subject
+//////    ) throws Exception {
+//////
+//////        String path = storage.saveFile(file);
+//////
+//////        FileEntity f = new FileEntity();
+//////        f.setFilename(file.getOriginalFilename());
+//////        f.setUniversity(university);
+//////        f.setBranch(branch);
+//////        f.setSemester(semester);
+//////        f.setSubject(subject);
+//////        f.setFilepath(path);
+//////
+//////        repo.save(f);
+//////
+//////        return ResponseEntity.ok("Uploaded successfully");
+//////    }
+//////
+//////    // 👩‍🎓 FETCH FOR STUDENTS
+//////    @GetMapping("/list")
+//////    public List<FileEntity> list(
+//////            @RequestParam String university,
+//////            @RequestParam String branch,
+//////            @RequestParam String semester,
+//////            @RequestParam String subject
+//////    ) {
+//////        return repo.findByUniversityAndBranchAndSemesterAndSubject(
+//////                university, branch, semester, subject
+//////        );
+//////    }
+//////}
+//////    public FileManagerController(FileStorageService service) {
+//////        this.service = service;
+//////    }
+//////
+//////    // ================= UPLOAD (TEACHER ONLY) =================
+//////    @PostMapping("/upload")
+//////    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
+//////    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file)
+//////            throws Exception {
+//////
+//////        service.saveFile(file);
+//////        return ResponseEntity.ok("File uploaded successfully");
+//////    }
+//////
+//////    // ================= LIST (STUDENT + TEACHER) =================
+//////    @GetMapping("/list")
+//////    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
+//////    public List<FileInfo> listFiles() {
+//////        return service.getAllFiles();
+//////    }
+//////
+//////    // ================= DOWNLOAD (STUDENT + TEACHER) =================
+//////    @GetMapping("/download/{id}")
+//////    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
+//////    public ResponseEntity<Resource> download(@PathVariable Long id) {
+//////        return service.downloadFile(id);
+//////    }
+//////    // ================= DELETE (TEACHER ONLY) =================
+//////    @DeleteMapping("/delete/{id}")
+//////    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
+//////    public ResponseEntity<String> deleteFile(@PathVariable Long id) {
+//////
+//////        service.deleteFile(id);
+//////        return ResponseEntity.ok("File deleted successfully");
+//////    }
+//////
+//////}
 ////package com.sudheer.fm.controller;
 ////
 ////import com.sudheer.fm.entity.FileEntity;
-////import com.sudheer.fm.model.FileInfo;
 ////import com.sudheer.fm.repository.FileRepository;
 ////import com.sudheer.fm.service.FileStorageService;
 ////import org.springframework.core.io.Resource;
@@ -16,17 +115,20 @@
 ////@RequestMapping("/files")
 ////@CrossOrigin(origins = "*")
 ////public class FileManagerController {
+////
 ////    private final FileRepository repo;
-////    private final FileStorageService service;
+////    private final FileStorageService storage;
+////
 ////    public FileManagerController(FileRepository repo, FileStorageService storage) {
 ////        this.repo = repo;
 ////        this.storage = storage;
 ////    }
 ////
-////    // 👨‍🏫 UPLOAD
+////    // ===================== UPLOAD (TEACHER ONLY) =====================
 ////    @PostMapping("/upload")
-////    public ResponseEntity<?> upload(
-////            @RequestParam MultipartFile file,
+////    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
+////    public ResponseEntity<String> upload(
+////            @RequestParam("file") MultipartFile file,
 ////            @RequestParam String university,
 ////            @RequestParam String branch,
 ////            @RequestParam String semester,
@@ -35,21 +137,22 @@
 ////
 ////        String path = storage.saveFile(file);
 ////
-////        FileEntity f = new FileEntity();
-////        f.setFilename(file.getOriginalFilename());
-////        f.setUniversity(university);
-////        f.setBranch(branch);
-////        f.setSemester(semester);
-////        f.setSubject(subject);
-////        f.setFilepath(path);
+////        FileEntity entity = new FileEntity();
+////        entity.setFilename(file.getOriginalFilename());
+////        entity.setUniversity(university);
+////        entity.setBranch(branch);
+////        entity.setSemester(semester);
+////        entity.setSubject(subject);
+////        entity.setFilepath(path);
 ////
-////        repo.save(f);
+////        repo.save(entity);
 ////
-////        return ResponseEntity.ok("Uploaded successfully");
+////        return ResponseEntity.ok("File uploaded successfully");
 ////    }
 ////
-////    // 👩‍🎓 FETCH FOR STUDENTS
+////    // ===================== LIST (STUDENT + TEACHER) =====================
 ////    @GetMapping("/list")
+////    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
 ////    public List<FileEntity> list(
 ////            @RequestParam String university,
 ////            @RequestParam String branch,
@@ -60,43 +163,22 @@
 ////                university, branch, semester, subject
 ////        );
 ////    }
-////}
-////    public FileManagerController(FileStorageService service) {
-////        this.service = service;
-////    }
 ////
-////    // ================= UPLOAD (TEACHER ONLY) =================
-////    @PostMapping("/upload")
-////    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
-////    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file)
-////            throws Exception {
-////
-////        service.saveFile(file);
-////        return ResponseEntity.ok("File uploaded successfully");
-////    }
-////
-////    // ================= LIST (STUDENT + TEACHER) =================
-////    @GetMapping("/list")
-////    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
-////    public List<FileInfo> listFiles() {
-////        return service.getAllFiles();
-////    }
-////
-////    // ================= DOWNLOAD (STUDENT + TEACHER) =================
+////    // ===================== DOWNLOAD (STUDENT + TEACHER) =====================
 ////    @GetMapping("/download/{id}")
 ////    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
 ////    public ResponseEntity<Resource> download(@PathVariable Long id) {
-////        return service.downloadFile(id);
+////        return storage.downloadFile(id);
 ////    }
-////    // ================= DELETE (TEACHER ONLY) =================
+////
+////    // ===================== DELETE (TEACHER ONLY) =====================
 ////    @DeleteMapping("/delete/{id}")
 ////    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
-////    public ResponseEntity<String> deleteFile(@PathVariable Long id) {
-////
-////        service.deleteFile(id);
+////    public ResponseEntity<String> delete(@PathVariable Long id) {
+////        storage.deleteFile(id);
+////        repo.deleteById(id);
 ////        return ResponseEntity.ok("File deleted successfully");
 ////    }
-////
 ////}
 //package com.sudheer.fm.controller;
 //
@@ -113,7 +195,6 @@
 //
 //@RestController
 //@RequestMapping("/files")
-//@CrossOrigin(origins = "*")
 //public class FileManagerController {
 //
 //    private final FileRepository repo;
@@ -124,11 +205,11 @@
 //        this.storage = storage;
 //    }
 //
-//    // ===================== UPLOAD (TEACHER ONLY) =====================
+//    // 👨‍🏫 UPLOAD
 //    @PostMapping("/upload")
 //    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
 //    public ResponseEntity<String> upload(
-//            @RequestParam("file") MultipartFile file,
+//            @RequestParam MultipartFile file,
 //            @RequestParam String university,
 //            @RequestParam String branch,
 //            @RequestParam String semester,
@@ -137,22 +218,21 @@
 //
 //        String path = storage.saveFile(file);
 //
-//        FileEntity entity = new FileEntity();
-//        entity.setFilename(file.getOriginalFilename());
-//        entity.setUniversity(university);
-//        entity.setBranch(branch);
-//        entity.setSemester(semester);
-//        entity.setSubject(subject);
-//        entity.setFilepath(path);
+//        FileEntity f = new FileEntity();
+//        f.setFilename(file.getOriginalFilename());
+//        f.setUniversity(university);
+//        f.setBranch(branch);
+//        f.setSemester(semester);
+//        f.setSubject(subject);
+//        f.setFilepath(path);
 //
-//        repo.save(entity);
-//
-//        return ResponseEntity.ok("File uploaded successfully");
+//        repo.save(f);
+//        return ResponseEntity.ok("Uploaded");
 //    }
 //
-//    // ===================== LIST (STUDENT + TEACHER) =====================
-//    @GetMapping("/list")
+//    // 👩‍🎓 LIST
 //    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
+//    @GetMapping("/list")
 //    public List<FileEntity> list(
 //            @RequestParam String university,
 //            @RequestParam String branch,
@@ -164,20 +244,25 @@
 //        );
 //    }
 //
-//    // ===================== DOWNLOAD (STUDENT + TEACHER) =====================
-//    @GetMapping("/download/{id}")
+//    // 📥 DOWNLOAD
 //    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
-//    public ResponseEntity<Resource> download(@PathVariable Long id) {
-//        return storage.downloadFile(id);
+//    @GetMapping("/download/{id}")
+//    public ResponseEntity<Resource> download(@PathVariable Long id) throws Exception {
+//        FileEntity f = repo.findById(id).orElseThrow();
+//        Resource res = storage.loadFile(f.getFilepath());
+//        return ResponseEntity.ok()
+//                .header("Content-Disposition", "attachment; filename=\"" + f.getFilename() + "\"")
+//                .body(res);
 //    }
 //
-//    // ===================== DELETE (TEACHER ONLY) =====================
+//    // ❌ DELETE (TEACHER)
 //    @DeleteMapping("/delete/{id}")
 //    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
-//    public ResponseEntity<String> delete(@PathVariable Long id) {
-//        storage.deleteFile(id);
-//        repo.deleteById(id);
-//        return ResponseEntity.ok("File deleted successfully");
+//    public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
+//        FileEntity f = repo.findById(id).orElseThrow();
+//        storage.deleteFile(f.getFilepath());
+//        repo.delete(f);
+//        return ResponseEntity.ok("Deleted");
 //    }
 //}
 package com.sudheer.fm.controller;
@@ -186,6 +271,8 @@ import com.sudheer.fm.entity.FileEntity;
 import com.sudheer.fm.repository.FileRepository;
 import com.sudheer.fm.service.FileStorageService;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -195,6 +282,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/files")
+@CrossOrigin(origins="*")
 public class FileManagerController {
 
     private final FileRepository repo;
@@ -205,7 +293,7 @@ public class FileManagerController {
         this.storage = storage;
     }
 
-    // 👨‍🏫 UPLOAD
+    // UPLOAD
     @PostMapping("/upload")
     @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     public ResponseEntity<String> upload(
@@ -227,12 +315,13 @@ public class FileManagerController {
         f.setFilepath(path);
 
         repo.save(f);
-        return ResponseEntity.ok("Uploaded");
+
+        return ResponseEntity.ok("Uploaded Successfully");
     }
 
-    // 👩‍🎓 LIST
-    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
+    // LIST
     @GetMapping("/list")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
     public List<FileEntity> list(
             @RequestParam String university,
             @RequestParam String branch,
@@ -244,24 +333,38 @@ public class FileManagerController {
         );
     }
 
-    // 📥 DOWNLOAD
-    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
+    // DOWNLOAD
     @GetMapping("/download/{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_STUDENT','ROLE_TEACHER')")
     public ResponseEntity<Resource> download(@PathVariable Long id) throws Exception {
-        FileEntity f = repo.findById(id).orElseThrow();
-        Resource res = storage.loadFile(f.getFilepath());
+
+        FileEntity f = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("File not found"));
+
+        Resource resource = storage.loadFile(f.getFilepath());
+
+        if (!resource.exists()) {
+            throw new RuntimeException("Physical file missing");
+        }
+
         return ResponseEntity.ok()
-                .header("Content-Disposition", "attachment; filename=\"" + f.getFilename() + "\"")
-                .body(res);
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + f.getFilename() + "\"")
+                .body(resource);
     }
 
-    // ❌ DELETE (TEACHER)
+    // DELETE
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
-        FileEntity f = repo.findById(id).orElseThrow();
+
+        FileEntity f = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("File not found"));
+
         storage.deleteFile(f.getFilepath());
         repo.delete(f);
-        return ResponseEntity.ok("Deleted");
+
+        return ResponseEntity.ok("Deleted Successfully");
     }
 }
