@@ -1974,339 +1974,339 @@
 
 <!--&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;-->
 <!--&lt;!&ndash;&lt;!&ndash;</html>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
-<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
-<!--&lt;!&ndash;<head>&ndash;&gt;-->
-<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
-<!--&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
-<!--&lt;!&ndash;    <title>AI PDF Chatbot</title>&ndash;&gt;-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI PDF Chatbot</title>
 
-<!--&lt;!&ndash;    <style>&ndash;&gt;-->
-<!--&lt;!&ndash;        :root{&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;bg:#0b0b0b;&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;border:#2a2a2a;&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;text:#ffffff;&ndash;&gt;-->
-<!--&lt;!&ndash;          &#45;&#45;muted:#aaaaaa;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+    <style>
+        :root{
+          --bg:#0b0b0b;
+          --border:#2a2a2a;
+          --text:#ffffff;
+          --muted:#aaaaaa;
+        }
 
-<!--&lt;!&ndash;        *{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:0;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:0;&ndash;&gt;-->
-<!--&lt;!&ndash;          box-sizing:border-box;&ndash;&gt;-->
-<!--&lt;!&ndash;          font-family:Inter,system-ui,sans-serif;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        *{
+          margin:0;
+          padding:0;
+          box-sizing:border-box;
+          font-family:Inter,system-ui,sans-serif;
+        }
 
-<!--&lt;!&ndash;        body{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:var(&#45;&#45;bg);&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          height:100vh;&ndash;&gt;-->
-<!--&lt;!&ndash;          overflow:hidden;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        body{
+          background:var(--bg);
+          color:#fff;
+          height:100vh;
+          overflow:hidden;
+        }
 
-<!--&lt;!&ndash;        .container{&ndash;&gt;-->
-<!--&lt;!&ndash;          max-width:950px;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:auto;&ndash;&gt;-->
-<!--&lt;!&ndash;          height:100vh;&ndash;&gt;-->
-<!--&lt;!&ndash;          display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;          flex-direction:column;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .container{
+          max-width:950px;
+          margin:auto;
+          height:100vh;
+          display:flex;
+          flex-direction:column;
+        }
 
-<!--&lt;!&ndash;        /* header */&ndash;&gt;-->
-<!--&lt;!&ndash;        .header{&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:18px 20px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-bottom:1px solid var(&#45;&#45;border);&ndash;&gt;-->
-<!--&lt;!&ndash;          display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;          justify-content:space-between;&ndash;&gt;-->
-<!--&lt;!&ndash;          align-items:center;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        /* header */
+        .header{
+          padding:18px 20px;
+          border-bottom:1px solid var(--border);
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+        }
 
-<!--&lt;!&ndash;        .header h1{&ndash;&gt;-->
-<!--&lt;!&ndash;          font-size:24px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .header h1{
+          font-size:24px;
+        }
 
-<!--&lt;!&ndash;        .logout{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:none;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:1px solid var(&#45;&#45;border);&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:10px 14px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:12px;&ndash;&gt;-->
-<!--&lt;!&ndash;          cursor:pointer;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .logout{
+          background:none;
+          color:#fff;
+          border:1px solid var(--border);
+          padding:10px 14px;
+          border-radius:12px;
+          cursor:pointer;
+        }
 
-<!--&lt;!&ndash;        /* upload */&ndash;&gt;-->
-<!--&lt;!&ndash;        .upload-box{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:18px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:2px dashed #3a3a3a;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:16px;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:24px;&ndash;&gt;-->
-<!--&lt;!&ndash;          text-align:center;&ndash;&gt;-->
-<!--&lt;!&ndash;          cursor:pointer;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        /* upload */
+        .upload-box{
+          margin:18px;
+          border:2px dashed #3a3a3a;
+          border-radius:16px;
+          padding:24px;
+          text-align:center;
+          cursor:pointer;
+        }
 
-<!--&lt;!&ndash;        .upload-box:hover{&ndash;&gt;-->
-<!--&lt;!&ndash;          border-color:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .upload-box:hover{
+          border-color:#fff;
+        }
 
-<!--&lt;!&ndash;        .upload-box input{&ndash;&gt;-->
-<!--&lt;!&ndash;          display:none;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .upload-box input{
+          display:none;
+        }
 
-<!--&lt;!&ndash;        .upload-box p{&ndash;&gt;-->
-<!--&lt;!&ndash;          color:var(&#45;&#45;muted);&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-top:8px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .upload-box p{
+          color:var(--muted);
+          margin-top:8px;
+        }
 
-<!--&lt;!&ndash;        .file-chip{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:0 18px 10px;&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#000;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:12px 14px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:12px;&ndash;&gt;-->
-<!--&lt;!&ndash;          display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;          justify-content:space-between;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .file-chip{
+          margin:0 18px 10px;
+          background:#fff;
+          color:#000;
+          padding:12px 14px;
+          border-radius:12px;
+          display:flex;
+          justify-content:space-between;
+        }
 
-<!--&lt;!&ndash;        /* chat */&ndash;&gt;-->
-<!--&lt;!&ndash;        .chat{&ndash;&gt;-->
-<!--&lt;!&ndash;          flex:1;&ndash;&gt;-->
-<!--&lt;!&ndash;          overflow-y:auto;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:10px 18px 130px;&ndash;&gt;-->
-<!--&lt;!&ndash;          scroll-behavior:smooth;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        /* chat */
+        .chat{
+          flex:1;
+          overflow-y:auto;
+          padding:10px 18px 130px;
+          scroll-behavior:smooth;
+        }
 
-<!--&lt;!&ndash;        .msg{&ndash;&gt;-->
-<!--&lt;!&ndash;          max-width:82%;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:16px 18px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:18px;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-bottom:14px;&ndash;&gt;-->
-<!--&lt;!&ndash;          line-height:1.6;&ndash;&gt;-->
-<!--&lt;!&ndash;          white-space:pre-wrap;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .msg{
+          max-width:82%;
+          padding:16px 18px;
+          border-radius:18px;
+          margin-bottom:14px;
+          line-height:1.6;
+          white-space:pre-wrap;
+        }
 
-<!--&lt;!&ndash;        .user{&ndash;&gt;-->
-<!--&lt;!&ndash;          margin-left:auto;&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#000;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .user{
+          margin-left:auto;
+          background:#fff;
+          color:#000;
+        }
 
-<!--&lt;!&ndash;        .ai{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#1d1d1d;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:1px solid #2a2a2a;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .ai{
+          background:#1d1d1d;
+          border:1px solid #2a2a2a;
+        }
 
-<!--&lt;!&ndash;        /* spinner no box */&ndash;&gt;-->
-<!--&lt;!&ndash;        .center-loader{&ndash;&gt;-->
-<!--&lt;!&ndash;          display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;          justify-content:center;&ndash;&gt;-->
-<!--&lt;!&ndash;          align-items:center;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:20px 0;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        /* spinner no box */
+        .center-loader{
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          margin:20px 0;
+        }
 
-<!--&lt;!&ndash;        .spinner{&ndash;&gt;-->
-<!--&lt;!&ndash;          width:36px;&ndash;&gt;-->
-<!--&lt;!&ndash;          height:36px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:4px solid #333;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-top:4px solid #fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:50%;&ndash;&gt;-->
-<!--&lt;!&ndash;          animation:spin .8s linear infinite;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .spinner{
+          width:36px;
+          height:36px;
+          border:4px solid #333;
+          border-top:4px solid #fff;
+          border-radius:50%;
+          animation:spin .8s linear infinite;
+        }
 
-<!--&lt;!&ndash;        @keyframes spin{&ndash;&gt;-->
-<!--&lt;!&ndash;          to{transform:rotate(360deg);}&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        @keyframes spin{
+          to{transform:rotate(360deg);}
+        }
 
-<!--&lt;!&ndash;        /* bottom */&ndash;&gt;-->
-<!--&lt;!&ndash;        .bottom-box{&ndash;&gt;-->
-<!--&lt;!&ndash;          position:fixed;&ndash;&gt;-->
-<!--&lt;!&ndash;          left:0;&ndash;&gt;-->
-<!--&lt;!&ndash;          right:0;&ndash;&gt;-->
-<!--&lt;!&ndash;          bottom:0;&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#0b0b0b;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-top:1px solid var(&#45;&#45;border);&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:14px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        /* bottom */
+        .bottom-box{
+          position:fixed;
+          left:0;
+          right:0;
+          bottom:0;
+          background:#0b0b0b;
+          border-top:1px solid var(--border);
+          padding:14px;
+        }
 
-<!--&lt;!&ndash;        .bottom-inner{&ndash;&gt;-->
-<!--&lt;!&ndash;          max-width:950px;&ndash;&gt;-->
-<!--&lt;!&ndash;          margin:auto;&ndash;&gt;-->
-<!--&lt;!&ndash;          display:flex;&ndash;&gt;-->
-<!--&lt;!&ndash;          gap:10px;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .bottom-inner{
+          max-width:950px;
+          margin:auto;
+          display:flex;
+          gap:10px;
+        }
 
-<!--&lt;!&ndash;        .bottom-inner input{&ndash;&gt;-->
-<!--&lt;!&ndash;          flex:1;&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#1a1a1a;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:1px solid #2a2a2a;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:16px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:14px;&ndash;&gt;-->
-<!--&lt;!&ndash;          outline:none;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .bottom-inner input{
+          flex:1;
+          background:#1a1a1a;
+          border:1px solid #2a2a2a;
+          color:#fff;
+          padding:16px;
+          border-radius:14px;
+          outline:none;
+        }
 
-<!--&lt;!&ndash;        .bottom-inner button{&ndash;&gt;-->
-<!--&lt;!&ndash;          background:#fff;&ndash;&gt;-->
-<!--&lt;!&ndash;          color:#000;&ndash;&gt;-->
-<!--&lt;!&ndash;          border:none;&ndash;&gt;-->
-<!--&lt;!&ndash;          padding:0 22px;&ndash;&gt;-->
-<!--&lt;!&ndash;          border-radius:14px;&ndash;&gt;-->
-<!--&lt;!&ndash;          cursor:pointer;&ndash;&gt;-->
-<!--&lt;!&ndash;          font-weight:600;&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
+        .bottom-inner button{
+          background:#fff;
+          color:#000;
+          border:none;
+          padding:0 22px;
+          border-radius:14px;
+          cursor:pointer;
+          font-weight:600;
+        }
 
-<!--&lt;!&ndash;        @media(max-width:700px){&ndash;&gt;-->
-<!--&lt;!&ndash;         .msg{max-width:100%;}&ndash;&gt;-->
-<!--&lt;!&ndash;        }&ndash;&gt;-->
-<!--&lt;!&ndash;    </style>&ndash;&gt;-->
-<!--&lt;!&ndash;</head>&ndash;&gt;-->
+        @media(max-width:700px){
+         .msg{max-width:100%;}
+        }
+    </style>
+</head>
 
-<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<body>
 
-<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<div class="container">
 
-<!--&lt;!&ndash;    <div class="header">&ndash;&gt;-->
-<!--&lt;!&ndash;        <h1>🤖 AI PDF Chatbot</h1>&ndash;&gt;-->
-<!--&lt;!&ndash;        <button class="logout" onclick="logout()">Logout</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+    <div class="header">
+        <h1>🤖 AI PDF Chatbot</h1>
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
 
-<!--&lt;!&ndash;    <label class="upload-box">&ndash;&gt;-->
-<!--&lt;!&ndash;        <input type="file" id="pdf" accept="application/pdf" onchange="showFile()">&ndash;&gt;-->
-<!--&lt;!&ndash;        <h3>Upload PDF</h3>&ndash;&gt;-->
-<!--&lt;!&ndash;        <p>Click or drop your PDF here</p>&ndash;&gt;-->
-<!--&lt;!&ndash;    </label>&ndash;&gt;-->
+    <label class="upload-box">
+        <input type="file" id="pdf" accept="application/pdf" onchange="showFile()">
+        <h3>Upload PDF</h3>
+        <p>Click or drop your PDF here</p>
+    </label>
 
-<!--&lt;!&ndash;    <div id="filePreview"></div>&ndash;&gt;-->
+    <div id="filePreview"></div>
 
-<!--&lt;!&ndash;    <div class="chat" id="chat"></div>&ndash;&gt;-->
+    <div class="chat" id="chat"></div>
 
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
+</div>
 
-<!--&lt;!&ndash;<div class="bottom-box">&ndash;&gt;-->
-<!--&lt;!&ndash;    <div class="bottom-inner">&ndash;&gt;-->
-<!--&lt;!&ndash;        <input type="text" id="question" placeholder="Ask anything from your PDF...">&ndash;&gt;-->
-<!--&lt;!&ndash;        <button onclick="askQuestion()">Send</button>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<div class="bottom-box">
+    <div class="bottom-inner">
+        <input type="text" id="question" placeholder="Ask anything from your PDF...">
+        <button onclick="askQuestion()">Send</button>
+    </div>
+</div>
 
-<!--&lt;!&ndash;<script>&ndash;&gt;-->
+<script>
 
-<!--&lt;!&ndash;    const chat=document.getElementById("chat");&ndash;&gt;-->
+    const chat=document.getElementById("chat");
 
-<!--&lt;!&ndash;    /* auth */&ndash;&gt;-->
-<!--&lt;!&ndash;    fetch("/auth/status")&ndash;&gt;-->
-<!--&lt;!&ndash;    .then(r=>r.json())&ndash;&gt;-->
-<!--&lt;!&ndash;    .then(d=>{&ndash;&gt;-->
-<!--&lt;!&ndash;     if(!d.role || d.role==="NOT_LOGGED_IN"){&ndash;&gt;-->
-<!--&lt;!&ndash;       location.href="/register.html";&ndash;&gt;-->
-<!--&lt;!&ndash;     }&ndash;&gt;-->
-<!--&lt;!&ndash;    });&ndash;&gt;-->
+    /* auth */
+    fetch("/auth/status")
+    .then(r=>r.json())
+    .then(d=>{
+     if(!d.role || d.role==="NOT_LOGGED_IN"){
+       location.href="/register.html";
+     }
+    });
 
-<!--&lt;!&ndash;    /* file preview */&ndash;&gt;-->
-<!--&lt;!&ndash;    function showFile(){&ndash;&gt;-->
-<!--&lt;!&ndash;     const file=document.getElementById("pdf").files[0];&ndash;&gt;-->
-<!--&lt;!&ndash;     const box=document.getElementById("filePreview");&ndash;&gt;-->
+    /* file preview */
+    function showFile(){
+     const file=document.getElementById("pdf").files[0];
+     const box=document.getElementById("filePreview");
 
-<!--&lt;!&ndash;     if(!file){&ndash;&gt;-->
-<!--&lt;!&ndash;       box.innerHTML="";&ndash;&gt;-->
-<!--&lt;!&ndash;       return;&ndash;&gt;-->
-<!--&lt;!&ndash;     }&ndash;&gt;-->
+     if(!file){
+       box.innerHTML="";
+       return;
+     }
 
-<!--&lt;!&ndash;     box.innerHTML=`&ndash;&gt;-->
-<!--&lt;!&ndash;     <div class="file-chip">&ndash;&gt;-->
-<!--&lt;!&ndash;       <span>${file.name}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;       <span style="cursor:pointer" onclick="removeFile()">✕</span>&ndash;&gt;-->
-<!--&lt;!&ndash;     </div>`;&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+     box.innerHTML=`
+     <div class="file-chip">
+       <span>${file.name}</span>
+       <span style="cursor:pointer" onclick="removeFile()">✕</span>
+     </div>`;
+    }
 
-<!--&lt;!&ndash;    function removeFile(){&ndash;&gt;-->
-<!--&lt;!&ndash;     document.getElementById("pdf").value="";&ndash;&gt;-->
-<!--&lt;!&ndash;     document.getElementById("filePreview").innerHTML="";&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+    function removeFile(){
+     document.getElementById("pdf").value="";
+     document.getElementById("filePreview").innerHTML="";
+    }
 
-<!--&lt;!&ndash;    /* messages */&ndash;&gt;-->
-<!--&lt;!&ndash;    function addUser(text){&ndash;&gt;-->
-<!--&lt;!&ndash;     chat.innerHTML += `<div class="msg user">${text}</div>`;&ndash;&gt;-->
-<!--&lt;!&ndash;     scrollBottom();&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+    /* messages */
+    function addUser(text){
+     chat.innerHTML += `<div class="msg user">${text}</div>`;
+     scrollBottom();
+    }
 
-<!--&lt;!&ndash;    function addBot(text){&ndash;&gt;-->
-<!--&lt;!&ndash;     chat.innerHTML += `<div class="msg ai">${text}</div>`;&ndash;&gt;-->
-<!--&lt;!&ndash;     scrollBottom();&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+    function addBot(text){
+     chat.innerHTML += `<div class="msg ai">${text}</div>`;
+     scrollBottom();
+    }
 
-<!--&lt;!&ndash;    function scrollBottom(){&ndash;&gt;-->
-<!--&lt;!&ndash;     setTimeout(()=>{&ndash;&gt;-->
-<!--&lt;!&ndash;       chat.scrollTop=chat.scrollHeight;&ndash;&gt;-->
-<!--&lt;!&ndash;     },100);&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+    function scrollBottom(){
+     setTimeout(()=>{
+       chat.scrollTop=chat.scrollHeight;
+     },100);
+    }
 
-<!--&lt;!&ndash;    /* spinner without box */&ndash;&gt;-->
-<!--&lt;!&ndash;    function showThinking(){&ndash;&gt;-->
-<!--&lt;!&ndash;     chat.innerHTML += `&ndash;&gt;-->
-<!--&lt;!&ndash;     <div id="typingLoader" class="center-loader">&ndash;&gt;-->
-<!--&lt;!&ndash;       <div class="spinner"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;     </div>`;&ndash;&gt;-->
-<!--&lt;!&ndash;     scrollBottom();&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+    /* spinner without box */
+    function showThinking(){
+     chat.innerHTML += `
+     <div id="typingLoader" class="center-loader">
+       <div class="spinner"></div>
+     </div>`;
+     scrollBottom();
+    }
 
-<!--&lt;!&ndash;    function hideThinking(){&ndash;&gt;-->
-<!--&lt;!&ndash;     const loader=document.getElementById("typingLoader");&ndash;&gt;-->
-<!--&lt;!&ndash;     if(loader) loader.remove();&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+    function hideThinking(){
+     const loader=document.getElementById("typingLoader");
+     if(loader) loader.remove();
+    }
 
-<!--&lt;!&ndash;    /* ask */&ndash;&gt;-->
-<!--&lt;!&ndash;    async function askQuestion(){&ndash;&gt;-->
+    /* ask */
+    async function askQuestion(){
 
-<!--&lt;!&ndash;     const file=document.getElementById("pdf").files[0];&ndash;&gt;-->
-<!--&lt;!&ndash;     const q=document.getElementById("question").value.trim();&ndash;&gt;-->
+     const file=document.getElementById("pdf").files[0];
+     const q=document.getElementById("question").value.trim();
 
-<!--&lt;!&ndash;     if(!file){&ndash;&gt;-->
-<!--&lt;!&ndash;       alert("Upload PDF first");&ndash;&gt;-->
-<!--&lt;!&ndash;       return;&ndash;&gt;-->
-<!--&lt;!&ndash;     }&ndash;&gt;-->
+     if(!file){
+       alert("Upload PDF first");
+       return;
+     }
 
-<!--&lt;!&ndash;     if(q==="") return;&ndash;&gt;-->
+     if(q==="") return;
 
-<!--&lt;!&ndash;     addUser(q);&ndash;&gt;-->
-<!--&lt;!&ndash;     document.getElementById("question").value="";&ndash;&gt;-->
+     addUser(q);
+     document.getElementById("question").value="";
 
-<!--&lt;!&ndash;     showThinking();&ndash;&gt;-->
+     showThinking();
 
-<!--&lt;!&ndash;     const fd=new FormData();&ndash;&gt;-->
-<!--&lt;!&ndash;     fd.append("file",file);&ndash;&gt;-->
-<!--&lt;!&ndash;     fd.append("question",q);&ndash;&gt;-->
+     const fd=new FormData();
+     fd.append("file",file);
+     fd.append("question",q);
 
-<!--&lt;!&ndash;     try{&ndash;&gt;-->
-<!--&lt;!&ndash;       const res=await fetch("/ai/ask",{&ndash;&gt;-->
-<!--&lt;!&ndash;         method:"POST",&ndash;&gt;-->
-<!--&lt;!&ndash;         body:fd&ndash;&gt;-->
-<!--&lt;!&ndash;       });&ndash;&gt;-->
+     try{
+       const res=await fetch("/ai/ask",{
+         method:"POST",
+         body:fd
+       });
 
-<!--&lt;!&ndash;       const data=await res.json();&ndash;&gt;-->
+       const data=await res.json();
 
-<!--&lt;!&ndash;       hideThinking();&ndash;&gt;-->
-<!--&lt;!&ndash;       addBot(data.answer || "No answer found");&ndash;&gt;-->
-<!--&lt;!&ndash;     }&ndash;&gt;-->
-<!--&lt;!&ndash;     catch{&ndash;&gt;-->
-<!--&lt;!&ndash;       hideThinking();&ndash;&gt;-->
-<!--&lt;!&ndash;       addBot("❌ Failed to get answer");&ndash;&gt;-->
-<!--&lt;!&ndash;     }&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+       hideThinking();
+       addBot(data.answer || "No answer found");
+     }
+     catch{
+       hideThinking();
+       addBot("❌ Failed to get answer");
+     }
+    }
 
-<!--&lt;!&ndash;    document.getElementById("question")&ndash;&gt;-->
-<!--&lt;!&ndash;    .addEventListener("keypress",function(e){&ndash;&gt;-->
-<!--&lt;!&ndash;     if(e.key==="Enter"){&ndash;&gt;-->
-<!--&lt;!&ndash;       askQuestion();&ndash;&gt;-->
-<!--&lt;!&ndash;     }&ndash;&gt;-->
-<!--&lt;!&ndash;    });&ndash;&gt;-->
+    document.getElementById("question")
+    .addEventListener("keypress",function(e){
+     if(e.key==="Enter"){
+       askQuestion();
+     }
+    });
 
-<!--&lt;!&ndash;    function logout(){&ndash;&gt;-->
-<!--&lt;!&ndash;     location.href="/register.html";&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+    function logout(){
+     location.href="/register.html";
+    }
 
-<!--&lt;!&ndash;</script>&ndash;&gt;-->
+</script>
 
-<!--&lt;!&ndash;</body>&ndash;&gt;-->
-<!--&lt;!&ndash;</html>&ndash;&gt;-->
+</body>
+</html>
 <!--<!DOCTYPE html>-->
 <!--<html lang="en">-->
 <!--<head>-->
@@ -2642,473 +2642,473 @@
 
 <!--</body>-->
 <!--</html>-->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI PDF Chatbot</title>
-
-    <style>
-        :root{
-        --bg:#000;
-        --border:#242424;
-        --muted:#9b9b9b;
-        }
-
-        *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family:Inter,Arial,sans-serif;
-        }
-
-        body{
-        background:#000;
-        color:#fff;
-        height:100vh;
-        overflow:hidden;
-        }
-
-        .container{
-        max-width:1000px;
-        margin:auto;
-        height:100vh;
-        display:flex;
-        flex-direction:column;
-        padding:0 16px;
-        }
-
-        /* top */
-        .header{
-        padding:18px 0;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        }
-
-        .logo{
-        font-size:38px;
-        font-weight:800;
-        }
-
-        .logout{
-        background:#111;
-        border:1px solid #222;
-        color:#fff;
-        padding:10px 18px;
-        border-radius:14px;
-        cursor:pointer;
-        }
-
-        /* upload */
-        .upload-box{
-        border:2px dashed #2d2d2d;
-        border-radius:18px;
-        padding:22px 16px;
-        text-align:center;
-        cursor:pointer;
-        transition:.3s;
-        margin-bottom:16px;
-        }
-
-        .upload-box:hover{
-        border-color:#fff;
-        background:#0f0f0f;
-        }
-
-        .upload-box input{
-        display:none;
-        }
-
-        .upload-box h2{
-        font-size:24px;
-        margin-bottom:6px;
-        }
-
-        .upload-box p{
-        font-size:14px;
-        color:#9a9a9a;
-        }
-
-        /* quick buttons */
-        .quick-actions{
-        display:flex;
-        justify-content:center;
-        gap:10px;
-        flex-wrap:wrap;
-        margin-bottom:14px;
-        }
-
-        .quick-actions button{
-        background:#111;
-        border:1px solid #2a2a2a;
-        color:#fff;
-        padding:10px 16px;
-        border-radius:999px;
-        cursor:pointer;
-        font-size:14px;
-        }
-
-        .quick-actions button:hover{
-        background:#fff;
-        color:#000;
-        }
-
-        /* file */
-        #filePreview{
-        margin-bottom:12px;
-        }
-
-        .file-chip{
-        background:#fff;
-        color:#000;
-        padding:10px 14px;
-        border-radius:12px;
-        display:flex;
-        justify-content:space-between;
-        font-weight:700;
-        font-size:14px;
-        }
-
-        /* chat */
-        .chat{
-        flex:1;
-        border:1px solid #1d1d1d;
-        border-radius:20px;
-        padding:18px;
-        overflow-y:auto;
-        margin-bottom:14px;
-        }
-
-        .msg{
-        max-width:72%;
-        padding:14px 18px;
-        border-radius:18px;
-        margin-bottom:14px;
-        line-height:1.6;
-        font-size:16px;
-        position:relative;
-        }
-
-        .ai{
-        background:#111;
-        border-left:4px solid #fff;
-        }
-
-        .user{
-        background:#fff;
-        color:#000;
-        margin-left:auto;
-        }
-
-        .msg-text{
-        padding-right:60px;
-        }
-
-        .msg-actions{
-        position:absolute;
-        right:10px;
-        top:10px;
-        display:flex;
-        gap:8px;
-        }
-
-        .icon{
-        cursor:pointer;
-        font-size:14px;
-        opacity:.8;
-        }
-
-        .icon:hover{
-        opacity:1;
-        }
-
-        /* reply preview */
-        .reply-box{
-        display:none;
-        background:#111;
-        border:1px solid #2a2a2a;
-        padding:10px 14px;
-        border-radius:14px;
-        margin-bottom:10px;
-        font-size:14px;
-        color:#ddd;
-        position:relative;
-        }
-
-        .reply-close{
-        position:absolute;
-        right:10px;
-        top:8px;
-        cursor:pointer;
-        }
-
-        /* loader */
-        .loader-wrap{
-        display:flex;
-        justify-content:center;
-        padding:10px;
-        }
-
-        .spinner{
-        width:28px;
-        height:28px;
-        border:4px solid #333;
-        border-top:4px solid #fff;
-        border-radius:50%;
-        animation:spin .8s linear infinite;
-        }
-
-        @keyframes spin{
-        to{transform:rotate(360deg);}
-        }
-
-        /* bottom */
-        .bottom{
-        padding-bottom:14px;
-        }
-
-        .bottom-inner{
-        display:flex;
-        gap:12px;
-        }
-
-        .bottom-inner input{
-        flex:1;
-        background:#111;
-        border:none;
-        outline:none;
-        color:#fff;
-        padding:18px;
-        border-radius:16px;
-        font-size:16px;
-        }
-
-        .bottom-inner button{
-        width:140px;
-        background:#fff;
-        border:none;
-        border-radius:16px;
-        font-size:17px;
-        font-weight:700;
-        cursor:pointer;
-        }
-
-        @media(max-width:768px){
-        .msg{max-width:100%;}
-        .bottom-inner{flex-direction:column;}
-        .bottom-inner button{width:100%;}
-        .logo{font-size:28px;}
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <div class="header">
-        <div class="logo">🤖 AI PDF Chatbot</div>
-        <button class="logout">Logout</button>
-    </div>
-
-    <label for="pdf" class="upload-box">
-        <input type="file" id="pdf" accept=".pdf" onchange="showFile()">
-        <h2>Upload PDF</h2>
-        <p>Click or drop your PDF here</p>
-    </label>
-
-    <div class="quick-actions">
-        <button onclick="quickAsk('Summarize this PDF')">📄 Summarize</button>
-        <button onclick="quickAsk('Important points')">⭐ Important</button>
-        <button onclick="quickAsk('Create notes')">📝 Notes</button>
-        <button onclick="quickAsk('Explain simply')">🧠 Explain</button>
-    </div>
-
-    <div id="filePreview"></div>
-
-    <div class="chat" id="chat">
-    </div>
-
-    <div class="bottom">
-        <div class="reply-box" id="replyBox">
-            <span id="replyText"></span>
-            <span class="reply-close" onclick="closeReply()">✖</span>
-        </div>
-
-        <div class="bottom-inner">
-            <input type="text" id="question" placeholder="Ask anything from your PDF...">
-            <button onclick="askQuestion()">Send</button>
-        </div>
-    </div>
-
-</div>
-
-<script>
-    const chat=document.getElementById("chat");
-    let replyMessage="";
-
-    /* first message */
-    addBot("Hello 👋 Upload a PDF and ask anything.");
-
-    /* preview */
-    function showFile(){
-    const file=document.getElementById("pdf").files[0];
-    const box=document.getElementById("filePreview");
-
-    if(!file){
-    box.innerHTML="";
-    return;
-    }
-
-    box.innerHTML=`
-    <div class="file-chip">
-    <span>📄 ${file.name}</span>
-    <span style="cursor:pointer" onclick="removeFile()">✖</span>
-    </div>`;
-    }
-
-    function removeFile(){
-    document.getElementById("pdf").value="";
-    document.getElementById("filePreview").innerHTML="";
-    }
-
-    /* quick */
-    function quickAsk(text){
-    document.getElementById("question").value=text;
-    askQuestion();
-    }
-
-    /* add messages */
-    function addUser(text){
-    chat.innerHTML+=messageHtml(text,"user");
-    scrollBottom();
-    }
-
-    function addBot(text){
-    chat.innerHTML+=messageHtml(text,"ai");
-    scrollBottom();
-    }
-
-    function messageHtml(text,type){
-    return `
-    <div class="msg ${type}">
-    <div class="msg-text">${text}</div>
-    <div class="msg-actions">
-    <span class="icon" onclick="copyMsg(this)">📋</span>
-    <span class="icon" onclick="replyMsg('${escapeText(text)}')">↩️</span>
-    </div>
-    </div>`;
-    }
-
-    function escapeText(t){
-    return t.replace(/'/g,"&#39;").replace(/"/g,"&quot;");
-    }
-
-    /* copy */
-    function copyMsg(el){
-    const text=el.parentElement.parentElement.querySelector(".msg-text").innerText;
-    navigator.clipboard.writeText(text);
-    el.innerHTML="✅";
-    setTimeout(()=>{el.innerHTML="📋";},1000);
-    }
-
-    /* reply */
-    function replyMsg(text){
-    replyMessage=text;
-    document.getElementById("replyBox").style.display="block";
-    document.getElementById("replyText").innerText="Replying to: " + text;
-    document.getElementById("question").focus();
-    }
-
-    function closeReply(){
-    replyMessage="";
-    document.getElementById("replyBox").style.display="none";
-    }
-
-    /* loader */
-    function showLoader(){
-    chat.innerHTML+=`
-    <div class="loader-wrap" id="loader">
-    <div class="spinner"></div>
-    </div>`;
-    scrollBottom();
-    }
-
-    function hideLoader(){
-    const x=document.getElementById("loader");
-    if(x) x.remove();
-    }
-
-    function scrollBottom(){
-    chat.scrollTop=chat.scrollHeight;
-    }
-
-    /* ask Gemini */
-    async function askQuestion(){
-
-    const file=document.getElementById("pdf").files[0];
-    const q=document.getElementById("question").value.trim();
-
-    if(!file){
-    alert("Upload PDF first");
-    return;
-    }
-
-    if(q==="") return;
-
-    let finalQuestion=q;
-
-    if(replyMessage!==""){
-    finalQuestion="Reply to: " + replyMessage + "\n\n" + q;
-    }
-
-    addUser(q);
-    document.getElementById("question").value="";
-    closeReply();
-    showLoader();
-
-    try{
-
-    const GEMINI_API_KEY="PASTE_YOUR_GEMINI_API_KEY";
-
-    const response=await fetch(
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="+GEMINI_API_KEY,
-    {
-    method:"POST",
-    headers:{
-    "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-    contents:[
-    {
-    parts:[
-    {text:finalQuestion}
-    ]
-    }
-    ]
-    })
-    });
-
-    const data=await response.json();
-
-    hideLoader();
-
-    let answer=data.candidates?.[0]?.content?.parts?.[0]?.text || "No answer found";
-
-    addBot(answer);
-
-    }catch(e){
-    hideLoader();
-    addBot("❌ Failed to connect Gemini API");
-    }
-    }
-
-    document.getElementById("question").addEventListener("keypress",function(e){
-    if(e.key==="Enter") askQuestion();
-    });
-</script>
-
-</body>
-</html>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>AI PDF Chatbot</title>-->
+
+<!--    <style>-->
+<!--        :root{-->
+<!--        &#45;&#45;bg:#000;-->
+<!--        &#45;&#45;border:#242424;-->
+<!--        &#45;&#45;muted:#9b9b9b;-->
+<!--        }-->
+
+<!--        *{-->
+<!--        margin:0;-->
+<!--        padding:0;-->
+<!--        box-sizing:border-box;-->
+<!--        font-family:Inter,Arial,sans-serif;-->
+<!--        }-->
+
+<!--        body{-->
+<!--        background:#000;-->
+<!--        color:#fff;-->
+<!--        height:100vh;-->
+<!--        overflow:hidden;-->
+<!--        }-->
+
+<!--        .container{-->
+<!--        max-width:1000px;-->
+<!--        margin:auto;-->
+<!--        height:100vh;-->
+<!--        display:flex;-->
+<!--        flex-direction:column;-->
+<!--        padding:0 16px;-->
+<!--        }-->
+
+<!--        /* top */-->
+<!--        .header{-->
+<!--        padding:18px 0;-->
+<!--        display:flex;-->
+<!--        justify-content:space-between;-->
+<!--        align-items:center;-->
+<!--        }-->
+
+<!--        .logo{-->
+<!--        font-size:38px;-->
+<!--        font-weight:800;-->
+<!--        }-->
+
+<!--        .logout{-->
+<!--        background:#111;-->
+<!--        border:1px solid #222;-->
+<!--        color:#fff;-->
+<!--        padding:10px 18px;-->
+<!--        border-radius:14px;-->
+<!--        cursor:pointer;-->
+<!--        }-->
+
+<!--        /* upload */-->
+<!--        .upload-box{-->
+<!--        border:2px dashed #2d2d2d;-->
+<!--        border-radius:18px;-->
+<!--        padding:22px 16px;-->
+<!--        text-align:center;-->
+<!--        cursor:pointer;-->
+<!--        transition:.3s;-->
+<!--        margin-bottom:16px;-->
+<!--        }-->
+
+<!--        .upload-box:hover{-->
+<!--        border-color:#fff;-->
+<!--        background:#0f0f0f;-->
+<!--        }-->
+
+<!--        .upload-box input{-->
+<!--        display:none;-->
+<!--        }-->
+
+<!--        .upload-box h2{-->
+<!--        font-size:24px;-->
+<!--        margin-bottom:6px;-->
+<!--        }-->
+
+<!--        .upload-box p{-->
+<!--        font-size:14px;-->
+<!--        color:#9a9a9a;-->
+<!--        }-->
+
+<!--        /* quick buttons */-->
+<!--        .quick-actions{-->
+<!--        display:flex;-->
+<!--        justify-content:center;-->
+<!--        gap:10px;-->
+<!--        flex-wrap:wrap;-->
+<!--        margin-bottom:14px;-->
+<!--        }-->
+
+<!--        .quick-actions button{-->
+<!--        background:#111;-->
+<!--        border:1px solid #2a2a2a;-->
+<!--        color:#fff;-->
+<!--        padding:10px 16px;-->
+<!--        border-radius:999px;-->
+<!--        cursor:pointer;-->
+<!--        font-size:14px;-->
+<!--        }-->
+
+<!--        .quick-actions button:hover{-->
+<!--        background:#fff;-->
+<!--        color:#000;-->
+<!--        }-->
+
+<!--        /* file */-->
+<!--        #filePreview{-->
+<!--        margin-bottom:12px;-->
+<!--        }-->
+
+<!--        .file-chip{-->
+<!--        background:#fff;-->
+<!--        color:#000;-->
+<!--        padding:10px 14px;-->
+<!--        border-radius:12px;-->
+<!--        display:flex;-->
+<!--        justify-content:space-between;-->
+<!--        font-weight:700;-->
+<!--        font-size:14px;-->
+<!--        }-->
+
+<!--        /* chat */-->
+<!--        .chat{-->
+<!--        flex:1;-->
+<!--        border:1px solid #1d1d1d;-->
+<!--        border-radius:20px;-->
+<!--        padding:18px;-->
+<!--        overflow-y:auto;-->
+<!--        margin-bottom:14px;-->
+<!--        }-->
+
+<!--        .msg{-->
+<!--        max-width:72%;-->
+<!--        padding:14px 18px;-->
+<!--        border-radius:18px;-->
+<!--        margin-bottom:14px;-->
+<!--        line-height:1.6;-->
+<!--        font-size:16px;-->
+<!--        position:relative;-->
+<!--        }-->
+
+<!--        .ai{-->
+<!--        background:#111;-->
+<!--        border-left:4px solid #fff;-->
+<!--        }-->
+
+<!--        .user{-->
+<!--        background:#fff;-->
+<!--        color:#000;-->
+<!--        margin-left:auto;-->
+<!--        }-->
+
+<!--        .msg-text{-->
+<!--        padding-right:60px;-->
+<!--        }-->
+
+<!--        .msg-actions{-->
+<!--        position:absolute;-->
+<!--        right:10px;-->
+<!--        top:10px;-->
+<!--        display:flex;-->
+<!--        gap:8px;-->
+<!--        }-->
+
+<!--        .icon{-->
+<!--        cursor:pointer;-->
+<!--        font-size:14px;-->
+<!--        opacity:.8;-->
+<!--        }-->
+
+<!--        .icon:hover{-->
+<!--        opacity:1;-->
+<!--        }-->
+
+<!--        /* reply preview */-->
+<!--        .reply-box{-->
+<!--        display:none;-->
+<!--        background:#111;-->
+<!--        border:1px solid #2a2a2a;-->
+<!--        padding:10px 14px;-->
+<!--        border-radius:14px;-->
+<!--        margin-bottom:10px;-->
+<!--        font-size:14px;-->
+<!--        color:#ddd;-->
+<!--        position:relative;-->
+<!--        }-->
+
+<!--        .reply-close{-->
+<!--        position:absolute;-->
+<!--        right:10px;-->
+<!--        top:8px;-->
+<!--        cursor:pointer;-->
+<!--        }-->
+
+<!--        /* loader */-->
+<!--        .loader-wrap{-->
+<!--        display:flex;-->
+<!--        justify-content:center;-->
+<!--        padding:10px;-->
+<!--        }-->
+
+<!--        .spinner{-->
+<!--        width:28px;-->
+<!--        height:28px;-->
+<!--        border:4px solid #333;-->
+<!--        border-top:4px solid #fff;-->
+<!--        border-radius:50%;-->
+<!--        animation:spin .8s linear infinite;-->
+<!--        }-->
+
+<!--        @keyframes spin{-->
+<!--        to{transform:rotate(360deg);}-->
+<!--        }-->
+
+<!--        /* bottom */-->
+<!--        .bottom{-->
+<!--        padding-bottom:14px;-->
+<!--        }-->
+
+<!--        .bottom-inner{-->
+<!--        display:flex;-->
+<!--        gap:12px;-->
+<!--        }-->
+
+<!--        .bottom-inner input{-->
+<!--        flex:1;-->
+<!--        background:#111;-->
+<!--        border:none;-->
+<!--        outline:none;-->
+<!--        color:#fff;-->
+<!--        padding:18px;-->
+<!--        border-radius:16px;-->
+<!--        font-size:16px;-->
+<!--        }-->
+
+<!--        .bottom-inner button{-->
+<!--        width:140px;-->
+<!--        background:#fff;-->
+<!--        border:none;-->
+<!--        border-radius:16px;-->
+<!--        font-size:17px;-->
+<!--        font-weight:700;-->
+<!--        cursor:pointer;-->
+<!--        }-->
+
+<!--        @media(max-width:768px){-->
+<!--        .msg{max-width:100%;}-->
+<!--        .bottom-inner{flex-direction:column;}-->
+<!--        .bottom-inner button{width:100%;}-->
+<!--        .logo{font-size:28px;}-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<div class="container">-->
+
+<!--    <div class="header">-->
+<!--        <div class="logo">🤖 AI PDF Chatbot</div>-->
+<!--        <button class="logout">Logout</button>-->
+<!--    </div>-->
+
+<!--    <label for="pdf" class="upload-box">-->
+<!--        <input type="file" id="pdf" accept=".pdf" onchange="showFile()">-->
+<!--        <h2>Upload PDF</h2>-->
+<!--        <p>Click or drop your PDF here</p>-->
+<!--    </label>-->
+
+<!--    <div class="quick-actions">-->
+<!--        <button onclick="quickAsk('Summarize this PDF')">📄 Summarize</button>-->
+<!--        <button onclick="quickAsk('Important points')">⭐ Important</button>-->
+<!--        <button onclick="quickAsk('Create notes')">📝 Notes</button>-->
+<!--        <button onclick="quickAsk('Explain simply')">🧠 Explain</button>-->
+<!--    </div>-->
+
+<!--    <div id="filePreview"></div>-->
+
+<!--    <div class="chat" id="chat">-->
+<!--    </div>-->
+
+<!--    <div class="bottom">-->
+<!--        <div class="reply-box" id="replyBox">-->
+<!--            <span id="replyText"></span>-->
+<!--            <span class="reply-close" onclick="closeReply()">✖</span>-->
+<!--        </div>-->
+
+<!--        <div class="bottom-inner">-->
+<!--            <input type="text" id="question" placeholder="Ask anything from your PDF...">-->
+<!--            <button onclick="askQuestion()">Send</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--<script>-->
+<!--    const chat=document.getElementById("chat");-->
+<!--    let replyMessage="";-->
+
+<!--    /* first message */-->
+<!--    addBot("Hello 👋 Upload a PDF and ask anything.");-->
+
+<!--    /* preview */-->
+<!--    function showFile(){-->
+<!--    const file=document.getElementById("pdf").files[0];-->
+<!--    const box=document.getElementById("filePreview");-->
+
+<!--    if(!file){-->
+<!--    box.innerHTML="";-->
+<!--    return;-->
+<!--    }-->
+
+<!--    box.innerHTML=`-->
+<!--    <div class="file-chip">-->
+<!--    <span>📄 ${file.name}</span>-->
+<!--    <span style="cursor:pointer" onclick="removeFile()">✖</span>-->
+<!--    </div>`;-->
+<!--    }-->
+
+<!--    function removeFile(){-->
+<!--    document.getElementById("pdf").value="";-->
+<!--    document.getElementById("filePreview").innerHTML="";-->
+<!--    }-->
+
+<!--    /* quick */-->
+<!--    function quickAsk(text){-->
+<!--    document.getElementById("question").value=text;-->
+<!--    askQuestion();-->
+<!--    }-->
+
+<!--    /* add messages */-->
+<!--    function addUser(text){-->
+<!--    chat.innerHTML+=messageHtml(text,"user");-->
+<!--    scrollBottom();-->
+<!--    }-->
+
+<!--    function addBot(text){-->
+<!--    chat.innerHTML+=messageHtml(text,"ai");-->
+<!--    scrollBottom();-->
+<!--    }-->
+
+<!--    function messageHtml(text,type){-->
+<!--    return `-->
+<!--    <div class="msg ${type}">-->
+<!--    <div class="msg-text">${text}</div>-->
+<!--    <div class="msg-actions">-->
+<!--    <span class="icon" onclick="copyMsg(this)">📋</span>-->
+<!--    <span class="icon" onclick="replyMsg('${escapeText(text)}')">↩️</span>-->
+<!--    </div>-->
+<!--    </div>`;-->
+<!--    }-->
+
+<!--    function escapeText(t){-->
+<!--    return t.replace(/'/g,"&#39;").replace(/"/g,"&quot;");-->
+<!--    }-->
+
+<!--    /* copy */-->
+<!--    function copyMsg(el){-->
+<!--    const text=el.parentElement.parentElement.querySelector(".msg-text").innerText;-->
+<!--    navigator.clipboard.writeText(text);-->
+<!--    el.innerHTML="✅";-->
+<!--    setTimeout(()=>{el.innerHTML="📋";},1000);-->
+<!--    }-->
+
+<!--    /* reply */-->
+<!--    function replyMsg(text){-->
+<!--    replyMessage=text;-->
+<!--    document.getElementById("replyBox").style.display="block";-->
+<!--    document.getElementById("replyText").innerText="Replying to: " + text;-->
+<!--    document.getElementById("question").focus();-->
+<!--    }-->
+
+<!--    function closeReply(){-->
+<!--    replyMessage="";-->
+<!--    document.getElementById("replyBox").style.display="none";-->
+<!--    }-->
+
+<!--    /* loader */-->
+<!--    function showLoader(){-->
+<!--    chat.innerHTML+=`-->
+<!--    <div class="loader-wrap" id="loader">-->
+<!--    <div class="spinner"></div>-->
+<!--    </div>`;-->
+<!--    scrollBottom();-->
+<!--    }-->
+
+<!--    function hideLoader(){-->
+<!--    const x=document.getElementById("loader");-->
+<!--    if(x) x.remove();-->
+<!--    }-->
+
+<!--    function scrollBottom(){-->
+<!--    chat.scrollTop=chat.scrollHeight;-->
+<!--    }-->
+
+<!--    /* ask Gemini */-->
+<!--    async function askQuestion(){-->
+
+<!--    const file=document.getElementById("pdf").files[0];-->
+<!--    const q=document.getElementById("question").value.trim();-->
+
+<!--    if(!file){-->
+<!--    alert("Upload PDF first");-->
+<!--    return;-->
+<!--    }-->
+
+<!--    if(q==="") return;-->
+
+<!--    let finalQuestion=q;-->
+
+<!--    if(replyMessage!==""){-->
+<!--    finalQuestion="Reply to: " + replyMessage + "\n\n" + q;-->
+<!--    }-->
+
+<!--    addUser(q);-->
+<!--    document.getElementById("question").value="";-->
+<!--    closeReply();-->
+<!--    showLoader();-->
+
+<!--    try{-->
+
+<!--    const GEMINI_API_KEY="PASTE_YOUR_GEMINI_API_KEY";-->
+
+<!--    const response=await fetch(-->
+<!--    "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="+GEMINI_API_KEY,-->
+<!--    {-->
+<!--    method:"POST",-->
+<!--    headers:{-->
+<!--    "Content-Type":"application/json"-->
+<!--    },-->
+<!--    body:JSON.stringify({-->
+<!--    contents:[-->
+<!--    {-->
+<!--    parts:[-->
+<!--    {text:finalQuestion}-->
+<!--    ]-->
+<!--    }-->
+<!--    ]-->
+<!--    })-->
+<!--    });-->
+
+<!--    const data=await response.json();-->
+
+<!--    hideLoader();-->
+
+<!--    let answer=data.candidates?.[0]?.content?.parts?.[0]?.text || "No answer found";-->
+
+<!--    addBot(answer);-->
+
+<!--    }catch(e){-->
+<!--    hideLoader();-->
+<!--    addBot("❌ Failed to connect Gemini API");-->
+<!--    }-->
+<!--    }-->
+
+<!--    document.getElementById("question").addEventListener("keypress",function(e){-->
+<!--    if(e.key==="Enter") askQuestion();-->
+<!--    });-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
