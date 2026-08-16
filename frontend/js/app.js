@@ -1,6 +1,6 @@
 console.log("✅ app.js loaded");
 
-const API_BASE = "http://localhost:8080";
+const API_BASE = "https://axonix-1.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ================= LOAD FILES =================
 function loadFiles() {
-    fetch("http://localhost:8080/files/list")
+    fetch(`${API_BASE}/files/list`)
         .then(res => {
             if (!res.ok) throw new Error("Failed to fetch files");
             return res.json();
@@ -69,7 +69,7 @@ function loadFiles() {
                     <div class="file-card">
                         <span>${file.fileName}</span>
                         <a class="btn student"
-                           href="http://localhost:8080/files/download/${file.id}">
+                          href="${API_BASE}/files/download/${file.id}"
                            ⬇ Download
                         </a>
                     </div>
